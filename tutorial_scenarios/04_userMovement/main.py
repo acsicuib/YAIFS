@@ -67,7 +67,8 @@ class CustomStrategy():
             userDES = random.sample(self.listUsers, 1)[0]
             newNode = random.sample(sim.topology.G.nodes(), 1)[0]
             logging.info(" Moving a user %i from node %i to %i" % (userDES, self.placeAt[userDES],newNode))
-            sim.alloc_DES[self.placeAt[userDES]] = newNode
+            sim.alloc_DES[userDES] = newNode
+            self.placeAt[userDES] = newNode # only for log purporses.
         else:
             # we remove an user
             userDES = random.sample(self.listUsers,1)[0]
