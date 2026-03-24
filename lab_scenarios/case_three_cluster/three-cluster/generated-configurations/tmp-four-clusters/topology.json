@@ -1,0 +1,156 @@
+{
+  "labName": "generated-topology",
+  "description": "Generated topology with 4 clusters and 3 nodes per cluster.",
+  "clusters": [
+    {
+      "name": "cdc-0",
+      "role": "CDC",
+      "region": "region-a",
+      "nodes": [
+        {
+          "name": "cdc-0-control-plane",
+          "role": "control-plane",
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-0-worker-1",
+          "role": "worker",
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "cdc-0-worker-2",
+          "role": "worker",
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "3072m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-1",
+      "role": "MEC",
+      "region": "region-b",
+      "nodes": [
+        {
+          "name": "mec-1-control-plane",
+          "role": "control-plane",
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "mec-1-worker-1",
+          "role": "worker",
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-1-worker-2",
+          "role": "worker",
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "3072m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "edc-2",
+      "role": "EDC",
+      "region": "region-c",
+      "nodes": [
+        {
+          "name": "edc-2-control-plane",
+          "role": "control-plane",
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "edc-2-worker-1",
+          "role": "worker",
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "edc-2-worker-2",
+          "role": "worker",
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "3072m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "cluster-3-3",
+      "role": "CLUSTER-3",
+      "region": "region-d",
+      "nodes": [
+        {
+          "name": "cluster-3-3-control-plane",
+          "role": "control-plane",
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cluster-3-3-worker-1",
+          "role": "worker",
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "cluster-3-3-worker-2",
+          "role": "worker",
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "3072m"
+          }
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "from": "cdc-0",
+      "to": "mec-1",
+      "bidirectional": true,
+      "distanceKm": 50,
+      "targetOneWayLatencyMs": 10,
+      "bandwidth": 1
+    },
+    {
+      "from": "mec-1",
+      "to": "edc-2",
+      "bidirectional": true,
+      "distanceKm": 100,
+      "targetOneWayLatencyMs": 20,
+      "bandwidth": 1
+    },
+    {
+      "from": "edc-2",
+      "to": "cluster-3-3",
+      "bidirectional": true,
+      "distanceKm": 150,
+      "targetOneWayLatencyMs": 30,
+      "bandwidth": 1
+    }
+  ]
+}

@@ -9,6 +9,7 @@ Each population algorithm has two main responsibilities:
 """
 import logging
 
+
 class Population(object):
     """
     Base class for population (workload) algorithms.
@@ -57,7 +58,6 @@ class Population(object):
         """
         return self.activation_dist.next()
 
-
     def set_src_control(self, values):
         """
         Store the controllers of each message generator (sources).
@@ -88,10 +88,6 @@ class Population(object):
         self.logger.debug("Activating - RUN - Population")
         # User definition of the Population evolution should be provided
         # in subclasses.
-
-
-
-
 class Statical(Population):
     """
     Static population algorithm.

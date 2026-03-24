@@ -1,0 +1,40 @@
+{
+  "clusters": [
+    {
+      "name": "edc-cluster-new-1",
+      "role": "EDC",
+      "region": "region-c",
+      "cluster_region": "region-c",
+      "nodes": [
+        {
+          "name": "edc-cluster-new-1-control-plane",
+          "role": "control-plane",
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "edc-cluster-new-1-worker-1",
+          "role": "worker",
+          "WATT": 10.0,
+          "COST": 0.15,
+          "uptime": [0.0, null],
+          "capacity": {
+            "cpu": "20",
+            "memory": "1024m"
+          }
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "from": "edc-cluster-new-1",
+      "to": "mec-0",
+      "bidirectional": true,
+      "distanceKm": 10,
+      "targetOneWayLatencyMs": 1
+    }
+  ]
+}

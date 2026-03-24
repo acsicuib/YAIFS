@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Simulation Service Guide &#8212; YAFS 0.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=b489f392"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Metrics Overview" href="metrics.html" />
+    <link rel="prev" title="Basic Concepts" href="basic.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="simulation-service-guide">
+<h1>Simulation Service Guide<a class="headerlink" href="#simulation-service-guide" title="Link to this heading">¶</a></h1>
+<p>YAFS 3.1 includes a high-level <code class="docutils literal notranslate"><span class="pre">SimulationService</span></code> for long-lived simulations.
+In this API, a simulation is conceptually open-ended and only becomes terminal
+when <code class="docutils literal notranslate"><span class="pre">service.stop(...)</span></code> is invoked.</p>
+<section id="key-ideas">
+<h2>Key ideas<a class="headerlink" href="#key-ideas" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">service.schedule_for(simulation_id,</span> <span class="pre">duration=...,</span> <span class="pre">step=...)</span></code> schedules an incremental execution window. <code class="docutils literal notranslate"><span class="pre">duration</span></code> is relative to the current simulated time, not an absolute final time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">service.wait_until_ready(simulation_id)</span></code> waits until the simulation is ready for the next command. This usually means the scheduled window has finished and the status is <code class="docutils literal notranslate"><span class="pre">idle</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">service.pause(simulation_id)</span></code> pauses execution after the current internal <code class="docutils literal notranslate"><span class="pre">step</span></code> finishes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">service.fork(simulation_id)</span></code> waits until the parent simulation is paused or no longer running before cloning it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">service.stop(simulation_id)</span></code> is the terminal command. After <code class="docutils literal notranslate"><span class="pre">stop</span></code>, the simulation cannot be resumed or scheduled again.</p></li>
+</ul>
+</section>
+<section id="status-semantics">
+<h2>Status semantics<a class="headerlink" href="#status-semantics" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">created</span></code>: the simulation exists but has not been initialized yet.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">initialized</span></code>: the simulation has been initialized and is ready to run.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">running</span></code>: the simulation is actively executing a scheduled window.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">paused</span></code>: the simulation is paused and can be resumed or scheduled again.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">idle</span></code>: the last scheduled window has finished and the simulation is ready for the next command.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stopped</span></code>: terminal state reached through <code class="docutils literal notranslate"><span class="pre">service.stop(...)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">failed</span></code>: terminal state caused by an error.</p></li>
+</ul>
+</section>
+<section id="dynamic-topology-inventory">
+<h2>Dynamic topology inventory<a class="headerlink" href="#dynamic-topology-inventory" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">SimulationService</span></code> also exposes high-level queries for nodes and clusters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">service.list_nodes(simulation_id)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">service.list_clusters(simulation_id)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">service.list_nodes_in_cluster(simulation_id,</span> <span class="pre">cluster_name)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">service.count_nodes(simulation_id)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">service.count_clusters(simulation_id)</span></code></p></li>
+</ul>
+<p>These actions are evaluated against the live topology of the simulation,
+not against the initial <code class="docutils literal notranslate"><span class="pre">topology.json</span></code>. This distinction is important
+because YAFS can add or remove nodes during execution through simulator
+events and strategies.</p>
+<p>In practice, the inventory is derived from the current graph stored in the
+simulation core (<code class="docutils literal notranslate"><span class="pre">sim.topology.G</span></code>), so the returned nodes and clusters
+reflect the state that is actually active at that simulation time.</p>
+</section>
+<section id="typical-flow">
+<h2>Typical flow<a class="headerlink" href="#typical-flow" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">yafs.services.simulation_service</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationService</span>
+
+<span class="n">service</span> <span class="o">=</span> <span class="n">SimulationService</span><span class="p">()</span>
+<span class="n">created</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">create_simulation</span><span class="p">(</span>
+    <span class="n">scenario_path</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;lab_scenarios/case_three_cluster/three-cluster&quot;</span><span class="p">),</span>
+    <span class="n">seed</span><span class="o">=</span><span class="mi">2026</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;case-three-cluster&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">service</span><span class="o">.</span><span class="n">schedule_for</span><span class="p">(</span><span class="n">created</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">2000.0</span><span class="p">)</span>
+
+<span class="n">node_count</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">count_nodes</span><span class="p">(</span><span class="n">created</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="n">cluster_names</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">item</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">service</span><span class="o">.</span><span class="n">list_clusters</span><span class="p">(</span><span class="n">created</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">state</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">wait_until_ready</span><span class="p">(</span><span class="n">created</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">node_count</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">cluster_names</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">now</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="typical-node-and-cluster-payloads">
+<h2>Typical node and cluster payloads<a class="headerlink" href="#typical-node-and-cluster-payloads" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">service.list_nodes(simulation_id)</span></code> returns one item per active node:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;node&quot;</span><span class="p">:</span> <span class="s2">&quot;mec-0-worker-1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cluster&quot;</span><span class="p">:</span> <span class="s2">&quot;mec-0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cluster_role&quot;</span><span class="p">:</span> <span class="s2">&quot;MEC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cluster_region&quot;</span><span class="p">:</span> <span class="s2">&quot;region-b&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;node_role&quot;</span><span class="p">:</span> <span class="s2">&quot;worker&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">service.list_clusters(simulation_id)</span></code> returns one item per active cluster:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;cluster&quot;</span><span class="p">:</span> <span class="s2">&quot;mec-0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cluster_role&quot;</span><span class="p">:</span> <span class="s2">&quot;MEC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;cluster_region&quot;</span><span class="p">:</span> <span class="s2">&quot;region-b&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;nodes&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mec-0-control-plane&quot;</span><span class="p">,</span> <span class="s2">&quot;mec-0-worker-1&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;node_count&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="compatibility-note">
+<h2>Compatibility note<a class="headerlink" href="#compatibility-note" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">service.run_for(...)</span></code> remains available as an alias of <code class="docutils literal notranslate"><span class="pre">service.schedule_for(...)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">service.wait_until_idle(...)</span></code> remains available as an alias of <code class="docutils literal notranslate"><span class="pre">service.wait_until_ready(...)</span></code>.</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../contents.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">OVERVIEW</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#acknowledge">Acknowledge</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">YAFS in 5 Minutes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary of terms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html">Basic Concepts</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Simulation Service Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#key-ideas">Key ideas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#status-semantics">Status semantics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-topology-inventory">Dynamic topology inventory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#typical-flow">Typical flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#typical-node-and-cluster-payloads">Typical node and cluster payloads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compatibility-note">Compatibility note</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">Metrics Overview</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/index.html">API REFERENCE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">ABOUT</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../contents.html">Documentation overview</a><ul>
+  <li><a href="index.html">YAFS in 5 Minutes</a><ul>
+      <li>Previous: <a href="basic.html" title="previous chapter">Basic Concepts</a></li>
+      <li>Next: <a href="metrics.html" title="next chapter">Metrics Overview</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2017, Isaac Lera, Carlos Guerrero.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/introduction/simulation_service.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

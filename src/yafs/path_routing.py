@@ -82,7 +82,15 @@ class DeviceSpeedAwareRouting(Selection):
             return [], None
 
     def get_path(
-        self, sim, app_name, message, topology_src, alloc_DES, alloc_module, traffic, from_des
+        self,
+        sim,
+        app_name,
+        message,
+        topology_src,
+        alloc_DES,
+        alloc_module,
+        traffic,
+        from_des,
     ):
         """
         Return the path and DES destination for a given message.

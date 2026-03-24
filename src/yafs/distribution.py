@@ -6,8 +6,9 @@ time distributions used in the simulator (for example, inter-arrival
 times of messages or delays between events).
 """
 import random
-import numpy as np
 import warnings
+
+import numpy as np
 
 
 class Distribution(object):
@@ -48,6 +49,7 @@ class deterministic_distribution(Distribution):
     def next(self):
         return self.time
 
+
 class deterministicDistributionStartPoint(Distribution):
     """
     Deterministic distribution with a different first value.
@@ -66,8 +68,8 @@ class deterministicDistributionStartPoint(Distribution):
         if not self.started:
             self.started = True
             return self.start
-        else:
-            return self.time
+        return self.time
+
 
 class exponentialDistribution(Distribution):
     """
@@ -78,12 +80,13 @@ class exponentialDistribution(Distribution):
     """
 
     def __init__(self, lambd, seed=1, **kwargs):
-        warnings.warn("The exponentialDistribution class is deprecated and "
-                      "will be removed in version 2.0.0. "
-                      "Use the exponential_distribution function instead.",
-                      FutureWarning,
-                      stacklevel=8
-                     )
+        warnings.warn(
+            "The exponentialDistribution class is deprecated and "
+            "will be removed in version 2.0.0. "
+            "Use the exponential_distribution function instead.",
+            FutureWarning,
+            stacklevel=8,
+        )
         super(exponentialDistribution, self).__init__(**kwargs)
         self.l = lambd
         self.rnd = np.random.RandomState(seed)
@@ -126,28 +129,30 @@ class exponentialDistributionStartPoint(Distribution):
     sample from an exponential distribution with parameter ``lambd``.
     """
 
-    def __init__(self, start, lambd, **kwargs):
+    def __init__(self, start, lambd, seed=1, **kwargs):
         self.lambd = lambd
         self.start = start
         self.started = False
+        self.rnd = np.random.RandomState(seed)
         super(exponentialDistributionStartPoint, self).__init__(**kwargs)
 
     def next(self):
         if not self.started:
             self.started = True
             return self.start
-        else:
-            return int(np.random.exponential(self.lambd, size=1)[0])
+        return int(self.rnd.exponential(self.lambd, size=1)[0])
+
 
 class uniformDistribution(Distribution):
     """
     Uniform integer distribution between ``min`` and ``max`` (inclusive).
     """
 
-    def __init__(self, min, max, **kwargs):
+    def __init__(self, min, max, seed=1, **kwargs):
         self.min = min
         self.max = max
+        self.rnd = random.Random(seed)
         super(uniformDistribution, self).__init__(**kwargs)
 
     def next(self):
-        return random.randint(self.min, self.max)
+        return self.rnd.randint(self.min, self.max)

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>yafs.services.models &#8212; YAFS 0.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../../_static/documentation_options.js?v=b489f392"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for yafs.services.models</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">StrEnum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Simulation</span>
+
+
+<div class="viewcode-block" id="SimulationStatus">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationStatus">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimulationStatus</span><span class="p">(</span><span class="n">StrEnum</span><span class="p">):</span>
+    <span class="n">CREATED</span> <span class="o">=</span> <span class="s2">&quot;created&quot;</span>
+    <span class="n">INITIALIZED</span> <span class="o">=</span> <span class="s2">&quot;initialized&quot;</span>
+    <span class="n">RUNNING</span> <span class="o">=</span> <span class="s2">&quot;running&quot;</span>
+    <span class="n">PAUSED</span> <span class="o">=</span> <span class="s2">&quot;paused&quot;</span>
+    <span class="n">IDLE</span> <span class="o">=</span> <span class="s2">&quot;idle&quot;</span>
+    <span class="n">STOPPED</span> <span class="o">=</span> <span class="s2">&quot;stopped&quot;</span>
+    <span class="n">FAILED</span> <span class="o">=</span> <span class="s2">&quot;failed&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="SimulationSummary">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationSummary">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimulationSummary</span><span class="p">:</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">scenario_path</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">status</span><span class="p">:</span> <span class="n">SimulationStatus</span>
+    <span class="n">created_at</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">parent_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">scheduled_until</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">now</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="SimulationState">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationState">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimulationState</span><span class="p">:</span>
+    <span class="n">summary</span><span class="p">:</span> <span class="n">SimulationSummary</span>
+    <span class="n">initialized</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">paused</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">stop_requested</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">step</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">network_buffer</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">alloc_source_count</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">alloc_module_count</span><span class="p">:</span> <span class="nb">int</span></div>
+
+
+
+<div class="viewcode-block" id="SimulationMetricsSnapshot">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationMetricsSnapshot">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimulationMetricsSnapshot</span><span class="p">:</span>
+    <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">entity_metrics</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="n">unreachabled_links</span><span class="p">:</span> <span class="nb">int</span></div>
+
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ApplicationMetricsSummary</span><span class="p">:</span>
+    <span class="n">app</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">requests</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">response_mean</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">response_p50</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">response_p95</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">response_max</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">network_mean</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">processing_mean</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">waiting_mean</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">placement_cost</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">deployments</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">egress_cost</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">total_cost</span><span class="p">:</span> <span class="nb">float</span>
+
+
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimulationApplicationMetrics</span><span class="p">:</span>
+    <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">items</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ApplicationMetricsSummary</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="ManagedSimulation">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.ManagedSimulation">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ManagedSimulation</span><span class="p">:</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">scenario_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">simulation</span><span class="p">:</span> <span class="n">Simulation</span>
+    <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="n">created_at</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
+        <span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">parent_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">status</span><span class="p">:</span> <span class="n">SimulationStatus</span> <span class="o">=</span> <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">CREATED</span>
+    <span class="n">last_error</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="ManagedSimulation.to_summary">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.ManagedSimulation.to_summary">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationSummary</span><span class="p">:</span>
+        <span class="n">snapshot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">SimulationSummary</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">scenario_path</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scenario_path</span><span class="p">),</span>
+            <span class="n">seed</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span>
+            <span class="n">status</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="p">,</span>
+            <span class="n">created_at</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">created_at</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+            <span class="n">parent_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parent_id</span><span class="p">,</span>
+            <span class="n">scheduled_until</span><span class="o">=</span><span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;scheduled_until&quot;</span><span class="p">],</span>
+            <span class="n">now</span><span class="o">=</span><span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;now&quot;</span><span class="p">],</span>
+            <span class="n">error</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">last_error</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../../contents.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">OVERVIEW</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html#acknowledge">Acknowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction/index.html">YAFS in 5 Minutes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../architecture/index.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/index.html">API REFERENCE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">ABOUT</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../contents.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2017, Isaac Lera, Carlos Guerrero.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

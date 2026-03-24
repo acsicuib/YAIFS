@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>yafs.services &#8212; YAFS 0.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=b489f392"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ABOUT" href="../about/index.html" />
+    <link rel="prev" title="yafs.metrics" href="yafs.metrics.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-yafs.services">
+<span id="yafs-services"></span><h1><code class="docutils literal notranslate"><span class="pre">yafs.services</span></code><a class="headerlink" href="#module-yafs.services" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.services.ManagedSimulation">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.services.</span></span><span class="sig-name descname"><span class="pre">ManagedSimulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scenario_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Path'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simulation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Simulation'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int</span> <span class="pre">|</span> <span class="pre">None'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'datetime'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str</span> <span class="pre">|</span> <span class="pre">None'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'SimulationStatus'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;SimulationStatus.CREATED:</span> <span class="pre">'created'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str</span> <span class="pre">|</span> <span class="pre">None'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/services/models.html#ManagedSimulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.ManagedSimulation" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.ManagedSimulation.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></span><a class="headerlink" href="#yafs.services.ManagedSimulation.created_at" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.ManagedSimulation.id">
+<span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#yafs.services.ManagedSimulation.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.ManagedSimulation.last_error">
+<span class="sig-name descname"><span class="pre">last_error</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#yafs.services.ManagedSimulation.last_error" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.ManagedSimulation.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#yafs.services.ManagedSimulation.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.ManagedSimulation.parent_id">
+<span class="sig-name descname"><span class="pre">parent_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#yafs.services.ManagedSimulation.parent_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.ManagedSimulation.scenario_path">
+<span class="sig-name descname"><span class="pre">scenario_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></span><a class="headerlink" href="#yafs.services.ManagedSimulation.scenario_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.ManagedSimulation.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#yafs.services.ManagedSimulation.seed" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.ManagedSimulation.simulation">
+<span class="sig-name descname"><span class="pre">simulation</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Simulation</span></span><a class="headerlink" href="#yafs.services.ManagedSimulation.simulation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.ManagedSimulation.status">
+<span class="sig-name descname"><span class="pre">status</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#yafs.services.SimulationStatus" title="yafs.services.models.SimulationStatus"><span class="pre">SimulationStatus</span></a></span><a class="headerlink" href="#yafs.services.ManagedSimulation.status" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.ManagedSimulation.to_summary">
+<span class="sig-name descname"><span class="pre">to_summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.SimulationSummary" title="yafs.services.models.SimulationSummary"><span class="pre">SimulationSummary</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/models.html#ManagedSimulation.to_summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.ManagedSimulation.to_summary" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.services.SimulationMetricsSnapshot">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.services.</span></span><span class="sig-name descname"><span class="pre">SimulationMetricsSnapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entity_metrics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'Any'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unreachabled_links</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/services/models.html#SimulationMetricsSnapshot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationMetricsSnapshot" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationMetricsSnapshot.entity_metrics">
+<span class="sig-name descname"><span class="pre">entity_metrics</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></span><a class="headerlink" href="#yafs.services.SimulationMetricsSnapshot.entity_metrics" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationMetricsSnapshot.simulation_id">
+<span class="sig-name descname"><span class="pre">simulation_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#yafs.services.SimulationMetricsSnapshot.simulation_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationMetricsSnapshot.unreachabled_links">
+<span class="sig-name descname"><span class="pre">unreachabled_links</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#yafs.services.SimulationMetricsSnapshot.unreachabled_links" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.services.SimulationRegistry">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.services.</span></span><span class="sig-name descname"><span class="pre">SimulationRegistry</span></span><a class="reference internal" href="../_modules/yafs/services/registry.html#SimulationRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationRegistry" title="Link to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationRegistry.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">managed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#yafs.services.ManagedSimulation" title="yafs.services.models.ManagedSimulation"><span class="pre">ManagedSimulation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.ManagedSimulation" title="yafs.services.models.ManagedSimulation"><span class="pre">ManagedSimulation</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/registry.html#SimulationRegistry.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationRegistry.add" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationRegistry.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.ManagedSimulation" title="yafs.services.models.ManagedSimulation"><span class="pre">ManagedSimulation</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/yafs/services/registry.html#SimulationRegistry.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationRegistry.get" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationRegistry.list">
+<span class="sig-name descname"><span class="pre">list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#yafs.services.ManagedSimulation" title="yafs.services.models.ManagedSimulation"><span class="pre">ManagedSimulation</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/services/registry.html#SimulationRegistry.list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationRegistry.list" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationRegistry.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.ManagedSimulation" title="yafs.services.models.ManagedSimulation"><span class="pre">ManagedSimulation</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/yafs/services/registry.html#SimulationRegistry.remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationRegistry.remove" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationRegistry.require">
+<span class="sig-name descname"><span class="pre">require</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.ManagedSimulation" title="yafs.services.models.ManagedSimulation"><span class="pre">ManagedSimulation</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/registry.html#SimulationRegistry.require"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationRegistry.require" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationRegistry.values">
+<span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#yafs.services.ManagedSimulation" title="yafs.services.models.ManagedSimulation"><span class="pre">ManagedSimulation</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/services/registry.html#SimulationRegistry.values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationRegistry.values" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.services.SimulationService">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.services.</span></span><span class="sig-name descname"><span class="pre">SimulationService</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registry</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#yafs.services.SimulationRegistry" title="yafs.services.registry.SimulationRegistry"><span class="pre">SimulationRegistry</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService" title="Link to this definition">¶</a></dt>
+<dd><p>High-level orchestration API for long-lived simulations.</p>
+<p>The service treats a simulation as an open-ended process. Execution is
+requested in scheduled windows, the simulation becomes <code class="docutils literal notranslate"><span class="pre">idle</span></code> when a
+scheduled window finishes, and it only becomes terminal after <code class="docutils literal notranslate"><span class="pre">stop()</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.clone">
+<span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.SimulationState" title="yafs.services.models.SimulationState"><span class="pre">SimulationState</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.clone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.clone" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.count_clusters">
+<span class="sig-name descname"><span class="pre">count_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.count_clusters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.count_clusters" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.count_nodes">
+<span class="sig-name descname"><span class="pre">count_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.count_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.count_nodes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.create_simulation">
+<span class="sig-name descname"><span class="pre">create_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">scenario_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.SimulationState" title="yafs.services.models.SimulationState"><span class="pre">SimulationState</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.create_simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.create_simulation" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.destroy">
+<span class="sig-name descname"><span class="pre">destroy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.SimulationSummary" title="yafs.services.models.SimulationSummary"><span class="pre">SimulationSummary</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.destroy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.destroy" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.fork">
+<span class="sig-name descname"><span class="pre">fork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">child_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">child_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results_suffix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poll_interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.SimulationState" title="yafs.services.models.SimulationState"><span class="pre">SimulationState</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.fork"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.fork" title="Link to this definition">¶</a></dt>
+<dd><p>Fork a simulation once it is paused or no longer actively running.</p>
+<p>If a scheduled window is still executing, the method actively waits
+until the parent becomes safe to clone.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.get_application_metrics">
+<span class="sig-name descname"><span class="pre">get_application_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">response_strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'critical_path'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_return_messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">egress_cost_per_gb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SimulationApplicationMetrics</span></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.get_application_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.get_application_metrics" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.get_metrics_snapshot">
+<span class="sig-name descname"><span class="pre">get_metrics_snapshot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.SimulationMetricsSnapshot" title="yafs.services.models.SimulationMetricsSnapshot"><span class="pre">SimulationMetricsSnapshot</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.get_metrics_snapshot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.get_metrics_snapshot" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.get_network_metrics">
+<span class="sig-name descname"><span class="pre">get_network_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">response_strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'critical_path'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_return_messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.get_network_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.get_network_metrics" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.get_state">
+<span class="sig-name descname"><span class="pre">get_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.SimulationState" title="yafs.services.models.SimulationState"><span class="pre">SimulationState</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.get_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.get_state" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.list_clusters">
+<span class="sig-name descname"><span class="pre">list_clusters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.list_clusters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.list_clusters" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.list_nodes">
+<span class="sig-name descname"><span class="pre">list_nodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.list_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.list_nodes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.list_nodes_in_cluster">
+<span class="sig-name descname"><span class="pre">list_nodes_in_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.list_nodes_in_cluster"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.list_nodes_in_cluster" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.list_simulations">
+<span class="sig-name descname"><span class="pre">list_simulations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#yafs.services.SimulationSummary" title="yafs.services.models.SimulationSummary"><span class="pre">SimulationSummary</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.list_simulations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.list_simulations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.pause">
+<span class="sig-name descname"><span class="pre">pause</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.SimulationState" title="yafs.services.models.SimulationState"><span class="pre">SimulationState</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.pause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.pause" title="Link to this definition">¶</a></dt>
+<dd><p>Request a pause and wait until the current execution step completes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.resume">
+<span class="sig-name descname"><span class="pre">resume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.SimulationState" title="yafs.services.models.SimulationState"><span class="pre">SimulationState</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.resume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.resume" title="Link to this definition">¶</a></dt>
+<dd><p>Resume a paused or idle simulation without changing its schedule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.run_for">
+<span class="sig-name descname"><span class="pre">run_for</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.SimulationState" title="yafs.services.models.SimulationState"><span class="pre">SimulationState</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.run_for"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.run_for" title="Link to this definition">¶</a></dt>
+<dd><p>Backwards-compatible alias for <a class="reference internal" href="#yafs.services.SimulationService.schedule_for" title="yafs.services.SimulationService.schedule_for"><code class="xref py py-meth docutils literal notranslate"><span class="pre">schedule_for()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.schedule_for">
+<span class="sig-name descname"><span class="pre">schedule_for</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.SimulationState" title="yafs.services.models.SimulationState"><span class="pre">SimulationState</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.schedule_for"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.schedule_for" title="Link to this definition">¶</a></dt>
+<dd><p>Schedule an incremental execution window.</p>
+<p><code class="docutils literal notranslate"><span class="pre">duration</span></code> is relative to the current simulation time. For example,
+if <code class="docutils literal notranslate"><span class="pre">now</span></code> is <code class="docutils literal notranslate"><span class="pre">200</span></code> and <code class="docutils literal notranslate"><span class="pre">duration</span></code> is <code class="docutils literal notranslate"><span class="pre">50</span></code>, the simulation is
+scheduled until <code class="docutils literal notranslate"><span class="pre">250</span></code> and then returns to the <code class="docutils literal notranslate"><span class="pre">idle</span></code> state.</p>
+<p><code class="docutils literal notranslate"><span class="pre">step</span></code> controls the pause/fork responsiveness. Smaller steps give
+finer control at the cost of more scheduling overhead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.SimulationState" title="yafs.services.models.SimulationState"><span class="pre">SimulationState</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.stop" title="Link to this definition">¶</a></dt>
+<dd><p>Stop the simulation permanently.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.wait_until_idle">
+<span class="sig-name descname"><span class="pre">wait_until_idle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">poll_interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.SimulationState" title="yafs.services.models.SimulationState"><span class="pre">SimulationState</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.wait_until_idle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.wait_until_idle" title="Link to this definition">¶</a></dt>
+<dd><p>Backwards-compatible alias for <a class="reference internal" href="#yafs.services.SimulationService.wait_until_ready" title="yafs.services.SimulationService.wait_until_ready"><code class="xref py py-meth docutils literal notranslate"><span class="pre">wait_until_ready()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationService.wait_until_ready">
+<span class="sig-name descname"><span class="pre">wait_until_ready</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simulation_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">poll_interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.services.SimulationState" title="yafs.services.models.SimulationState"><span class="pre">SimulationState</span></a></span></span><a class="reference internal" href="../_modules/yafs/services/simulation_service.html#SimulationService.wait_until_ready"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationService.wait_until_ready" title="Link to this definition">¶</a></dt>
+<dd><p>Block until the simulation is ready for the next command.</p>
+<p>The method returns when the scheduled execution window has finished
+(status <code class="docutils literal notranslate"><span class="pre">idle</span></code>), the simulation is paused, or the simulation is
+stopped/failed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.services.SimulationState">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.services.</span></span><span class="sig-name descname"><span class="pre">SimulationState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'SimulationSummary'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initialized</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'bool'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paused</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'bool'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_requested</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'bool'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'float'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_buffer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alloc_source_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alloc_module_count</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int'</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/services/models.html#SimulationState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationState" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationState.alloc_module_count">
+<span class="sig-name descname"><span class="pre">alloc_module_count</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#yafs.services.SimulationState.alloc_module_count" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationState.alloc_source_count">
+<span class="sig-name descname"><span class="pre">alloc_source_count</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#yafs.services.SimulationState.alloc_source_count" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationState.initialized">
+<span class="sig-name descname"><span class="pre">initialized</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#yafs.services.SimulationState.initialized" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationState.network_buffer">
+<span class="sig-name descname"><span class="pre">network_buffer</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#yafs.services.SimulationState.network_buffer" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationState.paused">
+<span class="sig-name descname"><span class="pre">paused</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#yafs.services.SimulationState.paused" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationState.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#yafs.services.SimulationState.step" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationState.stop_requested">
+<span class="sig-name descname"><span class="pre">stop_requested</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#yafs.services.SimulationState.stop_requested" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationState.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#yafs.services.SimulationSummary" title="yafs.services.models.SimulationSummary"><span class="pre">SimulationSummary</span></a></span><a class="headerlink" href="#yafs.services.SimulationState.summary" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.services.</span></span><span class="sig-name descname"><span class="pre">SimulationStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/services/models.html#SimulationStatus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationStatus" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.CREATED">
+<span class="sig-name descname"><span class="pre">CREATED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'created'</span></span><a class="headerlink" href="#yafs.services.SimulationStatus.CREATED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.FAILED">
+<span class="sig-name descname"><span class="pre">FAILED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'failed'</span></span><a class="headerlink" href="#yafs.services.SimulationStatus.FAILED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.IDLE">
+<span class="sig-name descname"><span class="pre">IDLE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'idle'</span></span><a class="headerlink" href="#yafs.services.SimulationStatus.IDLE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.INITIALIZED">
+<span class="sig-name descname"><span class="pre">INITIALIZED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'initialized'</span></span><a class="headerlink" href="#yafs.services.SimulationStatus.INITIALIZED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.PAUSED">
+<span class="sig-name descname"><span class="pre">PAUSED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'paused'</span></span><a class="headerlink" href="#yafs.services.SimulationStatus.PAUSED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.RUNNING">
+<span class="sig-name descname"><span class="pre">RUNNING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'running'</span></span><a class="headerlink" href="#yafs.services.SimulationStatus.RUNNING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.STOPPED">
+<span class="sig-name descname"><span class="pre">STOPPED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'stopped'</span></span><a class="headerlink" href="#yafs.services.SimulationStatus.STOPPED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.capitalize">
+<span class="sig-name descname"><span class="pre">capitalize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.capitalize" title="Link to this definition">¶</a></dt>
+<dd><p>Return a capitalized version of the string.</p>
+<p>More specifically, make the first character have upper case and the rest lower
+case.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.casefold">
+<span class="sig-name descname"><span class="pre">casefold</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.casefold" title="Link to this definition">¶</a></dt>
+<dd><p>Return a version of the string suitable for caseless comparisons.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.center">
+<span class="sig-name descname"><span class="pre">center</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fillchar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.center" title="Link to this definition">¶</a></dt>
+<dd><p>Return a centered string of length width.</p>
+<p>Padding is done using the specified fill character (default is a space).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#yafs.services.SimulationStatus.count" title="Link to this definition">¶</a></dt>
+<dd><p>Return the number of non-overlapping occurrences of substring sub in
+string S[start:end].  Optional arguments start and end are
+interpreted as in slice notation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.encode">
+<span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">encoding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'utf-8'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'strict'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.encode" title="Link to this definition">¶</a></dt>
+<dd><p>Encode the string using the codec registered for encoding.</p>
+<dl class="simple">
+<dt>encoding</dt><dd><p>The encoding in which to encode the string.</p>
+</dd>
+<dt>errors</dt><dd><p>The error handling scheme to use for encoding errors.
+The default is ‘strict’ meaning that encoding errors raise a
+UnicodeEncodeError.  Other possible values are ‘ignore’, ‘replace’ and
+‘xmlcharrefreplace’ as well as any other name registered with
+codecs.register_error that can handle UnicodeEncodeErrors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.endswith">
+<span class="sig-name descname"><span class="pre">endswith</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">suffix</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#yafs.services.SimulationStatus.endswith" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if S ends with the specified suffix, False otherwise.
+With optional start, test S beginning at that position.
+With optional end, stop comparing S at that position.
+suffix can also be a tuple of strings to try.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.expandtabs">
+<span class="sig-name descname"><span class="pre">expandtabs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tabsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.expandtabs" title="Link to this definition">¶</a></dt>
+<dd><p>Return a copy where all tab characters are expanded using spaces.</p>
+<p>If tabsize is not given, a tab size of 8 characters is assumed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.find">
+<span class="sig-name descname"><span class="pre">find</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#yafs.services.SimulationStatus.find" title="Link to this definition">¶</a></dt>
+<dd><p>Return the lowest index in S where substring sub is found,
+such that sub is contained within S[start:end].  Optional
+arguments start and end are interpreted as in slice notation.</p>
+<p>Return -1 on failure.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.format">
+<span class="sig-name descname"><span class="pre">format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#yafs.services.SimulationStatus.format" title="Link to this definition">¶</a></dt>
+<dd><p>Return a formatted version of S, using substitutions from args and kwargs.
+The substitutions are identified by braces (‘{’ and ‘}’).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.format_map">
+<span class="sig-name descname"><span class="pre">format_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mapping</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#yafs.services.SimulationStatus.format_map" title="Link to this definition">¶</a></dt>
+<dd><p>Return a formatted version of S, using substitutions from mapping.
+The substitutions are identified by braces (‘{’ and ‘}’).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#yafs.services.SimulationStatus.index" title="Link to this definition">¶</a></dt>
+<dd><p>Return the lowest index in S where substring sub is found,
+such that sub is contained within S[start:end].  Optional
+arguments start and end are interpreted as in slice notation.</p>
+<p>Raises ValueError when the substring is not found.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.isalnum">
+<span class="sig-name descname"><span class="pre">isalnum</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.isalnum" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if the string is an alpha-numeric string, False otherwise.</p>
+<p>A string is alpha-numeric if all characters in the string are alpha-numeric and
+there is at least one character in the string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.isalpha">
+<span class="sig-name descname"><span class="pre">isalpha</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.isalpha" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if the string is an alphabetic string, False otherwise.</p>
+<p>A string is alphabetic if all characters in the string are alphabetic and there
+is at least one character in the string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.isascii">
+<span class="sig-name descname"><span class="pre">isascii</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.isascii" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if all characters in the string are ASCII, False otherwise.</p>
+<p>ASCII characters have code points in the range U+0000-U+007F.
+Empty string is ASCII too.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.isdecimal">
+<span class="sig-name descname"><span class="pre">isdecimal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.isdecimal" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if the string is a decimal string, False otherwise.</p>
+<p>A string is a decimal string if all characters in the string are decimal and
+there is at least one character in the string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.isdigit">
+<span class="sig-name descname"><span class="pre">isdigit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.isdigit" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if the string is a digit string, False otherwise.</p>
+<p>A string is a digit string if all characters in the string are digits and there
+is at least one character in the string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.isidentifier">
+<span class="sig-name descname"><span class="pre">isidentifier</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.isidentifier" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if the string is a valid Python identifier, False otherwise.</p>
+<p>Call keyword.iskeyword(s) to test whether string s is a reserved identifier,
+such as “def” or “class”.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.islower">
+<span class="sig-name descname"><span class="pre">islower</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.islower" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if the string is a lowercase string, False otherwise.</p>
+<p>A string is lowercase if all cased characters in the string are lowercase and
+there is at least one cased character in the string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.isnumeric">
+<span class="sig-name descname"><span class="pre">isnumeric</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.isnumeric" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if the string is a numeric string, False otherwise.</p>
+<p>A string is numeric if all characters in the string are numeric and there is at
+least one character in the string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.isprintable">
+<span class="sig-name descname"><span class="pre">isprintable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.isprintable" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if all characters in the string are printable, False otherwise.</p>
+<p>A character is printable if repr() may use it in its output.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.isspace">
+<span class="sig-name descname"><span class="pre">isspace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.isspace" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if the string is a whitespace string, False otherwise.</p>
+<p>A string is whitespace if all characters in the string are whitespace and there
+is at least one character in the string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.istitle">
+<span class="sig-name descname"><span class="pre">istitle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.istitle" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if the string is a title-cased string, False otherwise.</p>
+<p>In a title-cased string, upper- and title-case characters may only
+follow uncased characters and lowercase characters only cased ones.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.isupper">
+<span class="sig-name descname"><span class="pre">isupper</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.isupper" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if the string is an uppercase string, False otherwise.</p>
+<p>A string is uppercase if all cased characters in the string are uppercase and
+there is at least one cased character in the string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.join">
+<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.join" title="Link to this definition">¶</a></dt>
+<dd><p>Concatenate any number of strings.</p>
+<p>The string whose method is called is inserted in between each given string.
+The result is returned as a new string.</p>
+<p>Example: ‘.’.join([‘ab’, ‘pq’, ‘rs’]) -&gt; ‘ab.pq.rs’</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.ljust">
+<span class="sig-name descname"><span class="pre">ljust</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fillchar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.ljust" title="Link to this definition">¶</a></dt>
+<dd><p>Return a left-justified string of length width.</p>
+<p>Padding is done using the specified fill character (default is a space).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.lower">
+<span class="sig-name descname"><span class="pre">lower</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.lower" title="Link to this definition">¶</a></dt>
+<dd><p>Return a copy of the string converted to lowercase.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.lstrip">
+<span class="sig-name descname"><span class="pre">lstrip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.lstrip" title="Link to this definition">¶</a></dt>
+<dd><p>Return a copy of the string with leading whitespace removed.</p>
+<p>If chars is given and not None, remove characters in chars instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.maketrans">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">maketrans</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.maketrans" title="Link to this definition">¶</a></dt>
+<dd><p>Return a translation table usable for str.translate().</p>
+<p>If there is only one argument, it must be a dictionary mapping Unicode
+ordinals (integers) or characters to Unicode ordinals, strings or None.
+Character keys will be then converted to ordinals.
+If there are two arguments, they must be strings of equal length, and
+in the resulting dictionary, each character in x will be mapped to the
+character at the same position in y. If there is a third argument, it
+must be a string, whose characters will be mapped to None in the result.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.partition">
+<span class="sig-name descname"><span class="pre">partition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sep</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.partition" title="Link to this definition">¶</a></dt>
+<dd><p>Partition the string into three parts using the given separator.</p>
+<p>This will search for the separator in the string.  If the separator is found,
+returns a 3-tuple containing the part before the separator, the separator
+itself, and the part after it.</p>
+<p>If the separator is not found, returns a 3-tuple containing the original string
+and two empty strings.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.removeprefix">
+<span class="sig-name descname"><span class="pre">removeprefix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.removeprefix" title="Link to this definition">¶</a></dt>
+<dd><p>Return a str with the given prefix string removed if present.</p>
+<p>If the string starts with the prefix string, return string[len(prefix):].
+Otherwise, return a copy of the original string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.removesuffix">
+<span class="sig-name descname"><span class="pre">removesuffix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">suffix</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.removesuffix" title="Link to this definition">¶</a></dt>
+<dd><p>Return a str with the given suffix string removed if present.</p>
+<p>If the string ends with the suffix string and that suffix is not empty,
+return string[:-len(suffix)]. Otherwise, return a copy of the original
+string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.replace">
+<span class="sig-name descname"><span class="pre">replace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.replace" title="Link to this definition">¶</a></dt>
+<dd><p>Return a copy with all occurrences of substring old replaced by new.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>count</dt><dd><p>Maximum number of occurrences to replace.
+-1 (the default value) means replace all occurrences.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>If the optional argument count is given, only the first count occurrences are
+replaced.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.rfind">
+<span class="sig-name descname"><span class="pre">rfind</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#yafs.services.SimulationStatus.rfind" title="Link to this definition">¶</a></dt>
+<dd><p>Return the highest index in S where substring sub is found,
+such that sub is contained within S[start:end].  Optional
+arguments start and end are interpreted as in slice notation.</p>
+<p>Return -1 on failure.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.rindex">
+<span class="sig-name descname"><span class="pre">rindex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sub</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#yafs.services.SimulationStatus.rindex" title="Link to this definition">¶</a></dt>
+<dd><p>Return the highest index in S where substring sub is found,
+such that sub is contained within S[start:end].  Optional
+arguments start and end are interpreted as in slice notation.</p>
+<p>Raises ValueError when the substring is not found.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.rjust">
+<span class="sig-name descname"><span class="pre">rjust</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fillchar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.rjust" title="Link to this definition">¶</a></dt>
+<dd><p>Return a right-justified string of length width.</p>
+<p>Padding is done using the specified fill character (default is a space).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.rpartition">
+<span class="sig-name descname"><span class="pre">rpartition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sep</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.rpartition" title="Link to this definition">¶</a></dt>
+<dd><p>Partition the string into three parts using the given separator.</p>
+<p>This will search for the separator in the string, starting at the end. If
+the separator is found, returns a 3-tuple containing the part before the
+separator, the separator itself, and the part after it.</p>
+<p>If the separator is not found, returns a 3-tuple containing two empty strings
+and the original string.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.rsplit">
+<span class="sig-name descname"><span class="pre">rsplit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxsplit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.rsplit" title="Link to this definition">¶</a></dt>
+<dd><p>Return a list of the substrings in the string, using sep as the separator string.</p>
+<blockquote>
+<div><dl>
+<dt>sep</dt><dd><p>The separator used to split the string.</p>
+<p>When set to None (the default value), will split on any whitespace
+character (including n r t f and spaces) and will discard
+empty strings from the result.</p>
+</dd>
+<dt>maxsplit</dt><dd><p>Maximum number of splits.
+-1 (the default value) means no limit.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Splitting starts at the end of the string and works to the front.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.rstrip">
+<span class="sig-name descname"><span class="pre">rstrip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.rstrip" title="Link to this definition">¶</a></dt>
+<dd><p>Return a copy of the string with trailing whitespace removed.</p>
+<p>If chars is given and not None, remove characters in chars instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.split">
+<span class="sig-name descname"><span class="pre">split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxsplit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.split" title="Link to this definition">¶</a></dt>
+<dd><p>Return a list of the substrings in the string, using sep as the separator string.</p>
+<blockquote>
+<div><dl>
+<dt>sep</dt><dd><p>The separator used to split the string.</p>
+<p>When set to None (the default value), will split on any whitespace
+character (including n r t f and spaces) and will discard
+empty strings from the result.</p>
+</dd>
+<dt>maxsplit</dt><dd><p>Maximum number of splits.
+-1 (the default value) means no limit.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Splitting starts at the front of the string and works to the end.</p>
+<p>Note, str.split() is mainly useful for data that has been intentionally
+delimited.  With natural text that includes punctuation, consider using
+the regular expression module.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.splitlines">
+<span class="sig-name descname"><span class="pre">splitlines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">keepends</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.splitlines" title="Link to this definition">¶</a></dt>
+<dd><p>Return a list of the lines in the string, breaking at line boundaries.</p>
+<p>Line breaks are not included in the resulting list unless keepends is given and
+true.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.startswith">
+<span class="sig-name descname"><span class="pre">startswith</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prefix</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em><span class="optional">[</span>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em><span class="optional">]</span><span class="optional">]</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#yafs.services.SimulationStatus.startswith" title="Link to this definition">¶</a></dt>
+<dd><p>Return True if S starts with the specified prefix, False otherwise.
+With optional start, test S beginning at that position.
+With optional end, stop comparing S at that position.
+prefix can also be a tuple of strings to try.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.strip">
+<span class="sig-name descname"><span class="pre">strip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.strip" title="Link to this definition">¶</a></dt>
+<dd><p>Return a copy of the string with leading and trailing whitespace removed.</p>
+<p>If chars is given and not None, remove characters in chars instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.swapcase">
+<span class="sig-name descname"><span class="pre">swapcase</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.swapcase" title="Link to this definition">¶</a></dt>
+<dd><p>Convert uppercase characters to lowercase and lowercase characters to uppercase.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.title">
+<span class="sig-name descname"><span class="pre">title</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.title" title="Link to this definition">¶</a></dt>
+<dd><p>Return a version of the string where each word is titlecased.</p>
+<p>More specifically, words start with uppercased characters and all remaining
+cased characters have lower case.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.translate">
+<span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.translate" title="Link to this definition">¶</a></dt>
+<dd><p>Replace each character in the string using the given translation table.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>table</dt><dd><p>Translation table, which must be a mapping of Unicode ordinals to
+Unicode ordinals, strings, or None.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>The table must implement lookup/indexing via __getitem__, for instance a
+dictionary or list.  If this operation raises LookupError, the character is
+left untouched.  Characters mapped to None are deleted.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.upper">
+<span class="sig-name descname"><span class="pre">upper</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.upper" title="Link to this definition">¶</a></dt>
+<dd><p>Return a copy of the string converted to uppercase.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.services.SimulationStatus.zfill">
+<span class="sig-name descname"><span class="pre">zfill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#yafs.services.SimulationStatus.zfill" title="Link to this definition">¶</a></dt>
+<dd><p>Pad a numeric string with zeros on the left, to fill a field of the given width.</p>
+<p>The string is never truncated.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.services.SimulationSummary">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.services.</span></span><span class="sig-name descname"><span class="pre">SimulationSummary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scenario_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'int</span> <span class="pre">|</span> <span class="pre">None'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'SimulationStatus'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str</span> <span class="pre">|</span> <span class="pre">None'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheduled_until</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'float</span> <span class="pre">|</span> <span class="pre">None'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">now</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'float'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'str</span> <span class="pre">|</span> <span class="pre">None'</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/services/models.html#SimulationSummary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.services.SimulationSummary" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationSummary.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#yafs.services.SimulationSummary.created_at" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationSummary.error">
+<span class="sig-name descname"><span class="pre">error</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#yafs.services.SimulationSummary.error" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationSummary.id">
+<span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#yafs.services.SimulationSummary.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationSummary.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#yafs.services.SimulationSummary.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationSummary.now">
+<span class="sig-name descname"><span class="pre">now</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#yafs.services.SimulationSummary.now" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationSummary.parent_id">
+<span class="sig-name descname"><span class="pre">parent_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#yafs.services.SimulationSummary.parent_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationSummary.scenario_path">
+<span class="sig-name descname"><span class="pre">scenario_path</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#yafs.services.SimulationSummary.scenario_path" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationSummary.scheduled_until">
+<span class="sig-name descname"><span class="pre">scheduled_until</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#yafs.services.SimulationSummary.scheduled_until" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationSummary.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#yafs.services.SimulationSummary.seed" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.services.SimulationSummary.status">
+<span class="sig-name descname"><span class="pre">status</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#yafs.services.SimulationStatus" title="yafs.services.models.SimulationStatus"><span class="pre">SimulationStatus</span></a></span><a class="headerlink" href="#yafs.services.SimulationSummary.status" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<section id="simulationservice-topology-inventory">
+<h2>SimulationService Topology Inventory<a class="headerlink" href="#simulationservice-topology-inventory" title="Link to this heading">¶</a></h2>
+<p>The high-level service layer exposes topology inventory actions over the live
+state of each simulation:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SimulationService.list_nodes(simulation_id)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SimulationService.list_clusters(simulation_id)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SimulationService.list_nodes_in_cluster(simulation_id,</span> <span class="pre">cluster_name)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SimulationService.count_nodes(simulation_id)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SimulationService.count_clusters(simulation_id)</span></code></p></li>
+</ul>
+<p>These methods do not rely on the initial JSON scenario definition alone. They
+query the topology currently attached to the simulation core, so they reflect
+node additions, removals, and other dynamic changes that may occur during the
+execution of the simulator.</p>
+<p>See also <a class="reference internal" href="../introduction/simulation_service.html"><span class="doc">Simulation Service Guide</span></a>.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../contents.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">OVERVIEW</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#acknowledge">Acknowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">YAFS in 5 Minutes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API REFERENCE</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="yafs.html"><code class="docutils literal notranslate"><span class="pre">yafs</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.core.html"><code class="docutils literal notranslate"><span class="pre">yafs.core</span></code> — Simulator engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.topology.html"><code class="docutils literal notranslate"><span class="pre">yafs.topology</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.application.html"><code class="docutils literal notranslate"><span class="pre">yafs.application</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.population.html"><code class="docutils literal notranslate"><span class="pre">yafs.population</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.placement.html"><code class="docutils literal notranslate"><span class="pre">yafs.placement</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.selection.html"><code class="docutils literal notranslate"><span class="pre">yafs.selection</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.distribution.html"><code class="docutils literal notranslate"><span class="pre">yafs.distribution</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.stats.html"><code class="docutils literal notranslate"><span class="pre">yafs.stats</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.metrics.html"><code class="docutils literal notranslate"><span class="pre">yafs.metrics</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">yafs.services</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.services.ManagedSimulation"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.ManagedSimulation.created_at"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.ManagedSimulation.id"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.ManagedSimulation.last_error"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.last_error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.ManagedSimulation.name"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.ManagedSimulation.parent_id"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.parent_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.ManagedSimulation.scenario_path"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.scenario_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.ManagedSimulation.seed"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.seed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.ManagedSimulation.simulation"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.simulation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.ManagedSimulation.status"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.ManagedSimulation.to_summary"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.to_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.services.SimulationMetricsSnapshot"><code class="docutils literal notranslate"><span class="pre">SimulationMetricsSnapshot</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationMetricsSnapshot.entity_metrics"><code class="docutils literal notranslate"><span class="pre">SimulationMetricsSnapshot.entity_metrics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationMetricsSnapshot.simulation_id"><code class="docutils literal notranslate"><span class="pre">SimulationMetricsSnapshot.simulation_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationMetricsSnapshot.unreachabled_links"><code class="docutils literal notranslate"><span class="pre">SimulationMetricsSnapshot.unreachabled_links</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.services.SimulationRegistry"><code class="docutils literal notranslate"><span class="pre">SimulationRegistry</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationRegistry.add"><code class="docutils literal notranslate"><span class="pre">SimulationRegistry.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationRegistry.get"><code class="docutils literal notranslate"><span class="pre">SimulationRegistry.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationRegistry.list"><code class="docutils literal notranslate"><span class="pre">SimulationRegistry.list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationRegistry.remove"><code class="docutils literal notranslate"><span class="pre">SimulationRegistry.remove()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationRegistry.require"><code class="docutils literal notranslate"><span class="pre">SimulationRegistry.require()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationRegistry.values"><code class="docutils literal notranslate"><span class="pre">SimulationRegistry.values()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.services.SimulationService"><code class="docutils literal notranslate"><span class="pre">SimulationService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.clone"><code class="docutils literal notranslate"><span class="pre">SimulationService.clone()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.count_clusters"><code class="docutils literal notranslate"><span class="pre">SimulationService.count_clusters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.count_nodes"><code class="docutils literal notranslate"><span class="pre">SimulationService.count_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.create_simulation"><code class="docutils literal notranslate"><span class="pre">SimulationService.create_simulation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.destroy"><code class="docutils literal notranslate"><span class="pre">SimulationService.destroy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.fork"><code class="docutils literal notranslate"><span class="pre">SimulationService.fork()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.get_application_metrics"><code class="docutils literal notranslate"><span class="pre">SimulationService.get_application_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.get_metrics_snapshot"><code class="docutils literal notranslate"><span class="pre">SimulationService.get_metrics_snapshot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.get_network_metrics"><code class="docutils literal notranslate"><span class="pre">SimulationService.get_network_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.get_state"><code class="docutils literal notranslate"><span class="pre">SimulationService.get_state()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.list_clusters"><code class="docutils literal notranslate"><span class="pre">SimulationService.list_clusters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.list_nodes"><code class="docutils literal notranslate"><span class="pre">SimulationService.list_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.list_nodes_in_cluster"><code class="docutils literal notranslate"><span class="pre">SimulationService.list_nodes_in_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.list_simulations"><code class="docutils literal notranslate"><span class="pre">SimulationService.list_simulations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.pause"><code class="docutils literal notranslate"><span class="pre">SimulationService.pause()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.resume"><code class="docutils literal notranslate"><span class="pre">SimulationService.resume()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.run_for"><code class="docutils literal notranslate"><span class="pre">SimulationService.run_for()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.schedule_for"><code class="docutils literal notranslate"><span class="pre">SimulationService.schedule_for()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.stop"><code class="docutils literal notranslate"><span class="pre">SimulationService.stop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.wait_until_idle"><code class="docutils literal notranslate"><span class="pre">SimulationService.wait_until_idle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationService.wait_until_ready"><code class="docutils literal notranslate"><span class="pre">SimulationService.wait_until_ready()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.services.SimulationState"><code class="docutils literal notranslate"><span class="pre">SimulationState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationState.alloc_module_count"><code class="docutils literal notranslate"><span class="pre">SimulationState.alloc_module_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationState.alloc_source_count"><code class="docutils literal notranslate"><span class="pre">SimulationState.alloc_source_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationState.initialized"><code class="docutils literal notranslate"><span class="pre">SimulationState.initialized</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationState.network_buffer"><code class="docutils literal notranslate"><span class="pre">SimulationState.network_buffer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationState.paused"><code class="docutils literal notranslate"><span class="pre">SimulationState.paused</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationState.step"><code class="docutils literal notranslate"><span class="pre">SimulationState.step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationState.stop_requested"><code class="docutils literal notranslate"><span class="pre">SimulationState.stop_requested</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationState.summary"><code class="docutils literal notranslate"><span class="pre">SimulationState.summary</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.services.SimulationStatus"><code class="docutils literal notranslate"><span class="pre">SimulationStatus</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.CREATED"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.CREATED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.FAILED"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.FAILED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.IDLE"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.IDLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.INITIALIZED"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.INITIALIZED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.PAUSED"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.PAUSED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.RUNNING"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.RUNNING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.STOPPED"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.STOPPED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.capitalize"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.capitalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.casefold"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.casefold()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.center"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.center()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.count"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.encode"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.encode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.endswith"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.endswith()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.expandtabs"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.expandtabs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.find"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.find()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.format"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.format_map"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.format_map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.index"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.isalnum"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isalnum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.isalpha"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isalpha()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.isascii"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isascii()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.isdecimal"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isdecimal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.isdigit"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isdigit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.isidentifier"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isidentifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.islower"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.islower()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.isnumeric"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isnumeric()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.isprintable"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isprintable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.isspace"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isspace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.istitle"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.istitle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.isupper"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isupper()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.join"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.ljust"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.ljust()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.lower"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.lower()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.lstrip"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.lstrip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.maketrans"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.maketrans()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.partition"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.partition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.removeprefix"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.removeprefix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.removesuffix"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.removesuffix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.replace"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.rfind"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.rfind()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.rindex"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.rindex()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.rjust"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.rjust()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.rpartition"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.rpartition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.rsplit"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.rsplit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.rstrip"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.rstrip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.split"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.splitlines"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.splitlines()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.startswith"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.startswith()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.strip"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.strip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.swapcase"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.swapcase()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.title"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.title()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.translate"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.translate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.upper"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.upper()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationStatus.zfill"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.zfill()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.services.SimulationSummary"><code class="docutils literal notranslate"><span class="pre">SimulationSummary</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationSummary.created_at"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationSummary.error"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationSummary.id"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationSummary.name"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationSummary.now"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.now</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationSummary.parent_id"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.parent_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationSummary.scenario_path"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.scenario_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationSummary.scheduled_until"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.scheduled_until</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationSummary.seed"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.seed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.services.SimulationSummary.status"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.status</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#simulationservice-topology-inventory">SimulationService Topology Inventory</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">ABOUT</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../contents.html">Documentation overview</a><ul>
+  <li><a href="index.html">API REFERENCE</a><ul>
+      <li>Previous: <a href="yafs.metrics.html" title="previous chapter"><code class="docutils literal notranslate"><span class="pre">yafs.metrics</span></code></a></li>
+      <li>Next: <a href="../about/index.html" title="next chapter">ABOUT</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2017, Isaac Lera, Carlos Guerrero.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/api_reference/yafs.services.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

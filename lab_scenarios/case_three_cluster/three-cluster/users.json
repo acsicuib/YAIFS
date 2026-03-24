@@ -1,0 +1,22 @@
+{
+  "sources": [
+    {
+      "id_resource": "edc-0-worker-1",
+      "app": 0,
+      "message": "M.AR.0_0",
+      "lambda": 200
+    },
+    {
+      "id_resource": "mec-0-worker-1",
+      "app": 0,
+      "message": "M.AR.0_0",
+      "lambda": 200
+    },
+    {
+      "id_resource": "edc-0-worker-2",
+      "app": 1,
+      "message": "M.mIoTs.0_0",
+      "lambda": 200
+    }
+   ]
+}

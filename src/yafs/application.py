@@ -1,6 +1,20 @@
 # -*- coding: utf-8 -*-
 import random
 
+
+def _normalized_mapping(data):
+    """
+    Return a shallow copy of a mapping with normalized string keys.
+
+    This keeps backward compatibility with legacy JSON files while also
+    tolerating accidental whitespace around keys such as ``"name "``.
+    """
+    return {
+        key.strip() if isinstance(key, str) else key: value
+        for key, value in data.items()
+    }
+
+
 class Message:
     """
     A message exchanged between application modules.
@@ -33,7 +47,15 @@ class Message:
         app_name (str): Name of the application this message belongs to.
     """
 
-    def __init__(self, name, src, dst, instructions=0, bytes=0,broadcasting=False):
+    def __init__(
+        self,
+        name,
+        src,
+        dst,
+        instructions=0,
+        bytes=0,
+        broadcasting=False,
+    ):
         self.name = name
         self.src = src
         self.dst = dst
@@ -56,38 +78,62 @@ class Message:
         self.original_DES_src = None
 
     def __str__(self):
-        print  ("{--")
-        print (" Name: %s (%s)" %(self.name,self.id))
-        print (" From (src): %s  to (dst): %s" %(self.src,self.dst))
-        print (" --}")
-        return ("")
+        print("{--")
+        print(" Name: %s (%s)" % (self.name, self.id))
+        print(" From (src): %s  to (dst): %s" % (self.src, self.dst))
+        print(" --}")
+        return ""
 
-def fractional_selectivity(threshold):
-    return random.random() <= threshold
+
+def fractional_selectivity(threshold, rng=None):
+    if rng is None:
+        return random.random() <= threshold
+    return rng.random() <= threshold
 
 
 def create_applications_from_json(data):
     applications = {}
     for app in data:
+        app = _normalized_mapping(app)
         # Create a new application.
         a = Application(name=app["name"])
         modules = [{"None": {"Type": Application.TYPE_SOURCE}}]
         for module in app["module"]:
-            modules.append({module["name"]: {"RAM": module["RAM"], "Type": Application.TYPE_MODULE}})
+            module = _normalized_mapping(module)
+            modules.append(
+                {
+                    module["name"]: {
+                        "RAM": module["RAM"],
+                        "Type": Application.TYPE_MODULE,
+                    }
+                }
+            )
         a.set_modules(modules)
 
         ms = {}
         for message in app["message"]:
+            message = _normalized_mapping(message)
             # Create the message and register it in the application.
-            ms[message["name"]] = Message(message["name"], message["s"], message["d"],
-                                          instructions=message["instructions"], bytes=message["bytes"])
+            ms[message["name"]] = Message(
+                message["name"],
+                message["s"],
+                message["d"],
+                instructions=message["instructions"],
+                bytes=message["bytes"],
+            )
             if message["s"] == "None":
                 a.add_source_messages(ms[message["name"]])
 
-        for idx, message in enumerate(app["transmission"]):
+        for message in app["transmission"]:
+            message = _normalized_mapping(message)
             if "message_out" in message.keys():
-                a.add_service_module(message["module"], ms[message["message_in"]], ms[message["message_out"]],
-                                     fractional_selectivity, threshold=1.0)
+                a.add_service_module(
+                    message["module"],
+                    ms[message["message_in"]],
+                    ms[message["message_out"]],
+                    fractional_selectivity,
+                    threshold=1.0,
+                )
             else:
                 a.add_service_module(message["module"], ms[message["message_in"]])
 
@@ -128,22 +174,26 @@ class Application:
         self.data = {}
 
     def __str__(self):
-        print ("___ APP. Name: %s" % self.name)
-        print (" __ Transmissions ")
+        print("___ APP. Name: %s" % self.name)
+        print(" __ Transmissions ")
         for m in self.messages.values():
-            print ("\tModule: None : M_In: %s  -> M_Out: %s " % (m.src, m.dst))
+            print("\tModule: None : M_In: %s  -> M_Out: %s " % (m.src, m.dst))
 
         for modulename in self.services.keys():
             m = self.services[modulename]
-            print ("\t", modulename)
+            print("\t", modulename)
             for ser in m:
                 if "message_in" in ser.keys():
                     try:
-                            print ("\t\t M_In: %s  -> M_Out: %s "
-                                   % (ser["message_in"].name, ser["message_out"].name))
-                    except:
-                            print ("\t\t M_In: %s  -> M_Out: [NOTHING] "
-                                   % (ser["message_in"].name))
+                        print(
+                            "\t\t M_In: %s  -> M_Out: %s "
+                            % (ser["message_in"].name, ser["message_out"].name)
+                        )
+                    except Exception:
+                        print(
+                            "\t\t M_In: %s  -> M_Out: [NOTHING] "
+                            % (ser["message_in"].name)
+                        )
         return ""
 
     def set_modules(self, data):
@@ -174,7 +224,11 @@ class Application:
 
         These are modules that are neither pure sources nor pure sinks.
         """
-        return [s for s in self.modules if s not in self.modules_src and s not in self.modules_sink]
+        return [
+            s
+            for s in self.modules
+            if s not in self.modules_src and s not in self.modules_sink
+        ]
 
     def get_sink_modules(self):
         """
@@ -191,7 +245,6 @@ class Application:
         """
         self.messages[msg.name] = msg
 
-
     def get_message(self, name):
         """
         Return a :class:`Message` instance given its identifier ``name``.
@@ -202,7 +255,14 @@ class Application:
     ADD SERVICE
     """
 
-    def add_service_source(self, module_name, distribution=None, message=None, module_dest=[], p=[]):
+    def add_service_source(
+        self,
+        module_name,
+        distribution=None,
+        message=None,
+        module_dest=None,
+        p=None,
+    ):
         """
         Attach a *source* behaviour to a non-pure module so it can create
         messages.
@@ -226,18 +286,32 @@ class Application:
                 function.
 
         """
+        module_dest = module_dest or []
+        p = p or []
+
         if distribution is not None:
             if module_name not in self.services:
                 self.services[module_name] = []
             self.services[module_name].append(
-                {"type": Application.TYPE_SOURCE,
-                 "dist": distribution,
-                 "message_out": message,
-                 "module_dest": module_dest,
-                 "p": p})
+                {
+                    "type": Application.TYPE_SOURCE,
+                    "dist": distribution,
+                    "message_out": message,
+                    "module_dest": module_dest,
+                    "p": p,
+                }
+            )
 
-    def add_service_module(self, module_name, message_in, message_out="", distribution="", module_dest=[], p=[],
-                           **param):
+    def add_service_module(
+        self,
+        module_name,
+        message_in,
+        message_out="",
+        distribution="",
+        module_dest=None,
+        p=None,
+        **param,
+    ):
 
         """
         Attach a *processing* behaviour to a non-pure module.
@@ -263,9 +337,20 @@ class Application:
             param (dict): Parameters for the *distribution* function.
 
         """
+        module_dest = module_dest or []
+        p = p or []
+
         if module_name not in self.services:
             self.services[module_name] = []
 
-        self.services[module_name].append({"type": Application.TYPE_MODULE, "dist": distribution, "param": param,
-                                           "message_in": message_in, "message_out": message_out,
-                                           "module_dest": module_dest, "p": p})
+        self.services[module_name].append(
+            {
+                "type": Application.TYPE_MODULE,
+                "dist": distribution,
+                "param": param,
+                "message_in": message_in,
+                "message_out": message_out,
+                "module_dest": module_dest,
+                "p": p,
+            }
+        )

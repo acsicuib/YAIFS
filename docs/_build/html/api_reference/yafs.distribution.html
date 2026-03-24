@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>yafs.distribution &#8212; YAFS 0.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=b489f392"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="yafs.stats" href="yafs.stats.html" />
+    <link rel="prev" title="yafs.selection" href="yafs.selection.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="yafs-distribution">
+<h1><code class="docutils literal notranslate"><span class="pre">yafs.distribution</span></code><a class="headerlink" href="#yafs-distribution" title="Link to this heading">¶</a></h1>
+<p id="module-yafs.distribution">Distribution utilities for YAFS.</p>
+<p>This module defines a small hierarchy of classes that encapsulate
+time distributions used in the simulator (for example, inter-arrival
+times of messages or delays between events).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.distribution.Distribution">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.distribution.</span></span><span class="sig-name descname"><span class="pre">Distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/distribution.html#Distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.distribution.Distribution" title="Link to this definition">¶</a></dt>
+<dd><p>Abstract base class for all distributions.</p>
+<p>Subclasses must override <a class="reference internal" href="#yafs.distribution.Distribution.next" title="yafs.distribution.Distribution.next"><code class="xref py py-meth docutils literal notranslate"><span class="pre">next()</span></code></a> to return the next sampled
+value from the underlying distribution.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.distribution.Distribution.next">
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/distribution.html#Distribution.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.distribution.Distribution.next" title="Link to this definition">¶</a></dt>
+<dd><p>Return the next sampled value.</p>
+<p>Subclasses must implement this method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.distribution.deterministicDistributionStartPoint">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.distribution.</span></span><span class="sig-name descname"><span class="pre">deterministicDistributionStartPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/distribution.html#deterministicDistributionStartPoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.distribution.deterministicDistributionStartPoint" title="Link to this definition">¶</a></dt>
+<dd><p>Deterministic distribution with a different first value.</p>
+<p>The first call to <a class="reference internal" href="#yafs.distribution.deterministicDistributionStartPoint.next" title="yafs.distribution.deterministicDistributionStartPoint.next"><code class="xref py py-meth docutils literal notranslate"><span class="pre">next()</span></code></a> returns <code class="docutils literal notranslate"><span class="pre">start</span></code>; all subsequent
+calls return <code class="docutils literal notranslate"><span class="pre">time</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.distribution.deterministicDistributionStartPoint.next">
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/distribution.html#deterministicDistributionStartPoint.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.distribution.deterministicDistributionStartPoint.next" title="Link to this definition">¶</a></dt>
+<dd><p>Return the next sampled value.</p>
+<p>Subclasses must implement this method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.distribution.deterministic_distribution">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.distribution.</span></span><span class="sig-name descname"><span class="pre">deterministic_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/distribution.html#deterministic_distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.distribution.deterministic_distribution" title="Link to this definition">¶</a></dt>
+<dd><p>Deterministic distribution that always returns the same value.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.distribution.deterministic_distribution.next">
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/distribution.html#deterministic_distribution.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.distribution.deterministic_distribution.next" title="Link to this definition">¶</a></dt>
+<dd><p>Return the next sampled value.</p>
+<p>Subclasses must implement this method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.distribution.exponentialDistribution">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.distribution.</span></span><span class="sig-name descname"><span class="pre">exponentialDistribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/distribution.html#exponentialDistribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.distribution.exponentialDistribution" title="Link to this definition">¶</a></dt>
+<dd><p>Deprecated exponential distribution wrapper.</p>
+<p>This class is kept for backwards compatibility. Prefer using
+<a class="reference internal" href="#yafs.distribution.exponential_distribution" title="yafs.distribution.exponential_distribution"><code class="xref py py-class docutils literal notranslate"><span class="pre">exponential_distribution</span></code></a> instead.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.distribution.exponentialDistribution.next">
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/distribution.html#exponentialDistribution.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.distribution.exponentialDistribution.next" title="Link to this definition">¶</a></dt>
+<dd><p>Return the next sampled value.</p>
+<p>Subclasses must implement this method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.distribution.exponentialDistributionStartPoint">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.distribution.</span></span><span class="sig-name descname"><span class="pre">exponentialDistributionStartPoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/distribution.html#exponentialDistributionStartPoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.distribution.exponentialDistributionStartPoint" title="Link to this definition">¶</a></dt>
+<dd><p>Exponential distribution with a different first value.</p>
+<p>The first call to <a class="reference internal" href="#yafs.distribution.exponentialDistributionStartPoint.next" title="yafs.distribution.exponentialDistributionStartPoint.next"><code class="xref py py-meth docutils literal notranslate"><span class="pre">next()</span></code></a> returns <code class="docutils literal notranslate"><span class="pre">start</span></code>; subsequent calls
+sample from an exponential distribution with parameter <code class="docutils literal notranslate"><span class="pre">lambd</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.distribution.exponentialDistributionStartPoint.next">
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/distribution.html#exponentialDistributionStartPoint.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.distribution.exponentialDistributionStartPoint.next" title="Link to this definition">¶</a></dt>
+<dd><p>Return the next sampled value.</p>
+<p>Subclasses must implement this method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.distribution.exponential_distribution">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.distribution.</span></span><span class="sig-name descname"><span class="pre">exponential_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/distribution.html#exponential_distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.distribution.exponential_distribution" title="Link to this definition">¶</a></dt>
+<dd><p>Exponential distribution wrapper.</p>
+<p>Values are sampled from an exponential distribution with parameter
+<code class="docutils literal notranslate"><span class="pre">lambd</span></code> and converted to integers. A minimum value of 1 is
+enforced to avoid zero delays.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.distribution.exponential_distribution.next">
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/distribution.html#exponential_distribution.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.distribution.exponential_distribution.next" title="Link to this definition">¶</a></dt>
+<dd><p>Return the next sampled value.</p>
+<p>Subclasses must implement this method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.distribution.uniformDistribution">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.distribution.</span></span><span class="sig-name descname"><span class="pre">uniformDistribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/distribution.html#uniformDistribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.distribution.uniformDistribution" title="Link to this definition">¶</a></dt>
+<dd><p>Uniform integer distribution between <code class="docutils literal notranslate"><span class="pre">min</span></code> and <code class="docutils literal notranslate"><span class="pre">max</span></code> (inclusive).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.distribution.uniformDistribution.next">
+<span class="sig-name descname"><span class="pre">next</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/distribution.html#uniformDistribution.next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.distribution.uniformDistribution.next" title="Link to this definition">¶</a></dt>
+<dd><p>Return the next sampled value.</p>
+<p>Subclasses must implement this method.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../contents.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">OVERVIEW</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#acknowledge">Acknowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">YAFS in 5 Minutes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API REFERENCE</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="yafs.html"><code class="docutils literal notranslate"><span class="pre">yafs</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.core.html"><code class="docutils literal notranslate"><span class="pre">yafs.core</span></code> — Simulator engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.topology.html"><code class="docutils literal notranslate"><span class="pre">yafs.topology</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.application.html"><code class="docutils literal notranslate"><span class="pre">yafs.application</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.population.html"><code class="docutils literal notranslate"><span class="pre">yafs.population</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.placement.html"><code class="docutils literal notranslate"><span class="pre">yafs.placement</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.selection.html"><code class="docutils literal notranslate"><span class="pre">yafs.selection</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">yafs.distribution</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.distribution.Distribution"><code class="docutils literal notranslate"><span class="pre">Distribution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.distribution.Distribution.next"><code class="docutils literal notranslate"><span class="pre">Distribution.next()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.distribution.deterministicDistributionStartPoint"><code class="docutils literal notranslate"><span class="pre">deterministicDistributionStartPoint</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.distribution.deterministicDistributionStartPoint.next"><code class="docutils literal notranslate"><span class="pre">deterministicDistributionStartPoint.next()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.distribution.deterministic_distribution"><code class="docutils literal notranslate"><span class="pre">deterministic_distribution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.distribution.deterministic_distribution.next"><code class="docutils literal notranslate"><span class="pre">deterministic_distribution.next()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.distribution.exponentialDistribution"><code class="docutils literal notranslate"><span class="pre">exponentialDistribution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.distribution.exponentialDistribution.next"><code class="docutils literal notranslate"><span class="pre">exponentialDistribution.next()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.distribution.exponentialDistributionStartPoint"><code class="docutils literal notranslate"><span class="pre">exponentialDistributionStartPoint</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.distribution.exponentialDistributionStartPoint.next"><code class="docutils literal notranslate"><span class="pre">exponentialDistributionStartPoint.next()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.distribution.exponential_distribution"><code class="docutils literal notranslate"><span class="pre">exponential_distribution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.distribution.exponential_distribution.next"><code class="docutils literal notranslate"><span class="pre">exponential_distribution.next()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.distribution.uniformDistribution"><code class="docutils literal notranslate"><span class="pre">uniformDistribution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.distribution.uniformDistribution.next"><code class="docutils literal notranslate"><span class="pre">uniformDistribution.next()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.stats.html"><code class="docutils literal notranslate"><span class="pre">yafs.stats</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.metrics.html"><code class="docutils literal notranslate"><span class="pre">yafs.metrics</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.services.html"><code class="docutils literal notranslate"><span class="pre">yafs.services</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">ABOUT</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../contents.html">Documentation overview</a><ul>
+  <li><a href="index.html">API REFERENCE</a><ul>
+      <li>Previous: <a href="yafs.selection.html" title="previous chapter"><code class="docutils literal notranslate"><span class="pre">yafs.selection</span></code></a></li>
+      <li>Next: <a href="yafs.stats.html" title="next chapter"><code class="docutils literal notranslate"><span class="pre">yafs.stats</span></code></a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2017, Isaac Lera, Carlos Guerrero.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/api_reference/yafs.distribution.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

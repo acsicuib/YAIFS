@@ -1,0 +1,13 @@
+{
+  "app": 2,
+  "placements": [
+    {
+      "module_name": "2_PRE",
+      "id_resource": "edc-0-worker-1"
+    },
+    {
+      "module_name": "2_INF",
+      "id_resource": "cdc-0-control-plane"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "configuration_name": "tmp-four-clusters",
+  "base_scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster",
+  "scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster/generated-configurations/tmp-four-clusters",
+  "cluster_count": 4,
+  "node_count": 12,
+  "services_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster/generated-configurations/tmp-four-clusters/services.json",
+  "placements_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster/generated-configurations/tmp-four-clusters/placements.json",
+  "users_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster/generated-configurations/tmp-four-clusters/users.json",
+  "topology_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster/generated-configurations/tmp-four-clusters/topology.json"
+}

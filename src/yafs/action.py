@@ -1,4 +1,3 @@
-
 class generic_action(object):
     # service_coverage
     #   key   => street node identifier in the network

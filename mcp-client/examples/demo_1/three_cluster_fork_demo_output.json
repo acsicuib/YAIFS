@@ -1,0 +1,3374 @@
+{
+  "default_scenario": {
+    "scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster",
+    "exists": true
+  },
+  "create_default_simulation": {
+    "summary": {
+      "id": "sim-bb5ea91b",
+      "name": "baseline",
+      "scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster",
+      "seed": 2026,
+      "status": "created",
+      "created_at": "2026-03-23T13:37:44.437710+00:00",
+      "parent_id": null,
+      "scheduled_until": null,
+      "now": 0.0,
+      "error": null
+    },
+    "initialized": false,
+    "paused": false,
+    "stop_requested": false,
+    "step": 1.0,
+    "network_buffer": 0,
+    "alloc_source_count": 0,
+    "alloc_module_count": 0
+  },
+  "baseline_initial_clusters": "{\n  \"cluster\": \"cdc-0\",\n  \"cluster_role\": \"CDC\",\n  \"cluster_region\": \"region-a\",\n  \"nodes\": [\n    \"cdc-0-control-plane\",\n    \"cdc-0-worker-1\"\n  ],\n  \"node_count\": 2\n}\n{\n  \"cluster\": \"edc-0\",\n  \"cluster_role\": \"EDC\",\n  \"cluster_region\": \"region-c\",\n  \"nodes\": [\n    \"edc-0-control-plane\",\n    \"edc-0-worker-1\",\n    \"edc-0-worker-2\"\n  ],\n  \"node_count\": 3\n}\n{\n  \"cluster\": \"mec-0\",\n  \"cluster_role\": \"MEC\",\n  \"cluster_region\": \"region-b\",\n  \"nodes\": [\n    \"mec-0-control-plane\",\n    \"mec-0-worker-1\",\n    \"mec-0-worker-2\"\n  ],\n  \"node_count\": 3\n}",
+  "baseline_initial_users": {
+    "filters": {
+      "app": null,
+      "node": null,
+      "cluster": null
+    },
+    "users": [
+      {
+        "des": 4,
+        "id": 0,
+        "app": "Augmented Reality (AR)",
+        "node": "edc-0-worker-1",
+        "cluster": "edc-0",
+        "message": "M.AR.0_0",
+        "module": "None",
+        "lambda": 200
+      },
+      {
+        "des": 5,
+        "id": 0,
+        "app": "Augmented Reality (AR)",
+        "node": "mec-0-worker-1",
+        "cluster": "mec-0",
+        "message": "M.AR.0_0",
+        "module": "None",
+        "lambda": 200
+      },
+      {
+        "des": 6,
+        "id": 1,
+        "app": "mIoTs",
+        "node": "edc-0-worker-2",
+        "cluster": "edc-0",
+        "message": "M.mIoTs.0_0",
+        "module": "None",
+        "lambda": 200
+      }
+    ],
+    "user_count": 3
+  },
+  "baseline_schedule_0_4000": {
+    "summary": {
+      "id": "sim-bb5ea91b",
+      "name": "baseline",
+      "scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster",
+      "seed": 2026,
+      "status": "running",
+      "created_at": "2026-03-23T13:37:44.437710+00:00",
+      "parent_id": null,
+      "scheduled_until": 4000.0,
+      "now": 0.0,
+      "error": null
+    },
+    "initialized": true,
+    "paused": false,
+    "stop_requested": false,
+    "step": 500.0,
+    "network_buffer": 0,
+    "alloc_source_count": 3,
+    "alloc_module_count": 4
+  },
+  "baseline_ready_4000": {
+    "summary": {
+      "id": "sim-bb5ea91b",
+      "name": "baseline",
+      "scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster",
+      "seed": 2026,
+      "status": "idle",
+      "created_at": "2026-03-23T13:37:44.437710+00:00",
+      "parent_id": null,
+      "scheduled_until": 4000.0,
+      "now": 4000.0,
+      "error": null
+    },
+    "initialized": true,
+    "paused": false,
+    "stop_requested": false,
+    "step": 500.0,
+    "network_buffer": 0,
+    "alloc_source_count": 3,
+    "alloc_module_count": 4
+  },
+  "fork_simulation": {
+    "summary": {
+      "id": "sim-9a1621ce",
+      "name": "faulty-branch",
+      "scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster",
+      "seed": 2026,
+      "status": "initialized",
+      "created_at": "2026-03-23T13:37:44.821261+00:00",
+      "parent_id": "sim-bb5ea91b",
+      "scheduled_until": null,
+      "now": 4000.0,
+      "error": null
+    },
+    "initialized": true,
+    "paused": false,
+    "stop_requested": false,
+    "step": 500.0,
+    "network_buffer": 0,
+    "alloc_source_count": 3,
+    "alloc_module_count": 4
+  },
+  "fork_remove_mec_cluster": {
+    "status": "successful",
+    "cluster": "mec-0",
+    "removed_nodes": [
+      "mec-0-control-plane",
+      "mec-0-worker-1",
+      "mec-0-worker-2"
+    ],
+    "node_count": 3,
+    "id_services_affected": [
+      0,
+      1
+    ],
+    "number_of_undeployed_vnf": 3,
+    "number_of_unplugged_users": 1,
+    "unavailable_services": [
+      0,
+      1
+    ],
+    "total_nodes": 5,
+    "total_clusters": 2
+  },
+  "fork_clusters_after_removal": "{\n  \"cluster\": \"cdc-0\",\n  \"cluster_role\": \"CDC\",\n  \"cluster_region\": \"region-a\",\n  \"nodes\": [\n    \"cdc-0-control-plane\",\n    \"cdc-0-worker-1\"\n  ],\n  \"node_count\": 2\n}\n{\n  \"cluster\": \"edc-0\",\n  \"cluster_role\": \"EDC\",\n  \"cluster_region\": \"region-c\",\n  \"nodes\": [\n    \"edc-0-control-plane\",\n    \"edc-0-worker-1\",\n    \"edc-0-worker-2\"\n  ],\n  \"node_count\": 3\n}",
+  "fork_users_after_removal": {
+    "filters": {
+      "app": null,
+      "node": null,
+      "cluster": null
+    },
+    "users": [
+      {
+        "des": 4,
+        "id": 0,
+        "app": "Augmented Reality (AR)",
+        "node": "edc-0-worker-1",
+        "cluster": "edc-0",
+        "message": "M.AR.0_0",
+        "module": "None",
+        "lambda": 200
+      },
+      {
+        "des": 6,
+        "id": 1,
+        "app": "mIoTs",
+        "node": "edc-0-worker-2",
+        "cluster": "edc-0",
+        "message": "M.mIoTs.0_0",
+        "module": "None",
+        "lambda": 200
+      }
+    ],
+    "user_count": 2
+  },
+  "baseline_schedule_4000_12000": {
+    "summary": {
+      "id": "sim-bb5ea91b",
+      "name": "baseline",
+      "scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster",
+      "seed": 2026,
+      "status": "running",
+      "created_at": "2026-03-23T13:37:44.437710+00:00",
+      "parent_id": null,
+      "scheduled_until": 12000.0,
+      "now": 4000.0,
+      "error": null
+    },
+    "initialized": true,
+    "paused": false,
+    "stop_requested": false,
+    "step": 500.0,
+    "network_buffer": 0,
+    "alloc_source_count": 3,
+    "alloc_module_count": 4
+  },
+  "fork_schedule_4000_12000": {
+    "summary": {
+      "id": "sim-9a1621ce",
+      "name": "faulty-branch",
+      "scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster",
+      "seed": 2026,
+      "status": "running",
+      "created_at": "2026-03-23T13:37:44.821261+00:00",
+      "parent_id": "sim-bb5ea91b",
+      "scheduled_until": 12000.0,
+      "now": 4000.0,
+      "error": null
+    },
+    "initialized": true,
+    "paused": false,
+    "stop_requested": false,
+    "step": 500.0,
+    "network_buffer": 0,
+    "alloc_source_count": 2,
+    "alloc_module_count": 1
+  },
+  "baseline_ready_12000": {
+    "summary": {
+      "id": "sim-bb5ea91b",
+      "name": "baseline",
+      "scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster",
+      "seed": 2026,
+      "status": "idle",
+      "created_at": "2026-03-23T13:37:44.437710+00:00",
+      "parent_id": null,
+      "scheduled_until": 12000.0,
+      "now": 12000.0,
+      "error": null
+    },
+    "initialized": true,
+    "paused": false,
+    "stop_requested": false,
+    "step": 500.0,
+    "network_buffer": 0,
+    "alloc_source_count": 3,
+    "alloc_module_count": 4
+  },
+  "fork_ready_12000": {
+    "summary": {
+      "id": "sim-9a1621ce",
+      "name": "faulty-branch",
+      "scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster",
+      "seed": 2026,
+      "status": "idle",
+      "created_at": "2026-03-23T13:37:44.821261+00:00",
+      "parent_id": "sim-bb5ea91b",
+      "scheduled_until": 12000.0,
+      "now": 12000.0,
+      "error": null
+    },
+    "initialized": true,
+    "paused": false,
+    "stop_requested": false,
+    "step": 500.0,
+    "network_buffer": 0,
+    "alloc_source_count": 2,
+    "alloc_module_count": 1
+  },
+  "baseline_metrics_snapshot": {
+    "node_utilization": [
+      {
+        "node": "cdc-0-control-plane",
+        "cluster": "cdc-0",
+        "cpu_used": 0.0107,
+        "cpu_available": 1.9893,
+        "cpu_total": 2.0,
+        "ram_used": 0.0107,
+        "ram_available": 4095.9893,
+        "ram_total": 4096.0,
+        "cpu_utilization": 0.00535,
+        "ram_utilization": 2.6123046875e-06,
+        "utilization": 0.00267630615234375,
+        "deployments": 1,
+        "users": 0
+      },
+      {
+        "node": "cdc-0-worker-1",
+        "cluster": "cdc-0",
+        "cpu_used": 0.0,
+        "cpu_available": 1.0,
+        "cpu_total": 1.0,
+        "ram_used": 0.0,
+        "ram_available": 3072.0,
+        "ram_total": 3072.0,
+        "cpu_utilization": 0.0,
+        "ram_utilization": 0.0,
+        "utilization": 0.0,
+        "deployments": 0,
+        "users": 0
+      },
+      {
+        "node": "edc-0-control-plane",
+        "cluster": "edc-0",
+        "cpu_used": 0.0,
+        "cpu_available": 2.0,
+        "cpu_total": 2.0,
+        "ram_used": 0.0,
+        "ram_available": 4096.0,
+        "ram_total": 4096.0,
+        "cpu_utilization": 0.0,
+        "ram_utilization": 0.0,
+        "utilization": 0.0,
+        "deployments": 0,
+        "users": 0
+      },
+      {
+        "node": "edc-0-worker-1",
+        "cluster": "edc-0",
+        "cpu_used": 0.0,
+        "cpu_available": 1.0,
+        "cpu_total": 1.0,
+        "ram_used": 0.0,
+        "ram_available": 3072.0,
+        "ram_total": 3072.0,
+        "cpu_utilization": 0.0,
+        "ram_utilization": 0.0,
+        "utilization": 0.0,
+        "deployments": 0,
+        "users": 1
+      },
+      {
+        "node": "edc-0-worker-2",
+        "cluster": "edc-0",
+        "cpu_used": 0.0,
+        "cpu_available": 1.0,
+        "cpu_total": 1.0,
+        "ram_used": 0.0,
+        "ram_available": 3072.0,
+        "ram_total": 3072.0,
+        "cpu_utilization": 0.0,
+        "ram_utilization": 0.0,
+        "utilization": 0.0,
+        "deployments": 0,
+        "users": 1
+      },
+      {
+        "node": "mec-0-control-plane",
+        "cluster": "mec-0",
+        "cpu_used": 0.0,
+        "cpu_available": 2.0,
+        "cpu_total": 2.0,
+        "ram_used": 0.0,
+        "ram_available": 4096.0,
+        "ram_total": 4096.0,
+        "cpu_utilization": 0.0,
+        "ram_utilization": 0.0,
+        "utilization": 0.0,
+        "deployments": 0,
+        "users": 0
+      },
+      {
+        "node": "mec-0-worker-1",
+        "cluster": "mec-0",
+        "cpu_used": 0.0187,
+        "cpu_available": 0.9813,
+        "cpu_total": 1.0,
+        "ram_used": 0.0161,
+        "ram_available": 3071.9839,
+        "ram_total": 3072.0,
+        "cpu_utilization": 0.0187,
+        "ram_utilization": 5.240885416666666e-06,
+        "utilization": 0.009352620442708334,
+        "deployments": 2,
+        "users": 1
+      },
+      {
+        "node": "mec-0-worker-2",
+        "cluster": "mec-0",
+        "cpu_used": 0.0133,
+        "cpu_available": 0.9867,
+        "cpu_total": 1.0,
+        "ram_used": 0.0399,
+        "ram_available": 3071.9601,
+        "ram_total": 3072.0,
+        "cpu_utilization": 0.0133,
+        "ram_utilization": 1.298828125e-05,
+        "utilization": 0.006656494140624999,
+        "deployments": 1,
+        "users": 0
+      }
+    ],
+    "cluster_utilization": [
+      {
+        "cluster": "cdc-0",
+        "cpu_used": 0.0107,
+        "cpu_available": 2.9893,
+        "cpu_total": 3.0,
+        "ram_used": 0.0107,
+        "ram_available": 7167.9893,
+        "ram_total": 7168.0,
+        "deployments": 1,
+        "users": 0,
+        "nodes": 2,
+        "cpu_utilization": 0.0035666666666666663,
+        "ram_utilization": 1.4927455357142855e-06,
+        "utilization": 0.0017840797061011904
+      },
+      {
+        "cluster": "edc-0",
+        "cpu_used": 0.0,
+        "cpu_available": 4.0,
+        "cpu_total": 4.0,
+        "ram_used": 0.0,
+        "ram_available": 10240.0,
+        "ram_total": 10240.0,
+        "deployments": 0,
+        "users": 2,
+        "nodes": 3,
+        "cpu_utilization": 0.0,
+        "ram_utilization": 0.0,
+        "utilization": 0.0
+      },
+      {
+        "cluster": "mec-0",
+        "cpu_used": 0.032,
+        "cpu_available": 3.968,
+        "cpu_total": 4.0,
+        "ram_used": 0.055999999999999994,
+        "ram_available": 10239.944,
+        "ram_total": 10240.0,
+        "deployments": 3,
+        "users": 1,
+        "nodes": 3,
+        "cpu_utilization": 0.008,
+        "ram_utilization": 5.468749999999999e-06,
+        "utilization": 0.004002734375
+      }
+    ],
+    "users_per_node": [
+      {
+        "node": "cdc-0-control-plane",
+        "users": 0
+      },
+      {
+        "node": "cdc-0-worker-1",
+        "users": 0
+      },
+      {
+        "node": "edc-0-control-plane",
+        "users": 0
+      },
+      {
+        "node": "edc-0-worker-1",
+        "users": 1
+      },
+      {
+        "node": "edc-0-worker-2",
+        "users": 1
+      },
+      {
+        "node": "mec-0-control-plane",
+        "users": 0
+      },
+      {
+        "node": "mec-0-worker-1",
+        "users": 1
+      },
+      {
+        "node": "mec-0-worker-2",
+        "users": 0
+      }
+    ],
+    "link_utilization": [
+      {
+        "src": "cdc-0-control-plane",
+        "dst": "cdc-0-worker-1",
+        "messages": 0,
+        "requests": 0,
+        "total_size": 0.0,
+        "latency_mean": 0.0,
+        "buffer_mean": 0.0,
+        "bandwidth_used": 0.0,
+        "bandwidth_available": 1.0,
+        "utilization": 0.0,
+        "distance_km": 0.0
+      },
+      {
+        "src": "cdc-0-control-plane",
+        "dst": "edc-0-control-plane",
+        "messages": 236,
+        "requests": 118,
+        "total_size": 4720.0,
+        "latency_mean": 20.00002,
+        "buffer_mean": 1.5,
+        "bandwidth_used": 0.4042861125417969,
+        "bandwidth_available": 1.0,
+        "utilization": 0.4042861125417969,
+        "distance_km": 100.0
+      },
+      {
+        "src": "edc-0-control-plane",
+        "dst": "edc-0-worker-1",
+        "messages": 118,
+        "requests": 59,
+        "total_size": 2360.0,
+        "latency_mean": 1.00002,
+        "buffer_mean": 0.0,
+        "bandwidth_used": 0.20214305627089846,
+        "bandwidth_available": 1.0,
+        "utilization": 0.20214305627089846,
+        "distance_km": 0.0
+      },
+      {
+        "src": "edc-0-control-plane",
+        "dst": "edc-0-worker-2",
+        "messages": 118,
+        "requests": 59,
+        "total_size": 2360.0,
+        "latency_mean": 1.00002,
+        "buffer_mean": 2.0,
+        "bandwidth_used": 0.20214305627089846,
+        "bandwidth_available": 1.0,
+        "utilization": 0.20214305627089846,
+        "distance_km": 0.0
+      },
+      {
+        "src": "edc-0-control-plane",
+        "dst": "mec-0-control-plane",
+        "messages": 354,
+        "requests": 177,
+        "total_size": 7080.0,
+        "latency_mean": 10.00002,
+        "buffer_mean": 1.1666666666666667,
+        "bandwidth_used": 0.6064291688126954,
+        "bandwidth_available": 1.0,
+        "utilization": 0.6064291688126954,
+        "distance_km": 50.0
+      },
+      {
+        "src": "edc-0-worker-1",
+        "dst": "edc-0-worker-2",
+        "messages": 0,
+        "requests": 0,
+        "total_size": 0.0,
+        "latency_mean": 0.0,
+        "buffer_mean": 0.0,
+        "bandwidth_used": 0.0,
+        "bandwidth_available": 1.0,
+        "utilization": 0.0,
+        "distance_km": 0.0
+      },
+      {
+        "src": "mec-0-control-plane",
+        "dst": "mec-0-worker-1",
+        "messages": 295,
+        "requests": 177,
+        "total_size": 5900.0,
+        "latency_mean": 1.00002,
+        "buffer_mean": 1.8,
+        "bandwidth_used": 0.5053576406772461,
+        "bandwidth_available": 1.0,
+        "utilization": 0.5053576406772461,
+        "distance_km": 0.0
+      },
+      {
+        "src": "mec-0-control-plane",
+        "dst": "mec-0-worker-2",
+        "messages": 59,
+        "requests": 59,
+        "total_size": 1180.0,
+        "latency_mean": 1.00002,
+        "buffer_mean": 2.0,
+        "bandwidth_used": 0.10107152813544923,
+        "bandwidth_available": 1.0,
+        "utilization": 0.10107152813544923,
+        "distance_km": 0.0
+      },
+      {
+        "src": "mec-0-worker-1",
+        "dst": "mec-0-worker-2",
+        "messages": 177,
+        "requests": 118,
+        "total_size": 3540.0,
+        "latency_mean": 1.00002,
+        "buffer_mean": 1.6666666666666667,
+        "bandwidth_used": 0.3032145844063477,
+        "bandwidth_available": 1.0,
+        "utilization": 0.3032145844063477,
+        "distance_km": 0.0
+      }
+    ],
+    "request_hops": [
+      {
+        "id": 1,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 2,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 4,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 5,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 7,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 8,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 10,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 11,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 13,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 14,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 16,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 17,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 19,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 20,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 22,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 23,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 25,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 26,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 28,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 29,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 31,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 32,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 34,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 35,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 37,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 38,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 40,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 41,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 43,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 44,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 46,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 47,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 49,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 50,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 52,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 53,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 55,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 56,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 58,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 59,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 61,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 62,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 64,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 65,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 67,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 68,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 70,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 71,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 73,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 74,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 76,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 77,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 79,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 80,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 82,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 83,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 85,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 86,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 88,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 89,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 91,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 92,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 94,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 95,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 97,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 98,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 100,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 101,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 103,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 104,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 106,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 107,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 109,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 110,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 112,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 113,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 115,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 116,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 118,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 119,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 121,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 122,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 124,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 125,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 127,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 128,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 130,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 131,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 133,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 134,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 136,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 137,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 139,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 140,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 142,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 143,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 145,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 146,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 148,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 149,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 151,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 152,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 154,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 155,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 157,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 158,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 160,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 161,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 163,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 164,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 166,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 167,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 169,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 170,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 172,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 173,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 175,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 176,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 3,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 6,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 9,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 12,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 15,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 18,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 21,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 24,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 27,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 30,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 33,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 36,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 39,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 42,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 45,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 48,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 51,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 54,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 57,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 60,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 63,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 66,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 69,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 72,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 75,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 78,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 81,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 84,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 87,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 90,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 93,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 96,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 99,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 102,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 105,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 108,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 111,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 114,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 117,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 120,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 123,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 126,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 129,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 132,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 135,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 138,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 141,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 144,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 147,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 150,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 153,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 156,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 159,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 162,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 165,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 168,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 171,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 174,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 177,
+        "app": "mIoTs",
+        "total_hops": 6
+      }
+    ],
+    "application_response_latency": [
+      {
+        "app": "Augmented Reality (AR)",
+        "response_mean": 69.90015999999923
+      },
+      {
+        "app": "mIoTs",
+        "response_mean": 35.60015999999984
+      }
+    ],
+    "request_distance_km": [
+      {
+        "id": 1,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 2,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 4,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 5,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 7,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 8,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 10,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 11,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 13,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 14,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 16,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 17,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 19,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 20,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 22,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 23,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 25,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 26,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 28,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 29,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 31,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 32,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 34,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 35,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 37,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 38,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 40,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 41,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 43,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 44,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 46,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 47,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 49,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 50,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 52,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 53,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 55,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 56,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 58,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 59,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 61,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 62,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 64,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 65,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 67,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 68,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 70,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 71,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 73,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 74,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 76,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 77,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 79,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 80,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 82,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 83,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 85,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 86,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 88,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 89,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 91,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 92,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 94,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 95,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 97,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 98,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 100,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 101,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 103,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 104,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 106,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 107,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 109,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 110,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 112,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 113,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 115,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 116,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 118,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 119,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 121,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 122,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 124,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 125,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 127,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 128,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 130,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 131,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 133,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 134,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 136,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 137,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 139,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 140,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 142,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 143,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 145,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 146,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 148,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 149,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 151,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 152,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 154,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 155,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 157,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 158,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 160,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 161,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 163,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 164,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 166,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 167,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 169,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 170,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 172,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 173,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 175,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 176,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 3,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 6,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 9,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 12,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 15,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 18,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 21,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 24,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 27,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 30,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 33,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 36,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 39,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 42,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 45,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 48,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 51,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 54,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 57,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 60,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 63,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 66,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 69,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 72,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 75,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 78,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 81,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 84,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 87,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 90,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 93,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 96,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 99,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 102,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 105,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 108,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 111,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 114,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 117,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 120,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 123,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 126,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 129,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 132,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 135,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 138,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 141,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 144,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 147,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 150,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 153,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 156,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 159,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 162,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 165,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 168,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 171,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 174,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 177,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      }
+    ],
+    "application_distance_km": [
+      {
+        "app": "Augmented Reality (AR)",
+        "distance_mean_km": 300.0,
+        "distance_total_km": 35400.0
+      },
+      {
+        "app": "mIoTs",
+        "distance_mean_km": 100.0,
+        "distance_total_km": 5900.0
+      }
+    ],
+    "mean_topology_congestion": 0.2582939052350369,
+    "total_bandwidth_used": 2.324645147115332,
+    "total_bandwidth_available": 9.0,
+    "total_links": 9
+  },
+  "fork_metrics_snapshot": {
+    "node_utilization": [
+      {
+        "node": "cdc-0-control-plane",
+        "cluster": "cdc-0",
+        "cpu_used": 0.0107,
+        "cpu_available": 1.9893,
+        "cpu_total": 2.0,
+        "ram_used": 0.0107,
+        "ram_available": 4095.9893,
+        "ram_total": 4096.0,
+        "cpu_utilization": 0.00535,
+        "ram_utilization": 2.6123046875e-06,
+        "utilization": 0.00267630615234375,
+        "deployments": 1,
+        "users": 0
+      },
+      {
+        "node": "cdc-0-worker-1",
+        "cluster": "cdc-0",
+        "cpu_used": 0.0,
+        "cpu_available": 1.0,
+        "cpu_total": 1.0,
+        "ram_used": 0.0,
+        "ram_available": 3072.0,
+        "ram_total": 3072.0,
+        "cpu_utilization": 0.0,
+        "ram_utilization": 0.0,
+        "utilization": 0.0,
+        "deployments": 0,
+        "users": 0
+      },
+      {
+        "node": "edc-0-control-plane",
+        "cluster": "edc-0",
+        "cpu_used": 0.0,
+        "cpu_available": 2.0,
+        "cpu_total": 2.0,
+        "ram_used": 0.0,
+        "ram_available": 4096.0,
+        "ram_total": 4096.0,
+        "cpu_utilization": 0.0,
+        "ram_utilization": 0.0,
+        "utilization": 0.0,
+        "deployments": 0,
+        "users": 0
+      },
+      {
+        "node": "edc-0-worker-1",
+        "cluster": "edc-0",
+        "cpu_used": 0.0,
+        "cpu_available": 1.0,
+        "cpu_total": 1.0,
+        "ram_used": 0.0,
+        "ram_available": 3072.0,
+        "ram_total": 3072.0,
+        "cpu_utilization": 0.0,
+        "ram_utilization": 0.0,
+        "utilization": 0.0,
+        "deployments": 0,
+        "users": 1
+      },
+      {
+        "node": "edc-0-worker-2",
+        "cluster": "edc-0",
+        "cpu_used": 0.0,
+        "cpu_available": 1.0,
+        "cpu_total": 1.0,
+        "ram_used": 0.0,
+        "ram_available": 3072.0,
+        "ram_total": 3072.0,
+        "cpu_utilization": 0.0,
+        "ram_utilization": 0.0,
+        "utilization": 0.0,
+        "deployments": 0,
+        "users": 1
+      }
+    ],
+    "cluster_utilization": [
+      {
+        "cluster": "cdc-0",
+        "cpu_used": 0.0107,
+        "cpu_available": 2.9893,
+        "cpu_total": 3.0,
+        "ram_used": 0.0107,
+        "ram_available": 7167.9893,
+        "ram_total": 7168.0,
+        "deployments": 1,
+        "users": 0,
+        "nodes": 2,
+        "cpu_utilization": 0.0035666666666666663,
+        "ram_utilization": 1.4927455357142855e-06,
+        "utilization": 0.0017840797061011904
+      },
+      {
+        "cluster": "edc-0",
+        "cpu_used": 0.0,
+        "cpu_available": 4.0,
+        "cpu_total": 4.0,
+        "ram_used": 0.0,
+        "ram_available": 10240.0,
+        "ram_total": 10240.0,
+        "deployments": 0,
+        "users": 2,
+        "nodes": 3,
+        "cpu_utilization": 0.0,
+        "ram_utilization": 0.0,
+        "utilization": 0.0
+      }
+    ],
+    "users_per_node": [
+      {
+        "node": "cdc-0-control-plane",
+        "users": 0
+      },
+      {
+        "node": "cdc-0-worker-1",
+        "users": 0
+      },
+      {
+        "node": "edc-0-control-plane",
+        "users": 0
+      },
+      {
+        "node": "edc-0-worker-1",
+        "users": 1
+      },
+      {
+        "node": "edc-0-worker-2",
+        "users": 1
+      }
+    ],
+    "link_utilization": [
+      {
+        "src": "cdc-0-control-plane",
+        "dst": "cdc-0-worker-1",
+        "messages": 0,
+        "requests": 0,
+        "total_size": 0.0,
+        "latency_mean": 0.0,
+        "buffer_mean": 0.0,
+        "bandwidth_used": 0.0,
+        "bandwidth_available": 1.0,
+        "utilization": 0.0,
+        "distance_km": 0.0
+      },
+      {
+        "src": "cdc-0-control-plane",
+        "dst": "edc-0-control-plane",
+        "messages": 76,
+        "requests": 38,
+        "total_size": 1520.0,
+        "latency_mean": 20.00002,
+        "buffer_mean": 1.5,
+        "bandwidth_used": 0.1310344827586207,
+        "bandwidth_available": 1.0,
+        "utilization": 0.1310344827586207,
+        "distance_km": 100.0
+      },
+      {
+        "src": "edc-0-control-plane",
+        "dst": "edc-0-worker-1",
+        "messages": 38,
+        "requests": 19,
+        "total_size": 760.0,
+        "latency_mean": 1.00002,
+        "buffer_mean": 0.0,
+        "bandwidth_used": 0.06551724137931035,
+        "bandwidth_available": 1.0,
+        "utilization": 0.06551724137931035,
+        "distance_km": 0.0
+      },
+      {
+        "src": "edc-0-control-plane",
+        "dst": "edc-0-worker-2",
+        "messages": 38,
+        "requests": 19,
+        "total_size": 760.0,
+        "latency_mean": 1.00002,
+        "buffer_mean": 2.0,
+        "bandwidth_used": 0.06551724137931035,
+        "bandwidth_available": 1.0,
+        "utilization": 0.06551724137931035,
+        "distance_km": 0.0
+      },
+      {
+        "src": "edc-0-control-plane",
+        "dst": "mec-0-control-plane",
+        "messages": 114,
+        "requests": 57,
+        "total_size": 2280.0,
+        "latency_mean": 10.00002,
+        "buffer_mean": 1.1666666666666667,
+        "bandwidth_used": 0.19655172413793104,
+        "bandwidth_available": 1.0,
+        "utilization": 0.19655172413793104,
+        "distance_km": 50.0
+      },
+      {
+        "src": "edc-0-worker-1",
+        "dst": "edc-0-worker-2",
+        "messages": 0,
+        "requests": 0,
+        "total_size": 0.0,
+        "latency_mean": 0.0,
+        "buffer_mean": 0.0,
+        "bandwidth_used": 0.0,
+        "bandwidth_available": 1.0,
+        "utilization": 0.0,
+        "distance_km": 0.0
+      },
+      {
+        "src": "mec-0-control-plane",
+        "dst": "mec-0-worker-1",
+        "messages": 95,
+        "requests": 57,
+        "total_size": 1900.0,
+        "latency_mean": 1.00002,
+        "buffer_mean": 1.8,
+        "bandwidth_used": 0.16379310344827586,
+        "bandwidth_available": 1.0,
+        "utilization": 0.16379310344827586,
+        "distance_km": 0.0
+      },
+      {
+        "src": "mec-0-control-plane",
+        "dst": "mec-0-worker-2",
+        "messages": 19,
+        "requests": 19,
+        "total_size": 380.0,
+        "latency_mean": 1.00002,
+        "buffer_mean": 2.0,
+        "bandwidth_used": 0.032758620689655175,
+        "bandwidth_available": 1.0,
+        "utilization": 0.032758620689655175,
+        "distance_km": 0.0
+      },
+      {
+        "src": "mec-0-worker-1",
+        "dst": "mec-0-worker-2",
+        "messages": 57,
+        "requests": 38,
+        "total_size": 1140.0,
+        "latency_mean": 1.00002,
+        "buffer_mean": 1.6666666666666667,
+        "bandwidth_used": 0.09827586206896552,
+        "bandwidth_available": 1.0,
+        "utilization": 0.09827586206896552,
+        "distance_km": 0.0
+      }
+    ],
+    "request_hops": [
+      {
+        "id": 1,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 2,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 4,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 5,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 7,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 8,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 10,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 11,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 13,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 14,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 16,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 17,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 19,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 20,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 22,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 23,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 25,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 26,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 28,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 29,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 31,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 32,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 34,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 35,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 37,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 38,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 40,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 41,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 43,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 44,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 46,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 47,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 49,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 50,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 52,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 53,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 55,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 9
+      },
+      {
+        "id": 56,
+        "app": "Augmented Reality (AR)",
+        "total_hops": 8
+      },
+      {
+        "id": 3,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 6,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 9,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 12,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 15,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 18,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 21,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 24,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 27,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 30,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 33,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 36,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 39,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 42,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 45,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 48,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 51,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 54,
+        "app": "mIoTs",
+        "total_hops": 6
+      },
+      {
+        "id": 57,
+        "app": "mIoTs",
+        "total_hops": 6
+      }
+    ],
+    "application_response_latency": [
+      {
+        "app": "Augmented Reality (AR)",
+        "response_mean": 69.90015999999986
+      },
+      {
+        "app": "mIoTs",
+        "response_mean": 35.60015999999978
+      }
+    ],
+    "request_distance_km": [
+      {
+        "id": 1,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 2,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 4,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 5,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 7,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 8,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 10,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 11,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 13,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 14,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 16,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 17,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 19,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 20,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 22,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 23,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 25,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 26,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 28,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 29,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 31,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 32,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 34,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 35,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 37,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 38,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 40,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 41,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 43,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 44,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 46,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 47,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 49,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 50,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 52,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 53,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 55,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 56,
+        "app": "Augmented Reality (AR)",
+        "distance_km": 300.0
+      },
+      {
+        "id": 3,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 6,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 9,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 12,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 15,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 18,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 21,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 24,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 27,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 30,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 33,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 36,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 39,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 42,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 45,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 48,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 51,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 54,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      },
+      {
+        "id": 57,
+        "app": "mIoTs",
+        "distance_km": 100.0
+      }
+    ],
+    "application_distance_km": [
+      {
+        "app": "Augmented Reality (AR)",
+        "distance_mean_km": 300.0,
+        "distance_total_km": 11400.0
+      },
+      {
+        "app": "mIoTs",
+        "distance_mean_km": 100.0,
+        "distance_total_km": 1900.0
+      }
+    ],
+    "mean_topology_congestion": 0.08371647509578545,
+    "total_bandwidth_used": 0.7534482758620691,
+    "total_bandwidth_available": 5.0,
+    "total_links": 5
+  },
+  "baseline_application_metrics": {
+    "simulation_id": "sim-bb5ea91b",
+    "items": [
+      {
+        "app": "Augmented Reality (AR)",
+        "requests_total": 118,
+        "requests_successful": 118,
+        "requests_unsuccessful": 0,
+        "response_mean": 69.90015999999923,
+        "response_p50": 69.90015999999878,
+        "response_p95": 74.90016000000378,
+        "response_max": 74.90016000000378,
+        "network_mean": 69.00015999999907,
+        "processing_mean": 0.9000000000001692,
+        "waiting_mean": 0.0,
+        "placement_cost": 0.24000000000000002,
+        "deployments": 3,
+        "egress_cost": 0.0,
+        "total_cost": 0.24000000000000002
+      },
+      {
+        "app": "mIoTs",
+        "requests_total": 59,
+        "requests_successful": 59,
+        "requests_unsuccessful": 0,
+        "response_mean": 35.60015999999984,
+        "response_p50": 35.60015999999996,
+        "response_p95": 35.6001600000036,
+        "response_max": 35.6001600000036,
+        "network_mean": 35.300160000000446,
+        "processing_mean": 0.2999999999993885,
+        "waiting_mean": 0.0,
+        "placement_cost": 0.07,
+        "deployments": 1,
+        "egress_cost": 0.0,
+        "total_cost": 0.07
+      }
+    ],
+    "from_time": null,
+    "to_time": null,
+    "reference_time": null,
+    "absolute_from_time": null,
+    "absolute_to_time": null
+  },
+  "fork_application_metrics": {
+    "simulation_id": "sim-9a1621ce",
+    "items": [
+      {
+        "app": "Augmented Reality (AR)",
+        "requests_total": 78,
+        "requests_successful": 38,
+        "requests_unsuccessful": 40,
+        "response_mean": 69.90015999999986,
+        "response_p50": 69.9001599999998,
+        "response_p95": 74.90016000000014,
+        "response_max": 74.90016000000014,
+        "network_mean": 69.00015999999982,
+        "processing_mean": 0.9000000000000349,
+        "waiting_mean": 0.0,
+        "placement_cost": 0.1,
+        "deployments": 1,
+        "egress_cost": 0.0,
+        "total_cost": 0.1
+      },
+      {
+        "app": "mIoTs",
+        "requests_total": 59,
+        "requests_successful": 19,
+        "requests_unsuccessful": 40,
+        "response_mean": 35.60015999999978,
+        "response_p50": 35.60015999999996,
+        "response_p95": 35.60016000000007,
+        "response_max": 35.60016000000007,
+        "network_mean": 35.30015999999972,
+        "processing_mean": 0.3000000000000637,
+        "waiting_mean": 0.0,
+        "placement_cost": 0.0,
+        "deployments": 0,
+        "egress_cost": 0.0,
+        "total_cost": 0.0
+      }
+    ],
+    "from_time": null,
+    "to_time": null,
+    "reference_time": null,
+    "absolute_from_time": null,
+    "absolute_to_time": null
+  },
+  "baseline_stop": {
+    "summary": {
+      "id": "sim-bb5ea91b",
+      "name": "baseline",
+      "scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster",
+      "seed": 2026,
+      "status": "stopped",
+      "created_at": "2026-03-23T13:37:44.437710+00:00",
+      "parent_id": null,
+      "scheduled_until": 12000.0,
+      "now": 12000.0,
+      "error": null
+    },
+    "initialized": true,
+    "paused": false,
+    "stop_requested": true,
+    "step": 500.0,
+    "network_buffer": 0,
+    "alloc_source_count": 3,
+    "alloc_module_count": 4
+  },
+  "fork_stop": {
+    "summary": {
+      "id": "sim-9a1621ce",
+      "name": "faulty-branch",
+      "scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster",
+      "seed": 2026,
+      "status": "stopped",
+      "created_at": "2026-03-23T13:37:44.821261+00:00",
+      "parent_id": "sim-bb5ea91b",
+      "scheduled_until": 12000.0,
+      "now": 12000.0,
+      "error": null
+    },
+    "initialized": true,
+    "paused": false,
+    "stop_requested": true,
+    "step": 500.0,
+    "network_buffer": 0,
+    "alloc_source_count": 2,
+    "alloc_module_count": 1
+  }
+}

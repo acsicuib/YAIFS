@@ -1,0 +1,73 @@
+{
+  "id": 2,
+  "name": "Video Analytics",
+  "latency_requirement": 25,
+  "vnf_chain": ["PRE", "INF"],
+  "has_backward_return": true,
+  "transmission": [
+    {
+      "message_in": "M.VA.0_0",
+      "module": "2_PRE",
+      "message_out": "M.VA.0_1"
+    },
+    {
+      "message_in": "M.VA.0_1",
+      "module": "2_INF",
+      "message_out": "M.VA.0_2"
+    }
+  ],
+  "module": [
+    {
+      "id": 1,
+      "type": "MODULE",
+      "RAM": 1,
+      "name": "2_PRE",
+      "label": "Preprocessing",
+      "abbreviation": "PRE",
+      "cpu": 0.0080,
+      "ram": 0.0120,
+      "beta_cpu": 0.0020,
+      "beta_ram": 0.0020,
+      "scale": 1
+    },
+    {
+      "id": 2,
+      "type": "MODULE",
+      "RAM": 1,
+      "name": "2_INF",
+      "label": "Inference",
+      "abbreviation": "INF",
+      "cpu": 0.0140,
+      "ram": 0.0200,
+      "beta_cpu": 0.0030,
+      "beta_ram": 0.0030,
+      "scale": 1
+    }
+  ],
+  "message": [
+    {
+      "id": 0,
+      "name": "M.VA.0_0",
+      "s": "None",
+      "d": "2_PRE",
+      "bytes": 32,
+      "instructions": 40
+    },
+    {
+      "id": 1,
+      "name": "M.VA.0_1",
+      "s": "2_PRE",
+      "d": "2_INF",
+      "bytes": 24,
+      "instructions": 35
+    },
+    {
+      "id": 2,
+      "name": "M.VA.0_2",
+      "s": "2_INF",
+      "d": "None",
+      "bytes": 24,
+      "instructions": 35
+    }
+  ]
+}

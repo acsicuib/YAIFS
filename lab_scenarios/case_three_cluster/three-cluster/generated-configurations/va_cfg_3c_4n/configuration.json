@@ -1,0 +1,11 @@
+{
+  "configuration_name": "va_cfg_3c_4n",
+  "base_scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster",
+  "scenario_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster/generated-configurations/va_cfg_3c_4n",
+  "cluster_count": 3,
+  "node_count": 12,
+  "services_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster/generated-configurations/va_cfg_3c_4n/services.json",
+  "placements_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster/generated-configurations/va_cfg_3c_4n/placements.json",
+  "users_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster/generated-configurations/va_cfg_3c_4n/users.json",
+  "topology_path": "/Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster/generated-configurations/va_cfg_3c_4n/topology.json"
+}

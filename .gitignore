@@ -52,3 +52,11 @@ results/
 .venv/
 env/
 venv/
+
+tests/
+results/
+article/
+OLD_PROJECT/
+*.svg
+tutorial_scenarios/
+.misnotas.md

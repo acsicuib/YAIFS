@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Metrics Overview &#8212; YAFS 0.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=b489f392"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Architecture" href="../architecture/index.html" />
+    <link rel="prev" title="Simulation Service Guide" href="simulation_service.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="metrics-overview">
+<h1>Metrics Overview<a class="headerlink" href="#metrics-overview" title="Link to this heading">¶</a></h1>
+<p>YAFS 3.1 exposes metrics from two complementary layers:</p>
+<ul class="simple">
+<li><p>offline trace analysis through <code class="docutils literal notranslate"><span class="pre">yafs.metrics.MetricsAnalyzer</span></code></p></li>
+<li><p>live deployment metrics through <code class="docutils literal notranslate"><span class="pre">yafs.api.Simulation</span></code> and <code class="docutils literal notranslate"><span class="pre">SimulationService</span></code></p></li>
+</ul>
+<p>This split keeps the simulator core stable while providing richer analytical views.</p>
+<section id="trace-based-metrics">
+<h2>Trace-based metrics<a class="headerlink" href="#trace-based-metrics" title="Link to this heading">¶</a></h2>
+<p>These metrics are reconstructed from <code class="docutils literal notranslate"><span class="pre">*.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">*_link.csv</span></code>:</p>
+<ul class="simple">
+<li><p>message response and waiting times</p></li>
+<li><p>service response per application</p></li>
+<li><p>request hops</p></li>
+<li><p>link utilization</p></li>
+<li><p>traversed distance in kilometres</p></li>
+<li><p>mean topology congestion</p></li>
+<li><p>total used bandwidth</p></li>
+<li><p>total available bandwidth</p></li>
+<li><p>total number of links</p></li>
+<li><p>execution-time cost</p></li>
+</ul>
+<p>Key APIs:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.link_utilization(topology,</span> <span class="pre">include_unused=False)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.request_hops(app_name=None)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.average_application_response_latency(...)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.request_distance_breakdown(topology,</span> <span class="pre">app_name=None)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.application_distance_breakdown(topology)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.mean_topology_congestion(topology)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_bandwidth_used(topology)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_bandwidth_available(topology)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_links(topology)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_execution_metrics(topology)</span></code></p></li>
+</ul>
+</section>
+<section id="deployment-based-metrics">
+<h2>Deployment-based metrics<a class="headerlink" href="#deployment-based-metrics" title="Link to this heading">¶</a></h2>
+<p>These metrics are computed from the live simulation state:</p>
+<ul class="simple">
+<li><p>utilization of each node</p></li>
+<li><p>available and total CPU per node</p></li>
+<li><p>available and total RAM per node</p></li>
+<li><p>utilization of each cluster</p></li>
+<li><p>number of users assigned to each node</p></li>
+<li><p>placement cost per application</p></li>
+<li><p>inventory of active nodes</p></li>
+<li><p>inventory of active clusters</p></li>
+</ul>
+<p>Key APIs:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Simulation.list_nodes()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Simulation.list_clusters()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Simulation.list_nodes_in_cluster(cluster_name)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Simulation.count_nodes()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Simulation.count_clusters()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Simulation.get_node_resource_summary(node_id=None)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Simulation.get_node_cpu_summary(node_id)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Simulation.get_node_memory_summary(node_id)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Simulation.get_cluster_resource_summary()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Simulation.get_users_per_node()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Simulation.get_application_metrics_summary(...)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Simulation.get_network_metrics_summary(...)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SimulationService.list_nodes(simulation_id)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SimulationService.list_clusters(simulation_id)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SimulationService.list_nodes_in_cluster(simulation_id,</span> <span class="pre">cluster_name)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SimulationService.count_nodes(simulation_id)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SimulationService.count_clusters(simulation_id)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SimulationService.get_network_metrics(simulation_id,</span> <span class="pre">...)</span></code></p></li>
+</ul>
+</section>
+<section id="important-semantic-distinction">
+<h2>Important semantic distinction<a class="headerlink" href="#important-semantic-distinction" title="Link to this heading">¶</a></h2>
+<p>YAFS now distinguishes two cost models:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">execution</span> <span class="pre">cost</span></code>: depends on service time and simulation workload</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">placement</span> <span class="pre">cost</span></code>: depends only on deployed instances and node <code class="docutils literal notranslate"><span class="pre">COST</span></code></p></li>
+</ul>
+<p>The service-layer summaries exposed by <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> use placement cost so the
+reported deployment cost is independent of simulation duration and request volume.</p>
+</section>
+<section id="distance-assumptions">
+<h2>Distance assumptions<a class="headerlink" href="#distance-assumptions" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>inter-cluster distance is taken from <code class="docutils literal notranslate"><span class="pre">topology.json</span></code> through <code class="docutils literal notranslate"><span class="pre">distanceKm</span></code></p></li>
+<li><p>intra-cluster links are considered negligible distance when <code class="docutils literal notranslate"><span class="pre">distanceKm</span></code> is omitted</p></li>
+</ul>
+</section>
+<section id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Link to this heading">¶</a></h2>
+<p>A detailed catalog of formulas, semantics, and examples is available in
+<code class="docutils literal notranslate"><span class="pre">metrics.md</span></code> at the project root.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../contents.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">OVERVIEW</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#acknowledge">Acknowledge</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">YAFS in 5 Minutes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">Glossary of terms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html">Basic Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="simulation_service.html">Simulation Service Guide</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Metrics Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#trace-based-metrics">Trace-based metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deployment-based-metrics">Deployment-based metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#important-semantic-distinction">Important semantic distinction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#distance-assumptions">Distance assumptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/index.html">API REFERENCE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">ABOUT</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../contents.html">Documentation overview</a><ul>
+  <li><a href="index.html">YAFS in 5 Minutes</a><ul>
+      <li>Previous: <a href="simulation_service.html" title="previous chapter">Simulation Service Guide</a></li>
+      <li>Next: <a href="../architecture/index.html" title="next chapter">Architecture</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2017, Isaac Lera, Carlos Guerrero.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/introduction/metrics.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

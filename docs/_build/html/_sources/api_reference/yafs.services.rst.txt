@@ -1,0 +1,27 @@
+=================
+``yafs.services``
+=================
+
+.. automodule:: yafs.services
+    :members:
+    :undoc-members:
+    :inherited-members:
+
+SimulationService Topology Inventory
+====================================
+
+The high-level service layer exposes topology inventory actions over the live
+state of each simulation:
+
+- ``SimulationService.list_nodes(simulation_id)``
+- ``SimulationService.list_clusters(simulation_id)``
+- ``SimulationService.list_nodes_in_cluster(simulation_id, cluster_name)``
+- ``SimulationService.count_nodes(simulation_id)``
+- ``SimulationService.count_clusters(simulation_id)``
+
+These methods do not rely on the initial JSON scenario definition alone. They
+query the topology currently attached to the simulation core, so they reflect
+node additions, removals, and other dynamic changes that may occur during the
+execution of the simulator.
+
+See also :doc:`../introduction/simulation_service`.

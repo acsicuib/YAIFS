@@ -1,0 +1,28 @@
+{
+  "nodes": [
+      {
+        "on_cluster": "edc-cluster-new-1",
+        "name":  "edc-cluster-new-1-worker-2",
+        "role": "worker",
+        "WATT": 20.0,
+        "COST": 1.15,
+        "uptime": [0.0, null],
+        "capacity": {
+          "cpu": "50",
+          "memory": "4096m"
+        }
+      },
+      {
+        "on_cluster": "edc-cluster-new-1",
+        "name": "edc-cluster-new-1-worker-3",
+        "role": "worker",
+        "WATT": 20.0,
+        "COST": 3.15,
+        "uptime": [0.0, null],
+        "capacity": {
+          "cpu": "50",
+          "memory": "1024m"
+        }
+      }
+  ]
+}

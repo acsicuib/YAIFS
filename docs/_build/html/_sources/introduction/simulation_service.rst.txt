@@ -1,0 +1,110 @@
+==========================
+Simulation Service Guide
+==========================
+
+YAFS 3.1 includes a high-level ``SimulationService`` for long-lived simulations.
+In this API, a simulation is conceptually open-ended and only becomes terminal
+when ``service.stop(...)`` is invoked.
+
+Key ideas
+=========
+
+- ``service.schedule_for(simulation_id, duration=..., step=...)`` schedules an incremental execution window. ``duration`` is relative to the current simulated time, not an absolute final time.
+- ``service.wait_until_ready(simulation_id)`` waits until the simulation is ready for the next command. This usually means the scheduled window has finished and the status is ``idle``.
+- ``service.pause(simulation_id)`` pauses execution after the current internal ``step`` finishes.
+- ``service.fork(simulation_id)`` waits until the parent simulation is paused or no longer running before cloning it.
+- ``service.stop(simulation_id)`` is the terminal command. After ``stop``, the simulation cannot be resumed or scheduled again.
+
+Status semantics
+================
+
+- ``created``: the simulation exists but has not been initialized yet.
+- ``initialized``: the simulation has been initialized and is ready to run.
+- ``running``: the simulation is actively executing a scheduled window.
+- ``paused``: the simulation is paused and can be resumed or scheduled again.
+- ``idle``: the last scheduled window has finished and the simulation is ready for the next command.
+- ``stopped``: terminal state reached through ``service.stop(...)``.
+- ``failed``: terminal state caused by an error.
+
+Dynamic topology inventory
+==========================
+
+``SimulationService`` also exposes high-level queries for nodes and clusters:
+
+- ``service.list_nodes(simulation_id)``
+- ``service.list_clusters(simulation_id)``
+- ``service.list_nodes_in_cluster(simulation_id, cluster_name)``
+- ``service.count_nodes(simulation_id)``
+- ``service.count_clusters(simulation_id)``
+
+These actions are evaluated against the live topology of the simulation,
+not against the initial ``topology.json``. This distinction is important
+because YAFS can add or remove nodes during execution through simulator
+events and strategies.
+
+In practice, the inventory is derived from the current graph stored in the
+simulation core (``sim.topology.G``), so the returned nodes and clusters
+reflect the state that is actually active at that simulation time.
+
+Typical flow
+============
+
+.. code-block:: python
+
+    from pathlib import Path
+
+    from yafs.services.simulation_service import SimulationService
+
+    service = SimulationService()
+    created = service.create_simulation(
+        scenario_path=Path("lab_scenarios/case_three_cluster/three-cluster"),
+        seed=2026,
+        name="case-three-cluster",
+    )
+
+    service.schedule_for(created.summary.id, duration=20000, step=2000.0)
+
+    node_count = service.count_nodes(created.summary.id)
+    cluster_names = [
+        item["cluster"]
+        for item in service.list_clusters(created.summary.id)
+    ]
+
+    state = service.wait_until_ready(created.summary.id)
+
+    print(node_count)
+    print(cluster_names)
+    print(state.summary.now)
+
+Typical node and cluster payloads
+=================================
+
+``service.list_nodes(simulation_id)`` returns one item per active node:
+
+.. code-block:: python
+
+    {
+        "node": "mec-0-worker-1",
+        "cluster": "mec-0",
+        "cluster_role": "MEC",
+        "cluster_region": "region-b",
+        "node_role": "worker",
+    }
+
+``service.list_clusters(simulation_id)`` returns one item per active cluster:
+
+.. code-block:: python
+
+    {
+        "cluster": "mec-0",
+        "cluster_role": "MEC",
+        "cluster_region": "region-b",
+        "nodes": ["mec-0-control-plane", "mec-0-worker-1"],
+        "node_count": 2,
+    }
+
+Compatibility note
+==================
+
+- ``service.run_for(...)`` remains available as an alias of ``service.schedule_for(...)``.
+- ``service.wait_until_idle(...)`` remains available as an alias of ``service.wait_until_ready(...)``.

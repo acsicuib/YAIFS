@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>yafs.metrics &#8212; YAFS 0.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
+    <script src="../_static/documentation_options.js?v=b489f392"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="yafs.services" href="yafs.services.html" />
+    <link rel="prev" title="yafs.stats" href="yafs.stats.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-yafs.metrics">
+<span id="yafs-metrics"></span><h1><code class="docutils literal notranslate"><span class="pre">yafs.metrics</span></code><a class="headerlink" href="#module-yafs.metrics" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.metrics.Metrics">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.metrics.</span></span><span class="sig-name descname"><span class="pre">Metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_results_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/metrics.html#Metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.Metrics" title="Link to this definition">¶</a></dt>
+<dd><p>CSV writer used by <a class="reference internal" href="yafs.core.html#yafs.core.Sim" title="yafs.core.Sim"><code class="xref py py-class docutils literal notranslate"><span class="pre">yafs.core.Sim</span></code></a>.</p>
+<p>The class keeps the public contract historically used by <code class="docutils literal notranslate"><span class="pre">core.py</span></code>:
+<code class="docutils literal notranslate"><span class="pre">insert</span></code> records event-level rows and <code class="docutils literal notranslate"><span class="pre">insert_link</span></code> records hop-level
+rows. The CSV schema is unchanged so older analysis scripts remain valid.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.Metrics.EVENT_COLUMNS">
+<span class="sig-name descname"><span class="pre">EVENT_COLUMNS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('id',</span> <span class="pre">'type',</span> <span class="pre">'app',</span> <span class="pre">'module',</span> <span class="pre">'message',</span> <span class="pre">'DES.src',</span> <span class="pre">'DES.dst',</span> <span class="pre">'TOPO.src',</span> <span class="pre">'TOPO.dst',</span> <span class="pre">'module.src',</span> <span class="pre">'service',</span> <span class="pre">'time_in',</span> <span class="pre">'time_out',</span> <span class="pre">'time_emit',</span> <span class="pre">'time_reception')</span></span><a class="headerlink" href="#yafs.metrics.Metrics.EVENT_COLUMNS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.Metrics.LINK_COLUMNS">
+<span class="sig-name descname"><span class="pre">LINK_COLUMNS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('id',</span> <span class="pre">'type',</span> <span class="pre">'src',</span> <span class="pre">'dst',</span> <span class="pre">'app',</span> <span class="pre">'latency',</span> <span class="pre">'message',</span> <span class="pre">'ctime',</span> <span class="pre">'size',</span> <span class="pre">'buffer')</span></span><a class="headerlink" href="#yafs.metrics.Metrics.LINK_COLUMNS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.Metrics.TIME_LATENCY">
+<span class="sig-name descname"><span class="pre">TIME_LATENCY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'time_latency'</span></span><a class="headerlink" href="#yafs.metrics.Metrics.TIME_LATENCY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.Metrics.TIME_RESPONSE">
+<span class="sig-name descname"><span class="pre">TIME_RESPONSE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'time_response'</span></span><a class="headerlink" href="#yafs.metrics.Metrics.TIME_RESPONSE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.Metrics.TIME_SERVICE">
+<span class="sig-name descname"><span class="pre">TIME_SERVICE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'time_service'</span></span><a class="headerlink" href="#yafs.metrics.Metrics.TIME_SERVICE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.Metrics.TIME_TOTAL_RESPONSE">
+<span class="sig-name descname"><span class="pre">TIME_TOTAL_RESPONSE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'time_total_response'</span></span><a class="headerlink" href="#yafs.metrics.Metrics.TIME_TOTAL_RESPONSE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.Metrics.TIME_WAIT">
+<span class="sig-name descname"><span class="pre">TIME_WAIT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'time_wait'</span></span><a class="headerlink" href="#yafs.metrics.Metrics.TIME_WAIT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.Metrics.WATT_SERVICE">
+<span class="sig-name descname"><span class="pre">WATT_SERVICE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'byService'</span></span><a class="headerlink" href="#yafs.metrics.Metrics.WATT_SERVICE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.Metrics.WATT_UPTIME">
+<span class="sig-name descname"><span class="pre">WATT_UPTIME</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'byUptime'</span></span><a class="headerlink" href="#yafs.metrics.Metrics.WATT_UPTIME" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.Metrics.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#Metrics.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.Metrics.close" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.Metrics.flush">
+<span class="sig-name descname"><span class="pre">flush</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#Metrics.flush"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.Metrics.flush" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.Metrics.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#Metrics.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.Metrics.insert" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.Metrics.insert_link">
+<span class="sig-name descname"><span class="pre">insert_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#Metrics.insert_link"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.Metrics.insert_link" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.metrics.</span></span><span class="sig-name descname"><span class="pre">MetricsAnalyzer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">defaultPath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'result'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_definition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">link_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer" title="Link to this definition">¶</a></dt>
+<dd><p>Rich metrics reader and analyser for the CSV files generated by YAFS.</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>defaultPath:</dt><dd><p>Base path for <code class="docutils literal notranslate"><span class="pre">&lt;defaultPath&gt;.csv</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;defaultPath&gt;_link.csv</span></code>.</p>
+</dd>
+<dt>app_definition:</dt><dd><p>Optional app/service definition source. It can be a file path, a JSON
+object, or a list of dictionaries with the same structure as
+<code class="docutils literal notranslate"><span class="pre">appDefinition.json</span></code>.</p>
+</dd>
+<dt>event_df / link_df:</dt><dd><p>Optional preloaded dataframes, mainly useful for testing.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.EVENT_COLUMNS">
+<span class="sig-name descname"><span class="pre">EVENT_COLUMNS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('id',</span> <span class="pre">'type',</span> <span class="pre">'app',</span> <span class="pre">'module',</span> <span class="pre">'message',</span> <span class="pre">'DES.src',</span> <span class="pre">'DES.dst',</span> <span class="pre">'TOPO.src',</span> <span class="pre">'TOPO.dst',</span> <span class="pre">'module.src',</span> <span class="pre">'service',</span> <span class="pre">'time_in',</span> <span class="pre">'time_out',</span> <span class="pre">'time_emit',</span> <span class="pre">'time_reception')</span></span><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.EVENT_COLUMNS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.LINK_COLUMNS">
+<span class="sig-name descname"><span class="pre">LINK_COLUMNS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('id',</span> <span class="pre">'type',</span> <span class="pre">'src',</span> <span class="pre">'dst',</span> <span class="pre">'app',</span> <span class="pre">'latency',</span> <span class="pre">'message',</span> <span class="pre">'ctime',</span> <span class="pre">'size',</span> <span class="pre">'buffer')</span></span><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.LINK_COLUMNS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.application_cost_breakdown">
+<span class="sig-name descname"><span class="pre">application_cost_breakdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.application_cost_breakdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.application_cost_breakdown" title="Link to this definition">¶</a></dt>
+<dd><p>Backwards-compatible alias for execution-based cost breakdown.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.application_distance_breakdown">
+<span class="sig-name descname"><span class="pre">application_distance_breakdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.application_distance_breakdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.application_distance_breakdown" title="Link to this definition">¶</a></dt>
+<dd><p>Aggregate request distance by application.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.application_execution_cost_breakdown">
+<span class="sig-name descname"><span class="pre">application_execution_cost_breakdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.application_execution_cost_breakdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.application_execution_cost_breakdown" title="Link to this definition">¶</a></dt>
+<dd><p>Compute execution cost per application from service time and node COST.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.average_application_response_latency">
+<span class="sig-name descname"><span class="pre">average_application_response_latency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'critical_path'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_return_messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.average_application_response_latency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.average_application_response_latency" title="Link to this definition">¶</a></dt>
+<dd><p>Return mean response latency per application.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.average_loop_response">
+<span class="sig-name descname"><span class="pre">average_loop_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_loops</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.average_loop_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.average_loop_response" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.average_messages_not_transmitted">
+<span class="sig-name descname"><span class="pre">average_messages_not_transmitted</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.average_messages_not_transmitted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.average_messages_not_transmitted" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.bytes_transmitted">
+<span class="sig-name descname"><span class="pre">bytes_transmitted</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.bytes_transmitted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.bytes_transmitted" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.compute_times_df">
+<span class="sig-name descname"><span class="pre">compute_times_df</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.compute_times_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.compute_times_df" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.count_messages">
+<span class="sig-name descname"><span class="pre">count_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.count_messages"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.count_messages" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.estimate_egress_cost">
+<span class="sig-name descname"><span class="pre">estimate_egress_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_regions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_per_gb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">by_request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.estimate_egress_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.estimate_egress_cost" title="Link to this definition">¶</a></dt>
+<dd><p>Estimate inter-region egress cost.</p>
+<section id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading">¶</a></h3>
+<p>This requires extra region metadata. <code class="docutils literal notranslate"><span class="pre">node_regions</span></code> can be a
+<code class="docutils literal notranslate"><span class="pre">{node_name:</span> <span class="pre">region}</span></code> mapping or a topology JSON file with
+<code class="docutils literal notranslate"><span class="pre">clusters[].region</span></code> and <code class="docutils literal notranslate"><span class="pre">clusters[].nodes[].name</span></code>.</p>
+</section>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.get_cost_cloud">
+<span class="sig-name descname"><span class="pre">get_cost_cloud</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.get_cost_cloud"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.get_cost_cloud" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.get_df_modules">
+<span class="sig-name descname"><span class="pre">get_df_modules</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.get_df_modules"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.get_df_modules" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.get_df_service_utilization">
+<span class="sig-name descname"><span class="pre">get_df_service_utilization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.get_df_service_utilization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.get_df_service_utilization" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.get_service_definition">
+<span class="sig-name descname"><span class="pre">get_service_definition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.metrics.ServiceDefinition" title="yafs.metrics.ServiceDefinition"><span class="pre">ServiceDefinition</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.get_service_definition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.get_service_definition" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.get_watt">
+<span class="sig-name descname"><span class="pre">get_watt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">totaltime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'byService'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.get_watt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.get_watt" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.link_breakdown">
+<span class="sig-name descname"><span class="pre">link_breakdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('src',</span> <span class="pre">'dst')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.link_breakdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.link_breakdown" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.link_utilization">
+<span class="sig-name descname"><span class="pre">link_utilization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_unused</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.link_utilization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.link_utilization" title="Link to this definition">¶</a></dt>
+<dd><p>Compute utilization for each physical link in the topology.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.mean_topology_congestion">
+<span class="sig-name descname"><span class="pre">mean_topology_congestion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.mean_topology_congestion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.mean_topology_congestion" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.message_breakdown">
+<span class="sig-name descname"><span class="pre">message_breakdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('app',</span> <span class="pre">'message')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.message_breakdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.message_breakdown" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.message_instances">
+<span class="sig-name descname"><span class="pre">message_instances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.message_instances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.message_instances" title="Link to this definition">¶</a></dt>
+<dd><p>Return one row per <code class="docutils literal notranslate"><span class="pre">(app,</span> <span class="pre">id,</span> <span class="pre">message)</span></code> combining event and link data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.messages_not_transmitted">
+<span class="sig-name descname"><span class="pre">messages_not_transmitted</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.messages_not_transmitted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.messages_not_transmitted" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.observation_window">
+<span class="sig-name descname"><span class="pre">observation_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.observation_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.observation_window" title="Link to this definition">¶</a></dt>
+<dd><p>Return the observed simulation window covered by the metrics traces.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.peak_messages_not_transmitted">
+<span class="sig-name descname"><span class="pre">peak_messages_not_transmitted</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.peak_messages_not_transmitted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.peak_messages_not_transmitted" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.request_breakdown">
+<span class="sig-name descname"><span class="pre">request_breakdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.request_breakdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.request_breakdown" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.request_distance_breakdown">
+<span class="sig-name descname"><span class="pre">request_distance_breakdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.request_distance_breakdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.request_distance_breakdown" title="Link to this definition">¶</a></dt>
+<dd><p>Return the total traversed distance per request in kilometres.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.request_hops">
+<span class="sig-name descname"><span class="pre">request_hops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.request_hops"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.request_hops" title="Link to this definition">¶</a></dt>
+<dd><p>Return the number of hops traversed by each request.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.service_path_breakdown">
+<span class="sig-name descname"><span class="pre">service_path_breakdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_return_messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.service_path_breakdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.service_path_breakdown" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.service_paths">
+<span class="sig-name descname"><span class="pre">service_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_return_messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.service_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.service_paths" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.service_response">
+<span class="sig-name descname"><span class="pre">service_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'critical_path'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_return_messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.service_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.service_response" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.showLoops">
+<span class="sig-name descname"><span class="pre">showLoops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time_loops</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.showLoops"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.showLoops" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.showResults">
+<span class="sig-name descname"><span class="pre">showResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">total_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_loops</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.showResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.showResults" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.showResults2">
+<span class="sig-name descname"><span class="pre">showResults2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">total_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_loops</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.showResults2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.showResults2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.summarize_application_cost">
+<span class="sig-name descname"><span class="pre">summarize_application_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.summarize_application_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.summarize_application_cost" title="Link to this definition">¶</a></dt>
+<dd><p>Backwards-compatible alias for execution-based application cost.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.summarize_application_execution_cost">
+<span class="sig-name descname"><span class="pre">summarize_application_execution_cost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.summarize_application_execution_cost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.summarize_application_execution_cost" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.summarize_application_execution_metrics">
+<span class="sig-name descname"><span class="pre">summarize_application_execution_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'critical_path'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_return_messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_regions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">egress_cost_per_gb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.summarize_application_execution_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.summarize_application_execution_metrics" title="Link to this definition">¶</a></dt>
+<dd><p>Build one summary row per application combining response and cost.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.summarize_application_metrics">
+<span class="sig-name descname"><span class="pre">summarize_application_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'critical_path'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_return_messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node_regions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">egress_cost_per_gb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.summarize_application_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.summarize_application_metrics" title="Link to this definition">¶</a></dt>
+<dd><p>Backwards-compatible alias for execution-based application metrics.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.summarize_service_response">
+<span class="sig-name descname"><span class="pre">summarize_service_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'critical_path'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_return_messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.summarize_service_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.summarize_service_response" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.times">
+<span class="sig-name descname"><span class="pre">times</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mean'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.times"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.times" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.total_bandwidth_available">
+<span class="sig-name descname"><span class="pre">total_bandwidth_available</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.total_bandwidth_available"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.total_bandwidth_available" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.total_bandwidth_used">
+<span class="sig-name descname"><span class="pre">total_bandwidth_used</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.total_bandwidth_used"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.total_bandwidth_used" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.total_links">
+<span class="sig-name descname"><span class="pre">total_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topology</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.total_links"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.total_links" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.utilization">
+<span class="sig-name descname"><span class="pre">utilization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_entity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.utilization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.utilization" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.MetricsAnalyzer.valueLoop">
+<span class="sig-name descname"><span class="pre">valueLoop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">total_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_loops</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#MetricsAnalyzer.valueLoop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.MetricsAnalyzer.valueLoop" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.metrics.ServiceDefinition">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.metrics.</span></span><span class="sig-name descname"><span class="pre">ServiceDefinition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deadline</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_backward_return</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Any]]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transmissions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List[Dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Any]]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple[yafs.metrics.ServicePath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">...]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">...]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/metrics.html#ServiceDefinition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.ServiceDefinition" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.ServiceDefinition.app_id">
+<span class="sig-name descname"><span class="pre">app_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#yafs.metrics.ServiceDefinition.app_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.ServiceDefinition.deadline">
+<span class="sig-name descname"><span class="pre">deadline</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#yafs.metrics.ServiceDefinition.deadline" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.ServiceDefinition.from_dict">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#yafs.metrics.ServiceDefinition" title="yafs.metrics.ServiceDefinition"><span class="pre">ServiceDefinition</span></a></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#ServiceDefinition.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.ServiceDefinition.from_dict" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.ServiceDefinition.has_backward_return">
+<span class="sig-name descname"><span class="pre">has_backward_return</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></span><a class="headerlink" href="#yafs.metrics.ServiceDefinition.has_backward_return" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.ServiceDefinition.iter_paths">
+<span class="sig-name descname"><span class="pre">iter_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_return_messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#yafs.metrics.ServicePath" title="yafs.metrics.ServicePath"><span class="pre">ServicePath</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#ServiceDefinition.iter_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.ServiceDefinition.iter_paths" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.ServiceDefinition.messages">
+<span class="sig-name descname"><span class="pre">messages</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#yafs.metrics.ServiceDefinition.messages" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.ServiceDefinition.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#yafs.metrics.ServiceDefinition.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.ServiceDefinition.paths">
+<span class="sig-name descname"><span class="pre">paths</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#yafs.metrics.ServicePath" title="yafs.metrics.ServicePath"><span class="pre">ServicePath</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#yafs.metrics.ServiceDefinition.paths" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.ServiceDefinition.return_messages">
+<span class="sig-name descname"><span class="pre">return_messages</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#yafs.metrics.ServiceDefinition.return_messages" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.ServiceDefinition.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#ServiceDefinition.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.ServiceDefinition.to_dict" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.ServiceDefinition.transmissions">
+<span class="sig-name descname"><span class="pre">transmissions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#yafs.metrics.ServiceDefinition.transmissions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="yafs.metrics.ServicePath">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">yafs.metrics.</span></span><span class="sig-name descname"><span class="pre">ServicePath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">messages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/yafs/metrics.html#ServicePath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.ServicePath" title="Link to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.ServicePath.app_name">
+<span class="sig-name descname"><span class="pre">app_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#yafs.metrics.ServicePath.app_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.ServicePath.messages">
+<span class="sig-name descname"><span class="pre">messages</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#yafs.metrics.ServicePath.messages" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="yafs.metrics.ServicePath.path_id">
+<span class="sig-name descname"><span class="pre">path_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#yafs.metrics.ServicePath.path_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="yafs.metrics.ServicePath.terminal_message">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">terminal_message</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#yafs.metrics.ServicePath.terminal_message" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="yafs.metrics.ServicePath.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#ServicePath.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.ServicePath.to_dict" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yafs.metrics.load_node_regions">
+<span class="sig-prename descclassname"><span class="pre">yafs.metrics.</span></span><span class="sig-name descname"><span class="pre">load_node_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#load_node_regions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.load_node_regions" title="Link to this definition">¶</a></dt>
+<dd><p>Load node -&gt; region mappings from a dictionary or a topology JSON file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="yafs.metrics.load_service_definitions">
+<span class="sig-prename descclassname"><span class="pre">yafs.metrics.</span></span><span class="sig-name descname"><span class="pre">load_service_definitions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#yafs.metrics.ServiceDefinition" title="yafs.metrics.ServiceDefinition"><span class="pre">ServiceDefinition</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/yafs/metrics.html#load_service_definitions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#yafs.metrics.load_service_definitions" title="Link to this definition">¶</a></dt>
+<dd><p>Load service definitions from a JSON path, a raw JSON object, or a list
+of already parsed dictionaries.</p>
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../contents.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">OVERVIEW</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#acknowledge">Acknowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">YAFS in 5 Minutes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API REFERENCE</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="yafs.html"><code class="docutils literal notranslate"><span class="pre">yafs</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.core.html"><code class="docutils literal notranslate"><span class="pre">yafs.core</span></code> — Simulator engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.topology.html"><code class="docutils literal notranslate"><span class="pre">yafs.topology</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.application.html"><code class="docutils literal notranslate"><span class="pre">yafs.application</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.population.html"><code class="docutils literal notranslate"><span class="pre">yafs.population</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.placement.html"><code class="docutils literal notranslate"><span class="pre">yafs.placement</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.selection.html"><code class="docutils literal notranslate"><span class="pre">yafs.selection</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.distribution.html"><code class="docutils literal notranslate"><span class="pre">yafs.distribution</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.stats.html"><code class="docutils literal notranslate"><span class="pre">yafs.stats</span></code></a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">yafs.metrics</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.metrics.Metrics"><code class="docutils literal notranslate"><span class="pre">Metrics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.Metrics.EVENT_COLUMNS"><code class="docutils literal notranslate"><span class="pre">Metrics.EVENT_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.Metrics.LINK_COLUMNS"><code class="docutils literal notranslate"><span class="pre">Metrics.LINK_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.Metrics.TIME_LATENCY"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_LATENCY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.Metrics.TIME_RESPONSE"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_RESPONSE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.Metrics.TIME_SERVICE"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_SERVICE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.Metrics.TIME_TOTAL_RESPONSE"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_TOTAL_RESPONSE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.Metrics.TIME_WAIT"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_WAIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.Metrics.WATT_SERVICE"><code class="docutils literal notranslate"><span class="pre">Metrics.WATT_SERVICE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.Metrics.WATT_UPTIME"><code class="docutils literal notranslate"><span class="pre">Metrics.WATT_UPTIME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.Metrics.close"><code class="docutils literal notranslate"><span class="pre">Metrics.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.Metrics.flush"><code class="docutils literal notranslate"><span class="pre">Metrics.flush()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.Metrics.insert"><code class="docutils literal notranslate"><span class="pre">Metrics.insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.Metrics.insert_link"><code class="docutils literal notranslate"><span class="pre">Metrics.insert_link()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.EVENT_COLUMNS"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.EVENT_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.LINK_COLUMNS"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.LINK_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.application_cost_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.application_cost_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.application_distance_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.application_distance_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.application_execution_cost_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.application_execution_cost_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.average_application_response_latency"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.average_application_response_latency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.average_loop_response"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.average_loop_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.average_messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.average_messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.bytes_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.bytes_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.compute_times_df"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.compute_times_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.count_messages"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.count_messages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.estimate_egress_cost"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.estimate_egress_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.get_cost_cloud"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_cost_cloud()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.get_df_modules"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_df_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.get_df_service_utilization"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_df_service_utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.get_service_definition"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_service_definition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.get_watt"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_watt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.link_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.link_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.link_utilization"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.link_utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.mean_topology_congestion"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.mean_topology_congestion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.message_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.message_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.message_instances"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.message_instances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.observation_window"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.observation_window()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.peak_messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.peak_messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.request_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.request_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.request_distance_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.request_distance_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.request_hops"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.request_hops()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.service_path_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.service_path_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.service_paths"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.service_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.service_response"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.service_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.showLoops"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.showLoops()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.showResults"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.showResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.showResults2"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.showResults2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.summarize_application_cost"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.summarize_application_execution_cost"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_execution_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.summarize_application_execution_metrics"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_execution_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.summarize_application_metrics"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.summarize_service_response"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_service_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.times"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.times()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.total_bandwidth_available"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_bandwidth_available()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.total_bandwidth_used"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_bandwidth_used()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.total_links"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_links()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.utilization"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.MetricsAnalyzer.valueLoop"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.valueLoop()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.metrics.ServiceDefinition"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServiceDefinition.app_id"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.app_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServiceDefinition.deadline"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.deadline</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServiceDefinition.from_dict"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServiceDefinition.has_backward_return"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.has_backward_return</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServiceDefinition.iter_paths"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.iter_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServiceDefinition.messages"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.messages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServiceDefinition.name"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServiceDefinition.paths"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.paths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServiceDefinition.return_messages"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.return_messages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServiceDefinition.to_dict"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.to_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServiceDefinition.transmissions"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.transmissions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.metrics.ServicePath"><code class="docutils literal notranslate"><span class="pre">ServicePath</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServicePath.app_name"><code class="docutils literal notranslate"><span class="pre">ServicePath.app_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServicePath.messages"><code class="docutils literal notranslate"><span class="pre">ServicePath.messages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServicePath.path_id"><code class="docutils literal notranslate"><span class="pre">ServicePath.path_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServicePath.terminal_message"><code class="docutils literal notranslate"><span class="pre">ServicePath.terminal_message</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#yafs.metrics.ServicePath.to_dict"><code class="docutils literal notranslate"><span class="pre">ServicePath.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.metrics.load_node_regions"><code class="docutils literal notranslate"><span class="pre">load_node_regions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yafs.metrics.load_service_definitions"><code class="docutils literal notranslate"><span class="pre">load_service_definitions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="yafs.services.html"><code class="docutils literal notranslate"><span class="pre">yafs.services</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">ABOUT</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../contents.html">Documentation overview</a><ul>
+  <li><a href="index.html">API REFERENCE</a><ul>
+      <li>Previous: <a href="yafs.stats.html" title="previous chapter"><code class="docutils literal notranslate"><span class="pre">yafs.stats</span></code></a></li>
+      <li>Next: <a href="yafs.services.html" title="next chapter"><code class="docutils literal notranslate"><span class="pre">yafs.services</span></code></a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2017, Isaac Lera, Carlos Guerrero.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="../_sources/api_reference/yafs.metrics.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

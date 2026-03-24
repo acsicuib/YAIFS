@@ -1,0 +1,16 @@
+{
+  "sources": [
+    {
+      "id_resource": "edc-0-worker-1",
+      "app": 0,
+      "message": "M.AR.0_0",
+      "lambda": 10
+    },
+    {
+      "id_resource": "edc-0-worker-1",
+      "app": 0,
+      "message": "M.AR.0_0",
+      "lambda": 10
+    }
+   ]
+}

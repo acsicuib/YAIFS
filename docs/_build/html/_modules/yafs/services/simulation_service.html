@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>yafs.services.simulation_service &#8212; YAFS 0.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../../_static/documentation_options.js?v=b489f392"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for yafs.services.simulation_service</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">..api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Infrastructure</span><span class="p">,</span> <span class="n">Simulation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ApplicationMetricsSummary</span><span class="p">,</span>
+    <span class="n">ManagedSimulation</span><span class="p">,</span>
+    <span class="n">SimulationApplicationMetrics</span><span class="p">,</span>
+    <span class="n">SimulationMetricsSnapshot</span><span class="p">,</span>
+    <span class="n">SimulationState</span><span class="p">,</span>
+    <span class="n">SimulationStatus</span><span class="p">,</span>
+    <span class="n">SimulationSummary</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">SimulationRegistry</span>
+
+
+<div class="viewcode-block" id="SimulationService">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimulationService</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    High-level orchestration API for long-lived simulations.</span>
+
+<span class="sd">    The service treats a simulation as an open-ended process. Execution is</span>
+<span class="sd">    requested in scheduled windows, the simulation becomes ``idle`` when a</span>
+<span class="sd">    scheduled window finishes, and it only becomes terminal after ``stop()``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">registry</span><span class="p">:</span> <span class="n">SimulationRegistry</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registry</span> <span class="o">=</span> <span class="n">registry</span> <span class="ow">or</span> <span class="n">SimulationRegistry</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">RLock</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SimulationService.create_simulation">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.create_simulation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_simulation</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">scenario_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
+        <span class="n">results_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">parent_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationState</span><span class="p">:</span>
+        <span class="n">scenario</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">scenario_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">simulation_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">simulation_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_id</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">simulation_id</span>
+
+        <span class="n">infrastructure</span> <span class="o">=</span> <span class="n">Infrastructure</span><span class="p">(</span>
+            <span class="n">path_to_lab_scenario</span><span class="o">=</span><span class="n">scenario</span><span class="p">,</span>
+            <span class="n">results_path</span><span class="o">=</span><span class="n">results_path</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">simulation</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span>
+            <span class="n">infrastructure</span><span class="o">=</span><span class="n">infrastructure</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+            <span class="n">results_suffix</span><span class="o">=</span><span class="n">simulation_id</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="n">ManagedSimulation</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">simulation_id</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">scenario_path</span><span class="o">=</span><span class="n">scenario</span><span class="p">,</span>
+            <span class="n">simulation</span><span class="o">=</span><span class="n">simulation</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">,</span>
+            <span class="n">parent_id</span><span class="o">=</span><span class="n">parent_id</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_state</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.list_simulations">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.list_simulations">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_simulations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">SimulationSummary</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">managed</span><span class="o">.</span><span class="n">to_summary</span><span class="p">()</span> <span class="k">for</span> <span class="n">managed</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">list</span><span class="p">()]</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.get_state">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.get_state">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationState</span><span class="p">:</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_status</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span>
+        <span class="n">snapshot</span> <span class="o">=</span> <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">SimulationState</span><span class="p">(</span>
+            <span class="n">summary</span><span class="o">=</span><span class="n">managed</span><span class="o">.</span><span class="n">to_summary</span><span class="p">(),</span>
+            <span class="n">initialized</span><span class="o">=</span><span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;initialized&quot;</span><span class="p">],</span>
+            <span class="n">paused</span><span class="o">=</span><span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;paused&quot;</span><span class="p">],</span>
+            <span class="n">stop_requested</span><span class="o">=</span><span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;stop_requested&quot;</span><span class="p">],</span>
+            <span class="n">step</span><span class="o">=</span><span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">],</span>
+            <span class="n">network_buffer</span><span class="o">=</span><span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;network_buffer&quot;</span><span class="p">],</span>
+            <span class="n">alloc_source_count</span><span class="o">=</span><span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;alloc_source_count&quot;</span><span class="p">],</span>
+            <span class="n">alloc_module_count</span><span class="o">=</span><span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;alloc_module_count&quot;</span><span class="p">],</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.get_metrics_snapshot">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.get_metrics_snapshot">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_metrics_snapshot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationMetricsSnapshot</span><span class="p">:</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="n">snapshot</span> <span class="o">=</span> <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">get_metrics_snapshot</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">SimulationMetricsSnapshot</span><span class="p">(</span>
+            <span class="n">simulation_id</span><span class="o">=</span><span class="n">simulation_id</span><span class="p">,</span>
+            <span class="n">entity_metrics</span><span class="o">=</span><span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;entity_metrics&quot;</span><span class="p">],</span>
+            <span class="n">unreachabled_links</span><span class="o">=</span><span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;unreachabled_links&quot;</span><span class="p">],</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.get_application_metrics">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.get_application_metrics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_application_metrics</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">response_strategy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;critical_path&quot;</span><span class="p">,</span>
+        <span class="n">include_return_messages</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">egress_cost_per_gb</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationApplicationMetrics</span><span class="p">:</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_status</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span>
+        <span class="n">raw_items</span> <span class="o">=</span> <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">get_application_metrics_summary</span><span class="p">(</span>
+            <span class="n">response_strategy</span><span class="o">=</span><span class="n">response_strategy</span><span class="p">,</span>
+            <span class="n">include_return_messages</span><span class="o">=</span><span class="n">include_return_messages</span><span class="p">,</span>
+            <span class="n">egress_cost_per_gb</span><span class="o">=</span><span class="n">egress_cost_per_gb</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">SimulationApplicationMetrics</span><span class="p">(</span>
+            <span class="n">simulation_id</span><span class="o">=</span><span class="n">simulation_id</span><span class="p">,</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[</span><span class="n">ApplicationMetricsSummary</span><span class="p">(</span><span class="o">**</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">raw_items</span><span class="p">],</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.get_network_metrics">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.get_network_metrics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_network_metrics</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">response_strategy</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;critical_path&quot;</span><span class="p">,</span>
+        <span class="n">include_return_messages</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]:</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_status</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">get_network_metrics_summary</span><span class="p">(</span>
+            <span class="n">response_strategy</span><span class="o">=</span><span class="n">response_strategy</span><span class="p">,</span>
+            <span class="n">include_return_messages</span><span class="o">=</span><span class="n">include_return_messages</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.list_nodes">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.list_nodes">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]:</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">list_nodes</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.list_clusters">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.list_clusters">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]:</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">list_clusters</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.list_nodes_in_cluster">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.list_nodes_in_cluster">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_nodes_in_cluster</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">cluster_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">]]:</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">list_nodes_in_cluster</span><span class="p">(</span><span class="n">cluster_name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.count_nodes">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.count_nodes">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">count_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">count_nodes</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.count_clusters">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.count_clusters">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">count_clusters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">count_clusters</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.schedule_for">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.schedule_for">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">schedule_for</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationState</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Schedule an incremental execution window.</span>
+
+<span class="sd">        ``duration`` is relative to the current simulation time. For example,</span>
+<span class="sd">        if ``now`` is ``200`` and ``duration`` is ``50``, the simulation is</span>
+<span class="sd">        scheduled until ``250`` and then returns to the ``idle`` state.</span>
+
+<span class="sd">        ``step`` controls the pause/fork responsiveness. Smaller steps give</span>
+<span class="sd">        finer control at the cost of more scheduling overhead.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_actionable</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">run_for</span><span class="p">(</span><span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">FAILED</span>
+            <span class="n">managed</span><span class="o">.</span><span class="n">last_error</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+            <span class="k">raise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_status</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_state</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.run_for">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.run_for">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run_for</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">duration</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationState</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Backwards-compatible alias for :meth:`schedule_for`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">schedule_for</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.wait_until_ready">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.wait_until_ready">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">wait_until_ready</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">poll_interval</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationState</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Block until the simulation is ready for the next command.</span>
+
+<span class="sd">        The method returns when the scheduled execution window has finished</span>
+<span class="sd">        (status ``idle``), the simulation is paused, or the simulation is</span>
+<span class="sd">        stopped/failed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_state</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+            <span class="n">scheduled_until</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">scheduled_until</span>
+            <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">{</span>
+                <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">STOPPED</span><span class="p">,</span>
+                <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">FAILED</span><span class="p">,</span>
+            <span class="p">}:</span>
+                <span class="k">return</span> <span class="n">state</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">scheduled_until</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="ow">and</span> <span class="n">state</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">now</span> <span class="o">&gt;=</span> <span class="nb">float</span><span class="p">(</span><span class="n">scheduled_until</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="n">state</span><span class="o">.</span><span class="n">summary</span><span class="o">.</span><span class="n">status</span>
+                <span class="ow">in</span> <span class="p">{</span>
+                    <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">IDLE</span><span class="p">,</span>
+                    <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">PAUSED</span><span class="p">,</span>
+                    <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">INITIALIZED</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="n">state</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">poll_interval</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.wait_until_idle">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.wait_until_idle">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">wait_until_idle</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">poll_interval</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationState</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Backwards-compatible alias for :meth:`wait_until_ready`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">wait_until_ready</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">,</span> <span class="n">poll_interval</span><span class="o">=</span><span class="n">poll_interval</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.pause">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.pause">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationState</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Request a pause and wait until the current execution step completes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_actionable</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span>
+        <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">pause</span><span class="p">()</span>
+        <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">PAUSED</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_state</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.resume">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.resume">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationState</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resume a paused or idle simulation without changing its schedule.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_actionable</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span>
+        <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">resume</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_status</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_state</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.stop">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.stop">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationState</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stop the simulation permanently.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">STOPPED</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_state</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">STOPPED</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_state</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.destroy">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.destroy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationSummary</span><span class="p">:</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span>
+            <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">STOPPED</span><span class="p">,</span>
+            <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">IDLE</span><span class="p">,</span>
+            <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">FAILED</span><span class="p">,</span>
+        <span class="p">}:</span>
+            <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+            <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">STOPPED</span>
+        <span class="n">removed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">removed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown simulation id: </span><span class="si">{</span><span class="n">simulation_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">removed</span><span class="o">.</span><span class="n">to_summary</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.fork">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.fork">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fork</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">child_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">child_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">results_suffix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">poll_interval</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationState</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fork a simulation once it is paused or no longer actively running.</span>
+
+<span class="sd">        If a scheduled window is still executing, the method actively waits</span>
+<span class="sd">        until the parent becomes safe to clone.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">managed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_actionable</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wait_until_forkable</span><span class="p">(</span><span class="n">managed</span><span class="p">,</span> <span class="n">poll_interval</span><span class="o">=</span><span class="n">poll_interval</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">child_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">child_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_new_id</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">child_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">child_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">managed</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">-fork&quot;</span>
+        <span class="k">if</span> <span class="n">results_suffix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">results_suffix</span> <span class="o">=</span> <span class="n">child_id</span>
+
+        <span class="n">child_simulation</span> <span class="o">=</span> <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">fork</span><span class="p">(</span><span class="n">results_suffix</span><span class="o">=</span><span class="n">results_suffix</span><span class="p">)</span>
+        <span class="n">child</span> <span class="o">=</span> <span class="n">ManagedSimulation</span><span class="p">(</span>
+            <span class="nb">id</span><span class="o">=</span><span class="n">child_id</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="n">child_name</span><span class="p">,</span>
+            <span class="n">scenario_path</span><span class="o">=</span><span class="n">managed</span><span class="o">.</span><span class="n">scenario_path</span><span class="p">,</span>
+            <span class="n">simulation</span><span class="o">=</span><span class="n">child_simulation</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">managed</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span>
+            <span class="n">parent_id</span><span class="o">=</span><span class="n">managed</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="n">status</span><span class="o">=</span><span class="n">SimulationStatus</span><span class="o">.</span><span class="n">PAUSED</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_status</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_state</span><span class="p">(</span><span class="n">child_id</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SimulationService.clone">
+<a class="viewcode-back" href="../../../api_reference/yafs.services.html#yafs.services.SimulationService.clone">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">simulation_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimulationState</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fork</span><span class="p">(</span><span class="n">simulation_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_ensure_actionable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">managed</span><span class="p">:</span> <span class="n">ManagedSimulation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">{</span>
+            <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">STOPPED</span><span class="p">,</span>
+            <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">FAILED</span><span class="p">,</span>
+        <span class="p">}:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Simulation </span><span class="si">{</span><span class="n">managed</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2"> is not actionable from state </span><span class="si">{</span><span class="n">managed</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_wait_until_forkable</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">managed</span><span class="p">:</span> <span class="n">ManagedSimulation</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">poll_interval</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_status</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="ow">in</span> <span class="p">{</span>
+                <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">STOPPED</span><span class="p">,</span>
+                <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">FAILED</span><span class="p">,</span>
+            <span class="p">}:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ensure_actionable</span><span class="p">(</span><span class="n">managed</span><span class="p">)</span>
+
+            <span class="n">snapshot</span> <span class="o">=</span> <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;paused&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">is_running</span><span class="p">():</span>
+                <span class="k">return</span>
+
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">poll_interval</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_refresh_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">managed</span><span class="p">:</span> <span class="n">ManagedSimulation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">snapshot</span> <span class="o">=</span> <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span>
+        <span class="n">now</span> <span class="o">=</span> <span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;now&quot;</span><span class="p">]</span>
+        <span class="n">scheduled_until</span> <span class="o">=</span> <span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;scheduled_until&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">FAILED</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;stop_requested&quot;</span><span class="p">]:</span>
+            <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">STOPPED</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;initialized&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">scheduled_until</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">now</span> <span class="o">&gt;=</span> <span class="nb">float</span><span class="p">(</span>
+            <span class="n">scheduled_until</span>
+        <span class="p">):</span>
+            <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">IDLE</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;paused&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;initialized&quot;</span><span class="p">]:</span>
+            <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">PAUSED</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">managed</span><span class="o">.</span><span class="n">simulation</span><span class="o">.</span><span class="n">is_running</span><span class="p">():</span>
+            <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">RUNNING</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">snapshot</span><span class="p">[</span><span class="s2">&quot;initialized&quot;</span><span class="p">]:</span>
+            <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">INITIALIZED</span>
+            <span class="k">return</span>
+        <span class="n">managed</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">SimulationStatus</span><span class="o">.</span><span class="n">CREATED</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_new_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;sim-</span><span class="si">{</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../../../contents.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">OVERVIEW</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html#acknowledge">Acknowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction/index.html">YAFS in 5 Minutes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../architecture/index.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_reference/index.html">API REFERENCE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about/index.html">ABOUT</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../contents.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2017, Isaac Lera, Carlos Guerrero.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

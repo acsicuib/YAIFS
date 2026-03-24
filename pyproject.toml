@@ -31,6 +31,15 @@ dependencies = [
     "numpy>=1.23.0",
     "tqdm>=4.64.0",
     "matplotlib>=3.10.8",
+    "mcp[cli]>=1.26.0",
+    "rich>=14.1.0",
+    "typer>=0.17.4",
+]
+
+[project.optional-dependencies]
+docs = [
+    "sphinx>=8.2.3",
+    "alabaster>=1.0.0",
 ]
 
 [tool.setuptools]

@@ -1,0 +1,5 @@
+{
+  "vnf": "0_VT",
+  "from_node": "mec-0-worker-1",
+  "to_node": "cdc-0-control-plane"
+}

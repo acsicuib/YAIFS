@@ -1,0 +1,24 @@
+{
+  "initialAllocation": [
+    {
+      "module_name": "0_TM",
+      "app": 0,
+      "id_resource": "cdc-0-worker-1"
+    },
+    {
+      "module_name": "0_VT",
+      "app": 0,
+      "id_resource": "cdc-0-worker-2"
+    },
+    {
+      "module_name": "0_ID",
+      "app": 0,
+      "id_resource": "edc-2-control-plane"
+    },
+    {
+      "module_name": "0_ID",
+      "app": 1,
+      "id_resource": "cdc-0-control-plane"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+{
+  "vnf": "0_VT",
+  "to_node": "edc-0-worker-1"
+}

@@ -7,7 +7,6 @@ A selection algorithm has one mandatory function:
   the topology to reach its destination module. It can also be seen as
   an orchestration algorithm.
 """
-import random
 import logging
 
 import networkx as nx
@@ -29,7 +28,17 @@ class Selection(object):
         self.lat_acc = 0.0
         self.propagation = 0.0
 
-    def get_path(self, sim, app_name, message, topology_src, alloc_DES, alloc_module, traffic, from_des):
+    def get_path(
+        self,
+        sim,
+        app_name,
+        message,
+        topology_src,
+        alloc_DES,
+        alloc_module,
+        traffic,
+        from_des,
+    ):
         """
         Compute the path and destination DES for a given message.
 
@@ -53,7 +62,17 @@ class Selection(object):
 
         return path, ids
 
-    def get_path_from_failure(self, sim, message, link, alloc_DES, alloc_module, traffic, ctime, from_des):
+    def get_path_from_failure(
+        self,
+        sim,
+        message,
+        link,
+        alloc_DES,
+        alloc_module,
+        traffic,
+        ctime,
+        from_des,
+    ):
         """
         Recompute a path when a link in a message path is broken or unavailable.
 
@@ -74,25 +93,48 @@ class OneRandomPath(Selection):
     Among all the possible options, return a random path.
     """
 
-    def get_path(self, sim, app_name, message, topology_src, alloc_DES, alloc_module, traffic, from_des):
+    def get_path(
+        self,
+        sim,
+        app_name,
+        message,
+        topology_src,
+        alloc_DES,
+        alloc_module,
+        traffic,
+        from_des,
+    ):
         paths = []
         dst_idDES = []
         src_node = topology_src
         DES = alloc_module[message.app_name][message.dst]
         for idDES in DES:
             dst_node = alloc_DES[idDES]
-            path_list = list(nx.all_simple_paths(sim.topology.G, source=src_node, target=dst_node))
-            one = random.randint(0, len(path_list) - 1)
+            path_list = list(
+                nx.all_simple_paths(
+                    sim.topology.G,
+                    source=src_node,
+                    target=dst_node,
+                )
+            )
+            one = sim.rng.randint(0, len(path_list) - 1)
             paths.append(path_list[one])
             dst_idDES.append(idDES)
         return paths, dst_idDES
-
-
-
 class First_ShortestPath(Selection):
     """Among all possible shortest paths, return the first."""
 
-    def get_path(self, sim, app_name, message, topology_src, alloc_DES, alloc_module, traffic, from_des):
+    def get_path(
+        self,
+        sim,
+        app_name,
+        message,
+        topology_src,
+        alloc_DES,
+        alloc_module,
+        traffic,
+        from_des,
+    ):
         paths = []
         dst_idDES = []
 
@@ -104,7 +146,9 @@ class First_ShortestPath(Selection):
         best_des = []
         for des in DES_dst:
             dst_node = alloc_DES[des]
-            path = list(nx.shortest_path(sim.topology.G, source=node_src, target=dst_node))
+            path = list(
+                nx.shortest_path(sim.topology.G, source=node_src, target=dst_node)
+            )
             best_path = [path]
             best_des = [des]
 
