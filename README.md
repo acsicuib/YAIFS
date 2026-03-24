@@ -1,9 +1,4 @@
-# TEMPORAL
-# IR ANOTANDO LAS MEJORAS INTRODUCIDAS EN EL SIMULADOR - PRINCIPALMENTE EN CORE
-- Ahora los VNF_servicios pueden respoder al usuario
-- Nueva capa de métricas
-
-
+```text
 ██╗   ██╗ █████╗ ██╗███████╗███████╗
 ╚██╗ ██╔╝██╔══██╗██║██╔════╝██╔════╝
  ╚████╔╝ ███████║██║█████╗  ███████╗
@@ -11,7 +6,7 @@
    ██║   ██║  ██║██║██║     ███████║
    ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝     ╚══════╝
 
-
+⚡ YAIFS :: Yet Another Intelligent Fog System ⚡
 
 
 YAIFS is released under the MIT License. However, we would like to know in which projects or publications you have used or mentioned YAIFS.
