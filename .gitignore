@@ -42,3 +42,13 @@ test-results/
 
 # Results
 results/
+
+# Cursor, Python environment and VSCode
+.cursor/
+.vscode/
+
+# Python environment
+.env
+.venv/
+env/
+venv/
