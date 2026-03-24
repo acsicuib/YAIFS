@@ -8,7 +8,7 @@
 
 ⚡ YAIFS :: Yet Another Intelligent Fog System ⚡
 
-
+<p align="center">
 YAIFS is released under the MIT License. However, we would like to know in which projects or publications you have used or mentioned YAIFS.
 
 **Please consider using the following citation when you use YAFS**:
