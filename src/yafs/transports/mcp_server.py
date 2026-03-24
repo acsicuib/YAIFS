@@ -269,6 +269,40 @@ def build_mcp_server(service: SimulationService, *, server_name: str = "yafs-sim
         )
 
     @app.tool()
+    def list_simulation_processes(
+        simulation_id: str,
+    ) -> list[dict[str, Any]]:
+        return _serialize(service.list_processes(simulation_id))
+
+    @app.tool()
+    def create_simulation_process(
+        simulation_id: str,
+        definition_path: str,
+    ) -> dict[str, Any]:
+        return _serialize(service.create_process(simulation_id, definition_path))
+
+    @app.tool()
+    def enable_simulation_process(
+        simulation_id: str,
+        process_name: str,
+    ) -> dict[str, Any]:
+        return _serialize(service.enable_process(simulation_id, process_name))
+
+    @app.tool()
+    def disable_simulation_process(
+        simulation_id: str,
+        process_name: str,
+    ) -> dict[str, Any]:
+        return _serialize(service.disable_process(simulation_id, process_name))
+
+    @app.tool()
+    def remove_simulation_process(
+        simulation_id: str,
+        process_name: str,
+    ) -> dict[str, Any]:
+        return _serialize(service.remove_process(simulation_id, process_name))
+
+    @app.tool()
     def remove_simulation_application_vnfs(
         simulation_id: str,
         app_id: str,

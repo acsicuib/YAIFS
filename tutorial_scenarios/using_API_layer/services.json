@@ -1,0 +1,154 @@
+[
+  {
+    "id": 0,
+    "name": "Augmented Reality (AR)",
+    "latency_requirement": 50,
+    "vnf_chain": ["TM", "VT", "ID"],
+    "has_backward_return": true,
+
+    "transmission": [
+      {
+        "message_in": "M.AR.0_0",
+        "module": "0_TM",
+        "message_out": "M.AR.0_1"
+      },
+      {
+        "message_in": "M.AR.0_1",
+        "module": "0_VT",
+        "message_out": "M.AR.0_2"
+      },
+      {
+        "message_in": "M.AR.0_2",
+        "module": "0_ID",
+        "message_out": "M.AR.0_3"
+      }
+    ],
+    "module": [
+      {
+        "id": 1,
+        "type": "MODULE",
+        "RAM": 1,
+        "name": "0_TM",
+
+        "label": "Traffic Monitoring",
+        "abbreviation": "TM",
+        "cpu": 0.0133,
+        "ram": 0.0399,
+        "beta_cpu": 0.003,
+        "beta_ram": 0.006,
+        "scale": 1
+      },
+      {
+        "id": 2,
+        "type": "MODULE",
+        "RAM": 1,
+        "name": "0_VT",
+
+        "label": "Video Transcoder",
+        "abbreviation": "VT",
+        "cpu": 0.0054,
+        "ram": 0.0054,
+        "beta_cpu": 0.006,
+        "beta_ram": 0.006,
+        "scale": 2
+      },
+      {
+        "id": 3,
+        "type": "MODULE",
+        "RAM": 1,
+        "name": "0_ID",
+
+        "label": "Intrusion Detection",
+        "abbreviation": "ID",
+        "cpu": 0.0107,
+        "ram": 0.0107,
+        "beta_cpu": 0.003,
+        "beta_ram": 0.003,
+        "scale": 1
+      }
+    ],
+    "message": [
+      {
+        "id": 0,
+        "name": "M.AR.0_0",
+        "s": "None",
+        "d": "0_TM",
+        "bytes": 20,
+        "instructions": 30
+      },
+      {
+        "id": 1,
+        "name": "M.AR.0_1",
+        "s": "0_TM",
+        "d": "0_VT",
+        "bytes": 20,
+        "instructions": 30
+      },
+      {
+        "id": 2,
+        "name": "M.AR.0_2",
+        "s": "0_VT",
+        "d": "0_ID",
+        "bytes": 20,
+        "instructions": 30
+      },
+      {
+        "id": 3,
+        "name": "M.AR.0_3",
+        "s": "0_ID",
+        "d": "None",
+        "bytes": 20,
+        "instructions": 30
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "mIoTs",
+    "latency_requirement": 10,
+    "vnf_chain": ["ID"],
+    "has_backward_return": true,
+
+    "transmission": [
+      {
+        "message_in": "M.mIoTs.0_0",
+        "module": "0_ID",
+        "message_out": "M.mIoTs.0_1"
+      }
+    ],
+    "module": [
+      {
+        "id": 1,
+        "type": "MODULE",
+        "RAM": 1,
+        "name": "0_ID",
+
+        "label": "Intrusion Detection",
+        "abbreviation": "ID",
+        "cpu": 0.0133,
+        "ram": 0.0107,
+        "beta_cpu": 0.003,
+        "beta_ram": 0.003,
+        "scale": 1
+      }
+    ],
+    "message": [
+      {
+        "id": 0,
+        "name": "M.mIoTs.0_0",
+        "s": "None",
+        "d": "0_ID",
+        "bytes": 20,
+        "instructions": 30
+      },
+      {
+        "id": 1,
+        "name": "M.mIoTs.0_1",
+        "s": "0_ID",
+        "d": "None",
+        "bytes": 20,
+        "instructions": 30
+      }
+    ]
+  }
+]

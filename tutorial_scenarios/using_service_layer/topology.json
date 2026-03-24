@@ -1,0 +1,128 @@
+{
+  "labName": "three-cluster",
+  "description": "Example infrastructure with three clusters following MEC/EDC/CDC nomenclature, where only physical links are specified and routing is derived internally from those links.",
+  "clusters": [
+    {
+      "name": "cdc-0",
+      "role": "CDC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "cdc-0-control-plane",
+          "role": "control-plane",
+          "WATT": 3.0,
+          "COST": 0.10,
+          "uptime": [0.0, null],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-0-worker-1",
+          "role": "worker",
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "3072m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-0",
+      "role": "MEC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "mec-0-control-plane",
+          "role": "control-plane",
+          "WATT": 2.0,
+          "COST": 0.08,
+          "uptime": [0.0, null],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "mec-0-worker-1",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.07,
+          "uptime": [0.0, null],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-0-worker-2",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.07,
+          "uptime": [0.0, null],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "3072m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "edc-0",
+      "role": "EDC",
+      "region": "region-c",
+      "cluster_region": "region-c",
+      "nodes": [
+        {
+          "name": "edc-0-control-plane",
+          "role": "control-plane",
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "edc-0-worker-1",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.05,
+          "uptime": [0.0, null],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "edc-0-worker-2",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.05,
+          "uptime": [0.0, null],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "3072m"
+          }
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "from": "mec-0",
+      "to": "edc-0",
+      "bidirectional": true,
+      "distanceKm": 50,
+      "targetOneWayLatencyMs": 10
+    },
+    {
+      "from": "edc-0",
+      "to": "cdc-0",
+      "bidirectional": true,
+      "distanceKm": 100,
+      "targetOneWayLatencyMs": 20
+    }
+  ]
+}

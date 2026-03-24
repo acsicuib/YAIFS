@@ -11,6 +11,21 @@
 
 YAIFS is released under the MIT License. However, we would like to know in which projects or publications you have used or mentioned YAIFS.
 
+```text
+           AI Agent
+             │
++---------------+
+|  MCP      ◀┘  | ◀── User
++---------------+
+|  SERVICE  ◀┘  | ◀── User
++---------------+
+|  API          | ◀── User
++---------------+
++---------------+
+|  CORE         | ◀── User
++---------------+
+```
+
 **Please consider using the following citation when you use YAFS**:
 
 ```bash

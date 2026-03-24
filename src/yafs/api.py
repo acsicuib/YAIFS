@@ -8,8 +8,9 @@ import random
 import sys
 import threading
 import time
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Callable, Mapping
 
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -24,7 +25,11 @@ from yafs.metrics import Metrics, MetricsAnalyzer
 
 from yafs.placement import JSONPlacement
 from yafs.path_routing import DeviceSpeedAwareRouting
-from yafs.distribution import deterministic_distribution
+from yafs.distribution import (
+    deterministic_distribution,
+    deterministicDistributionStartPoint,
+    exponential_distribution,
+)
 
 # TODO
 # - [ ] The definition of the service should be configured in yaml file
@@ -118,6 +123,566 @@ DEFAULT_SERVICES_DEFINITION = "services.json"
 DEFAULT_USERS_DEFINITION = "users.json"
 DEFAULT_PLACEMENT_DEFINITION = "placements.json"
 DEFAULT_TOPOLOGY = "topology.json"
+
+
+@dataclass
+class RegisteredProcess:
+    name: str
+    callback: Callable[..., Any]
+    distribution: Any
+    params: dict[str, Any] = field(default_factory=dict)
+    kind: str | None = None
+    definition: dict[str, Any] | None = None
+    enabled: bool = True
+    monitor_des: int | None = None
+    activation_count: int = 0
+
+
+class ProcessContext:
+    """
+    Stable runtime facade exposed to user-defined simulation processes.
+
+    The context intentionally exposes domain operations instead of the raw
+    ``Sim`` object so higher layers can evolve without coupling custom
+    processes to core internals.
+    """
+
+    def __init__(
+        self,
+        simulation: "Simulation",
+        *,
+        process_name: str | None = None,
+        process_des: int | None = None,
+    ) -> None:
+        self._simulation = simulation
+        self.process_name = process_name
+        self.process_des = process_des
+
+    @property
+    def now(self) -> float:
+        return float(self._simulation.sim.env.now)
+
+    @property
+    def rng(self) -> random.Random:
+        return self._simulation.sim.rng
+
+    def list_nodes(self) -> list[dict[str, Any]]:
+        return self._simulation.list_nodes()
+
+    def list_clusters(self) -> list[dict[str, Any]]:
+        return self._simulation.list_clusters()
+
+    def list_users(
+        self,
+        *,
+        app_ref: str | int | None = None,
+        node_id: str | None = None,
+        cluster_name: str | None = None,
+    ) -> dict[str, Any]:
+        return self._simulation.list_users(
+            app_ref=app_ref,
+            node_id=node_id,
+            cluster_name=cluster_name,
+        )
+
+    def list_application_vnfs(self, app_ref: str | int) -> dict[str, Any]:
+        return self._simulation.list_application_vnfs(app_ref)
+
+    def get_node_resource_summary(
+        self,
+        node_id: str | None = None,
+    ) -> list[dict[str, Any]]:
+        return self._simulation.get_node_resource_summary(node_id=node_id)
+
+    def create_users(
+        self,
+        definition: str | Path | Mapping[str, Any],
+        *,
+        nodes: str | list[str] | tuple[str, ...] | None = None,
+    ) -> dict[str, Any]:
+        return self._simulation.create_users(definition, nodes=nodes)
+
+    def create_user(
+        self,
+        *,
+        app_ref: str | int,
+        message: str,
+        node_id: str,
+        lambda_value: float = 1.0,
+    ) -> dict[str, Any]:
+        created = self._simulation.create_users(
+            {
+                "sources": [
+                    {
+                        "app": app_ref,
+                        "message": message,
+                        "id_resource": node_id,
+                        "lambda": lambda_value,
+                    }
+                ]
+            }
+        )
+        return created["created"][0]
+
+    def remove_user(self, user_des: int) -> dict[str, Any]:
+        return self._simulation.remove_user(user_des)
+
+    def remove_users_by_application(self, app_ref: str | int) -> dict[str, Any]:
+        return self._simulation.remove_users_by_application(app_ref)
+
+    def remove_users_by_node(self, node_id: str) -> dict[str, Any]:
+        return self._simulation.remove_users_by_node(node_id)
+
+    def remove_users_by_cluster(self, cluster_name: str) -> dict[str, Any]:
+        return self._simulation.remove_users_by_cluster(cluster_name)
+
+    def move_user(self, user_des: int, target_node_id: str) -> dict[str, Any]:
+        return self._simulation.move_user(user_des, target_node_id)
+
+    def move_users_to_node(
+        self,
+        source_node_id: str,
+        target_node_id: str,
+    ) -> dict[str, Any]:
+        return self._simulation.move_users_to_node(source_node_id, target_node_id)
+
+    def update_user_lambda(self, user_des: int, new_lambda: float) -> dict[str, Any]:
+        return self._simulation.update_user_lambda(user_des, new_lambda)
+
+    def update_application_users_lambda(
+        self,
+        app_ref: str | int,
+        new_lambda: float,
+    ) -> dict[str, Any]:
+        return self._simulation.update_application_users_lambda(app_ref, new_lambda)
+
+    def deploy_application_vnfs(
+        self,
+        app_ref: str | int,
+        definition: str | Path | Mapping[str, Any],
+    ) -> dict[str, Any]:
+        return self._simulation.deploy_application_vnfs(app_ref, definition)
+
+    def deploy_application_vnfs_generated(
+        self,
+        app_ref: str | int,
+        *,
+        strategy: str = "spread",
+        allowed_nodes: list[str] | tuple[str, ...] | None = None,
+        include_control_plane: bool = True,
+        seed: int | None = None,
+    ) -> dict[str, Any]:
+        return self._simulation.deploy_application_vnfs_generated(
+            app_ref,
+            strategy=strategy,
+            allowed_nodes=allowed_nodes,
+            include_control_plane=include_control_plane,
+            seed=seed,
+        )
+
+    def move_application_vnf(
+        self,
+        app_ref: str | int,
+        definition: str | Path | Mapping[str, Any],
+    ) -> dict[str, Any]:
+        return self._simulation.move_application_vnf(app_ref, definition)
+
+    def replicate_application_vnf(
+        self,
+        app_ref: str | int,
+        definition: str | Path | Mapping[str, Any],
+    ) -> dict[str, Any]:
+        return self._simulation.replicate_application_vnf(app_ref, definition)
+
+    def remove_application_vnf(
+        self,
+        app_ref: str | int,
+        definition: str | Path | Mapping[str, Any],
+    ) -> dict[str, Any]:
+        return self._simulation.remove_application_vnf(app_ref, definition)
+
+    def remove_application_vnfs(self, app_ref: str | int) -> dict[str, Any]:
+        return self._simulation.remove_application_vnfs(app_ref)
+
+    def create_cluster(
+        self,
+        definition: str | Path | Mapping[str, Any],
+    ) -> dict[str, Any]:
+        return self._simulation.create_cluster(definition)
+
+    def create_nodes(
+        self,
+        definition: str | Path | Mapping[str, Any],
+    ) -> dict[str, Any]:
+        return self._simulation.create_nodes(definition)
+
+    def update_node(
+        self,
+        definition: str | Path | Mapping[str, Any],
+    ) -> dict[str, Any]:
+        return self._simulation.update_node(definition)
+
+    def remove_node(self, node_id: str) -> dict[str, Any]:
+        return self._simulation.remove_node(node_id)
+
+    def remove_cluster(self, cluster_name: str) -> dict[str, Any]:
+        return self._simulation.remove_cluster(cluster_name)
+
+    def remove_link(self, source_node_id: str, target_node_id: str) -> dict[str, Any]:
+        return self._simulation.remove_link(source_node_id, target_node_id)
+
+    def restore_link(self, source_node_id: str, target_node_id: str) -> dict[str, Any]:
+        return self._simulation.restore_link(source_node_id, target_node_id)
+
+    def restore_node(self, node_id: str) -> dict[str, Any]:
+        return self._simulation.restore_node(node_id)
+
+
+class RandomUserMobilityProcess:
+    def __init__(
+        self,
+        *,
+        app_ref: str | int,
+        message: str,
+        user_lambda: float = 1.0,
+        candidate_nodes: list[str] | tuple[str, ...] | None = None,
+        create_probability: float = 0.6,
+        move_probability: float = 0.2,
+        remove_probability: float = 0.2,
+        max_users: int | None = None,
+    ) -> None:
+        self.app_ref = app_ref
+        self.message = str(message)
+        self.user_lambda = float(user_lambda)
+        self.candidate_nodes = (
+            None if candidate_nodes is None else [str(node) for node in candidate_nodes]
+        )
+        self.create_probability = float(create_probability)
+        self.move_probability = float(move_probability)
+        self.remove_probability = float(remove_probability)
+        self.max_users = None if max_users is None else int(max_users)
+        self.user_des: list[int] = []
+
+    def _pick_node(self, context: ProcessContext) -> str:
+        if self.candidate_nodes:
+            return context.rng.choice(self.candidate_nodes)
+        nodes = [str(item["node"]) for item in context.list_nodes()]
+        if not nodes:
+            raise ValueError("User mobility process requires at least one node")
+        return context.rng.choice(nodes)
+
+    def _create_user(self, context: ProcessContext) -> dict[str, Any]:
+        created = context.create_user(
+            app_ref=self.app_ref,
+            message=self.message,
+            node_id=self._pick_node(context),
+            lambda_value=self.user_lambda,
+        )
+        self.user_des.append(int(created["des"]))
+        return created
+
+    def __call__(self, context: ProcessContext) -> None:
+        if not self.user_des:
+            self._create_user(context)
+            return
+
+        roll = context.rng.random()
+        threshold_create = self.create_probability
+        threshold_move = threshold_create + self.move_probability
+        threshold_remove = threshold_move + self.remove_probability
+
+        can_create = self.max_users is None or len(self.user_des) < self.max_users
+        if can_create and roll < threshold_create:
+            self._create_user(context)
+            return
+
+        if self.user_des and roll < threshold_move:
+            user_des = int(context.rng.choice(self.user_des))
+            try:
+                context.move_user(user_des, self._pick_node(context))
+            except ValueError:
+                pass
+            return
+
+        if self.user_des and roll < threshold_remove:
+            user_des = int(context.rng.choice(self.user_des))
+            try:
+                context.remove_user(user_des)
+            finally:
+                self.user_des = [value for value in self.user_des if int(value) != user_des]
+
+
+class NodeFailureProcess:
+    def __init__(
+        self,
+        *,
+        node_id: str,
+        repeat: bool = False,
+    ) -> None:
+        self.node_id = str(node_id)
+        self.repeat = bool(repeat)
+        self.executed = False
+
+    def __call__(self, context: ProcessContext) -> None:
+        if self.executed and not self.repeat:
+            return
+        context.remove_node(self.node_id)
+        self.executed = True
+
+
+class NodeRecoveryProcess:
+    def __init__(
+        self,
+        *,
+        node_id: str,
+        repeat: bool = False,
+    ) -> None:
+        self.node_id = str(node_id)
+        self.repeat = bool(repeat)
+        self.executed = False
+
+    def __call__(self, context: ProcessContext) -> None:
+        if self.executed and not self.repeat:
+            return
+        context.restore_node(self.node_id)
+        self.executed = True
+
+
+class LinkFailureProcess:
+    def __init__(
+        self,
+        *,
+        source_node_id: str,
+        target_node_id: str,
+        repeat: bool = False,
+    ) -> None:
+        self.source_node_id = str(source_node_id)
+        self.target_node_id = str(target_node_id)
+        self.repeat = bool(repeat)
+        self.executed = False
+
+    def __call__(self, context: ProcessContext) -> None:
+        if self.executed and not self.repeat:
+            return
+        context.remove_link(self.source_node_id, self.target_node_id)
+        self.executed = True
+
+
+class LinkRecoveryProcess:
+    def __init__(
+        self,
+        *,
+        source_node_id: str,
+        target_node_id: str,
+        repeat: bool = False,
+    ) -> None:
+        self.source_node_id = str(source_node_id)
+        self.target_node_id = str(target_node_id)
+        self.repeat = bool(repeat)
+        self.executed = False
+
+    def __call__(self, context: ProcessContext) -> None:
+        if self.executed and not self.repeat:
+            return
+        context.restore_link(self.source_node_id, self.target_node_id)
+        self.executed = True
+
+
+class VnfRelocationProcess:
+    def __init__(
+        self,
+        *,
+        app_ref: str | int,
+        module_name: str,
+        candidate_nodes: list[str] | tuple[str, ...],
+        source_node: str | None = None,
+    ) -> None:
+        nodes = [str(node) for node in candidate_nodes]
+        if not nodes:
+            raise ValueError("VNF relocation process requires at least one candidate node")
+        self.app_ref = app_ref
+        self.module_name = str(module_name)
+        self.candidate_nodes = nodes
+        self.source_node = None if source_node is None else str(source_node)
+
+    def _next_node(self, current_node: str) -> str:
+        if current_node in self.candidate_nodes:
+            index = self.candidate_nodes.index(current_node)
+            return self.candidate_nodes[(index + 1) % len(self.candidate_nodes)]
+        return self.candidate_nodes[0]
+
+    def __call__(self, context: ProcessContext) -> None:
+        deployments = context.list_application_vnfs(self.app_ref)
+        candidates = [
+            item
+            for item in deployments.get("vnfs", [])
+            if str(item.get("vnf")) == self.module_name
+        ]
+        if not candidates:
+            raise ValueError(
+                f"Module '{self.module_name}' is not deployed for application '{self.app_ref}'"
+            )
+
+        deployments_for_module = candidates[0].get("deployments", [])
+        if not deployments_for_module:
+            raise ValueError(
+                f"Module '{self.module_name}' has no active deployments for application '{self.app_ref}'"
+            )
+
+        selected = None
+        if self.source_node is not None:
+            for item in deployments_for_module:
+                if str(item.get("node")) == self.source_node:
+                    selected = item
+                    break
+            if selected is None:
+                raise ValueError(
+                    f"Module '{self.module_name}' is not deployed on source node '{self.source_node}'"
+                )
+        else:
+            selected = sorted(
+                deployments_for_module,
+                key=lambda item: (str(item.get("node")), int(item.get("des"))),
+            )[0]
+
+        current_node = str(selected["node"])
+        target_node = self._next_node(current_node)
+        if current_node == target_node:
+            return
+
+        context.move_application_vnf(
+            self.app_ref,
+            {
+                "module_name": self.module_name,
+                "from_node": current_node,
+                "to_node": target_node,
+            },
+        )
+
+
+def _build_process_distribution(
+    definition: Mapping[str, Any],
+    *,
+    fallback_name: str,
+) -> Any:
+    kind = str(definition.get("kind", "deterministic")).strip().lower()
+    name = str(definition.get("name", fallback_name))
+
+    if kind == "deterministic":
+        return deterministic_distribution(
+            time=float(definition["time"]),
+            name=name,
+        )
+    if kind in {"deterministic_with_start", "deterministic_start"}:
+        return deterministicDistributionStartPoint(
+            start=float(definition["start"]),
+            time=float(definition["time"]),
+            name=name,
+        )
+    if kind == "exponential":
+        return exponential_distribution(
+            lambd=float(definition["lambd"]),
+            seed=int(definition.get("seed", 1)),
+            name=name,
+        )
+
+    raise ValueError(
+        "Process activation kind must be one of: "
+        "'deterministic', 'deterministic_with_start', or 'exponential'"
+    )
+
+
+def _build_process_callback(
+    *,
+    kind: str,
+    params: Mapping[str, Any],
+) -> Callable[..., Any]:
+    process_kind = str(kind).strip().lower()
+
+    if process_kind == "user_mobility_random":
+        app_ref = params.get("app", params.get("app_ref"))
+        if app_ref is None:
+            raise ValueError("user_mobility_random requires 'app' or 'app_ref'")
+        message = params.get("message")
+        if not message:
+            raise ValueError("user_mobility_random requires 'message'")
+        return RandomUserMobilityProcess(
+            app_ref=app_ref,
+            message=str(message),
+            user_lambda=float(params.get("lambda", params.get("user_lambda", 1.0))),
+            candidate_nodes=params.get("candidate_nodes"),
+            create_probability=float(params.get("create_probability", 0.6)),
+            move_probability=float(params.get("move_probability", 0.2)),
+            remove_probability=float(params.get("remove_probability", 0.2)),
+            max_users=params.get("max_users"),
+        )
+
+    if process_kind == "node_failure":
+        node_id = params.get("node_id")
+        if not node_id:
+            raise ValueError("node_failure requires 'node_id'")
+        return NodeFailureProcess(
+            node_id=str(node_id),
+            repeat=bool(params.get("repeat", False)),
+        )
+
+    if process_kind == "node_recovery":
+        node_id = params.get("node_id")
+        if not node_id:
+            raise ValueError("node_recovery requires 'node_id'")
+        return NodeRecoveryProcess(
+            node_id=str(node_id),
+            repeat=bool(params.get("repeat", False)),
+        )
+
+    if process_kind == "link_failure":
+        source_node_id = params.get("source_node_id", params.get("source"))
+        target_node_id = params.get("target_node_id", params.get("target"))
+        if not source_node_id or not target_node_id:
+            raise ValueError(
+                "link_failure requires 'source_node_id'/'source' and 'target_node_id'/'target'"
+            )
+        return LinkFailureProcess(
+            source_node_id=str(source_node_id),
+            target_node_id=str(target_node_id),
+            repeat=bool(params.get("repeat", False)),
+        )
+
+    if process_kind == "link_recovery":
+        source_node_id = params.get("source_node_id", params.get("source"))
+        target_node_id = params.get("target_node_id", params.get("target"))
+        if not source_node_id or not target_node_id:
+            raise ValueError(
+                "link_recovery requires 'source_node_id'/'source' and 'target_node_id'/'target'"
+            )
+        return LinkRecoveryProcess(
+            source_node_id=str(source_node_id),
+            target_node_id=str(target_node_id),
+            repeat=bool(params.get("repeat", False)),
+        )
+
+    if process_kind == "vnf_relocation_round_robin":
+        app_ref = params.get("app", params.get("app_ref"))
+        if app_ref is None:
+            raise ValueError("vnf_relocation_round_robin requires 'app' or 'app_ref'")
+        module_name = params.get("module_name", params.get("vnf"))
+        if not module_name:
+            raise ValueError("vnf_relocation_round_robin requires 'module_name' or 'vnf'")
+        candidate_nodes = params.get("candidate_nodes")
+        if not candidate_nodes:
+            raise ValueError("vnf_relocation_round_robin requires 'candidate_nodes'")
+        return VnfRelocationProcess(
+            app_ref=app_ref,
+            module_name=str(module_name),
+            candidate_nodes=candidate_nodes,
+            source_node=params.get("source_node", params.get("from_node")),
+        )
+
+    raise ValueError(
+        "Process kind must be one of: "
+        "'user_mobility_random', 'node_failure', 'node_recovery', "
+        "'link_failure', 'link_recovery', or 'vnf_relocation_round_robin'"
+    )
 
 
 class Infrastructure:
@@ -485,6 +1050,7 @@ class Simulation:
         self._idle_event = threading.Event()
         self._idle_event.set()
         self.results_path = results_path
+        self._registered_processes: dict[str, RegisteredProcess] = {}
 
     def _live_topology_info(self) -> dict[str, dict[str, Any]]:
         topology = getattr(self.sim, "topology", None)
@@ -594,6 +1160,203 @@ class Simulation:
                 return payload[key]
         return None
 
+    def _build_process_context(
+        self,
+        *,
+        process_name: str,
+        process_des: int | None = None,
+    ) -> ProcessContext:
+        return ProcessContext(
+            self,
+            process_name=process_name,
+            process_des=process_des,
+        )
+
+    def _invalidate_routing_cache(self) -> None:
+        selector = getattr(self.infrastructure, "routing", None)
+        if hasattr(selector, "clear_routing_cache"):
+            selector.clear_routing_cache()
+        elif hasattr(selector, "invalid_cache_value"):
+            selector.invalid_cache_value = True
+
+    def _invoke_registered_process(self, process_name: str) -> None:
+        registration = self._registered_processes.get(process_name)
+        if registration is None or not registration.enabled:
+            return
+
+        registration.activation_count += 1
+        context = self._build_process_context(
+            process_name=process_name,
+            process_des=registration.monitor_des,
+        )
+        registration.callback(context, **dict(registration.params))
+
+    def _deploy_registered_process(self, registration: RegisteredProcess) -> int | None:
+        if not registration.enabled:
+            registration.monitor_des = None
+            return None
+
+        if registration.monitor_des is not None:
+            self.sim.stop_process(registration.monitor_des)
+
+        distribution = copy.deepcopy(registration.distribution)
+        monitor_des = self.sim.deploy_monitor(
+            registration.name,
+            self._invoke_registered_process,
+            distribution,
+            process_name=registration.name,
+        )
+        registration.monitor_des = monitor_des
+        return monitor_des
+
+    def register_process(
+        self,
+        name: str,
+        callback: Callable[..., Any],
+        distribution: Any,
+        **params: Any,
+    ) -> dict[str, Any]:
+        with self._lock:
+            process_name = str(name)
+            if not process_name:
+                raise ValueError("Process name must be non-empty")
+            if process_name in self._registered_processes:
+                raise ValueError(f"Process already exists in the simulation: {process_name}")
+
+            registration = RegisteredProcess(
+                name=process_name,
+                callback=callback,
+                distribution=copy.deepcopy(distribution),
+                params=dict(params),
+            )
+            self._registered_processes[process_name] = registration
+
+            if self._initialized:
+                self._deploy_registered_process(registration)
+
+            return {
+                "status": "successful",
+                "name": process_name,
+                "enabled": registration.enabled,
+                "initialized": self._initialized,
+                "monitor_des": registration.monitor_des,
+            }
+
+    def register_process_definition(
+        self,
+        definition: str | Path | Mapping[str, Any],
+    ) -> dict[str, Any]:
+        with self._lock:
+            if isinstance(definition, Mapping):
+                payload = dict(definition)
+            else:
+                path = Path(definition)
+                payload = json.loads(path.read_text(encoding="utf-8"))
+
+            name = payload.get("name")
+            if not name:
+                raise ValueError("Process definition requires a non-empty 'name'")
+
+            kind = payload.get("kind")
+            if not kind:
+                raise ValueError("Process definition requires a non-empty 'kind'")
+
+            activation_definition = payload.get("activation")
+            if not isinstance(activation_definition, Mapping):
+                raise ValueError("Process definition requires an 'activation' mapping")
+
+            params = payload.get("params", {})
+            if not isinstance(params, Mapping):
+                raise ValueError("Process definition 'params' must be a mapping")
+
+            callback = _build_process_callback(
+                kind=str(kind),
+                params=params,
+            )
+            distribution = _build_process_distribution(
+                activation_definition,
+                fallback_name=f"{name}-activation",
+            )
+
+            result = self.register_process(
+                str(name),
+                callback,
+                distribution,
+            )
+            registration = self._registered_processes[str(name)]
+            registration.kind = str(kind)
+            registration.definition = copy.deepcopy(payload)
+            result["kind"] = str(kind)
+            result["definition"] = payload
+            return result
+
+    def list_processes(self) -> list[dict[str, Any]]:
+        with self._lock:
+            rows: list[dict[str, Any]] = []
+            for name in sorted(self._registered_processes.keys()):
+                registration = self._registered_processes[name]
+                rows.append(
+                    {
+                        "name": name,
+                        "kind": registration.kind,
+                        "enabled": registration.enabled,
+                        "monitor_des": registration.monitor_des,
+                        "activation_count": registration.activation_count,
+                    }
+                )
+            return rows
+
+    def enable_process(self, name: str) -> dict[str, Any]:
+        with self._lock:
+            process_name = str(name)
+            if process_name not in self._registered_processes:
+                raise ValueError(f"Process does not exist in the simulation: {process_name}")
+
+            registration = self._registered_processes[process_name]
+            registration.enabled = True
+            if self._initialized:
+                self._deploy_registered_process(registration)
+
+            return {
+                "status": "successful",
+                "name": process_name,
+                "enabled": True,
+                "monitor_des": registration.monitor_des,
+            }
+
+    def disable_process(self, name: str) -> dict[str, Any]:
+        with self._lock:
+            process_name = str(name)
+            if process_name not in self._registered_processes:
+                raise ValueError(f"Process does not exist in the simulation: {process_name}")
+
+            registration = self._registered_processes[process_name]
+            registration.enabled = False
+            if registration.monitor_des is not None:
+                self.sim.stop_process(registration.monitor_des)
+                registration.monitor_des = None
+
+            return {
+                "status": "successful",
+                "name": process_name,
+                "enabled": False,
+            }
+
+    def remove_process(self, name: str) -> dict[str, Any]:
+        with self._lock:
+            process_name = str(name)
+            registration = self._registered_processes.pop(process_name, None)
+            if registration is None:
+                raise ValueError(f"Process does not exist in the simulation: {process_name}")
+            if registration.monitor_des is not None:
+                self.sim.stop_process(registration.monitor_des)
+
+            return {
+                "status": "successful",
+                "name": process_name,
+                "activation_count": registration.activation_count,
+            }
+
     def create_cluster(
         self,
         definition: str | Path | Mapping[str, Any],
@@ -671,11 +1434,7 @@ class Simulation:
                 graph.add_edge(src, dst, **edge_attrs)
                 created_links.append({"src": src, "dst": dst, **edge_attrs})
 
-            selector = getattr(self.infrastructure, "routing", None)
-            if hasattr(selector, "clear_routing_cache"):
-                selector.clear_routing_cache()
-            elif hasattr(selector, "invalid_cache_value"):
-                selector.invalid_cache_value = True
+            self._invalidate_routing_cache()
 
             return {
                 "cluster": str(cluster_name),
@@ -943,6 +1702,29 @@ class Simulation:
                 "removed_count": len(removed),
             }
 
+    def remove_user(self, user_des: int) -> dict[str, Any]:
+        with self._lock:
+            self._ensure_initialized()
+
+            des = int(user_des)
+            alloc_source = getattr(self.sim, "alloc_source", {}) or {}
+            if des not in alloc_source:
+                raise ValueError(f"User does not exist in the simulation: {des}")
+
+            source = dict(alloc_source[des])
+            app_name = str(source.get("app"))
+            service_ids = self._service_id_by_name()
+            self.sim.undeploy_source(des)
+
+            return {
+                "status": "successful",
+                "des": des,
+                "id": service_ids.get(app_name, app_name),
+                "app": app_name,
+                "node": str(source.get("id")),
+                "message": source.get("name"),
+            }
+
     def remove_users_by_node(self, node_id: str) -> dict[str, Any]:
         with self._lock:
             self._ensure_initialized()
@@ -1059,6 +1841,43 @@ class Simulation:
                 "to_node": target_node,
                 "moved": sorted(moved, key=lambda item: int(item["des"])),
                 "moved_count": len(moved),
+            }
+
+    def move_user(self, user_des: int, target_node_id: str) -> dict[str, Any]:
+        with self._lock:
+            self._ensure_initialized()
+
+            des = int(user_des)
+            target_node = str(target_node_id)
+            topology_info = self._live_topology_info()
+            if target_node not in topology_info:
+                raise ValueError(f"Target node does not exist in the simulation: {target_node}")
+
+            alloc_source = getattr(self.sim, "alloc_source", {}) or {}
+            if des not in alloc_source:
+                raise ValueError(f"User does not exist in the simulation: {des}")
+
+            source = alloc_source[des]
+            source_node = str(source.get("id"))
+            if source_node == target_node:
+                raise ValueError("Source node and target node must be different")
+
+            source["id"] = target_node
+            self.sim.alloc_DES[des] = target_node
+            definition = source.get("source_definition")
+            if isinstance(definition, dict):
+                definition["id_resource"] = target_node
+
+            app_name = str(source.get("app"))
+            service_ids = self._service_id_by_name()
+            return {
+                "status": "successful",
+                "des": des,
+                "id": service_ids.get(app_name, app_name),
+                "app": app_name,
+                "from_node": source_node,
+                "to_node": target_node,
+                "message": source.get("name"),
             }
 
     def deploy_application_vnfs(
@@ -1469,11 +2288,7 @@ class Simulation:
                         graph.add_edge(src, dst, **edge_attrs)
                         created_links.append({"src": src, "dst": dst, **edge_attrs})
 
-            selector = getattr(self.infrastructure, "routing", None)
-            if hasattr(selector, "clear_routing_cache"):
-                selector.clear_routing_cache()
-            elif hasattr(selector, "invalid_cache_value"):
-                selector.invalid_cache_value = True
+            self._invalidate_routing_cache()
 
             return {
                 "nodes": created_nodes,
@@ -1580,6 +2395,7 @@ class Simulation:
             if not graph.has_node(node_key):
                 raise ValueError(f"Node does not exist in the simulation: {node_key}")
 
+            node_attrs_snapshot = dict(graph.nodes[node_key])
             incident_edges = [
                 (str(src), str(dst), dict(attrs))
                 for src, dst, attrs in list(graph.edges(node_key, data=True))
@@ -1633,6 +2449,8 @@ class Simulation:
                 self.sim.alloc_DES.pop(des, None)
 
             topology = self.sim.topology
+            if hasattr(topology, "archive_removed_node"):
+                topology.archive_removed_node(node_key, node_attrs_snapshot)
             for src, dst, attrs in incident_edges:
                 if hasattr(topology, "archive_removed_edge"):
                     topology.archive_removed_edge((src, dst), attrs)
@@ -1663,11 +2481,7 @@ class Simulation:
                     }:
                         last_busy_time.pop(edge_key, None)
 
-            selector = getattr(self.infrastructure, "routing", None)
-            if hasattr(selector, "clear_routing_cache"):
-                selector.clear_routing_cache()
-            elif hasattr(selector, "invalid_cache_value"):
-                selector.invalid_cache_value = True
+            self._invalidate_routing_cache()
 
             unavailable_services: list[Any] = []
             for app_name, modules in getattr(self.sim, "alloc_module", {}).items():
@@ -1733,6 +2547,159 @@ class Simulation:
                 "number_of_undeployed_vnf": undeployed_vnfs,
                 "number_of_unplugged_users": unplugged_users,
                 "unavailable_services": sorted(unavailable_services, key=str),
+                "total_nodes": self.count_nodes(),
+                "total_clusters": self.count_clusters(),
+            }
+
+    def remove_link(
+        self,
+        source_node_id: str,
+        target_node_id: str,
+    ) -> dict[str, Any]:
+        with self._lock:
+            self._ensure_initialized()
+
+            src = str(source_node_id)
+            dst = str(target_node_id)
+            graph = self.sim.topology.G
+            if not graph.has_node(src):
+                raise ValueError(f"Source node does not exist in the simulation: {src}")
+            if not graph.has_node(dst):
+                raise ValueError(f"Target node does not exist in the simulation: {dst}")
+            if src == dst:
+                raise ValueError("Source node and target node must be different")
+
+            edge_key = Topology.canonical_edge((src, dst))
+            if not graph.has_edge(*edge_key):
+                raise ValueError(f"Link does not exist in the simulation: {src} <-> {dst}")
+
+            attrs = dict(graph.edges[edge_key])
+            if hasattr(self.sim.topology, "archive_removed_edge"):
+                self.sim.topology.archive_removed_edge(edge_key, attrs)
+            graph.remove_edge(*edge_key)
+
+            entity_metrics = getattr(self.sim, "entity_metrics", None)
+            if isinstance(entity_metrics, dict):
+                entity_metrics.get("link", {}).pop(edge_key, None)
+
+            last_busy_time = getattr(self.sim, "last_busy_time", None)
+            if isinstance(last_busy_time, dict):
+                last_busy_time.pop(edge_key, None)
+                last_busy_time.pop((src, dst), None)
+                last_busy_time.pop((dst, src), None)
+
+            self._invalidate_routing_cache()
+
+            return {
+                "status": "successful",
+                "source_node": src,
+                "target_node": dst,
+                "link": [edge_key[0], edge_key[1]],
+                "attributes": attrs,
+                "total_links": self.sim.topology.total_links(),
+            }
+
+    def restore_link(
+        self,
+        source_node_id: str,
+        target_node_id: str,
+    ) -> dict[str, Any]:
+        with self._lock:
+            self._ensure_initialized()
+
+            src = str(source_node_id)
+            dst = str(target_node_id)
+            graph = self.sim.topology.G
+            if not graph.has_node(src):
+                raise ValueError(f"Source node does not exist in the simulation: {src}")
+            if not graph.has_node(dst):
+                raise ValueError(f"Target node does not exist in the simulation: {dst}")
+            if src == dst:
+                raise ValueError("Source node and target node must be different")
+
+            edge_key = Topology.canonical_edge((src, dst))
+            if graph.has_edge(*edge_key):
+                raise ValueError(f"Link already exists in the simulation: {src} <-> {dst}")
+
+            attrs = self.sim.topology.removedEdgeAttributes.get(edge_key)
+            if attrs is None:
+                raise ValueError(f"No archived link exists for recovery: {src} <-> {dst}")
+
+            graph.add_edge(edge_key[0], edge_key[1], **dict(attrs))
+            entity_metrics = getattr(self.sim, "entity_metrics", None)
+            if isinstance(entity_metrics, dict):
+                entity_metrics.setdefault("link", {})[edge_key] = {
+                    Topology.LINK_PR: attrs.get(Topology.LINK_PR),
+                    Topology.LINK_BW: attrs.get(Topology.LINK_BW),
+                }
+
+            self._invalidate_routing_cache()
+
+            return {
+                "status": "successful",
+                "source_node": src,
+                "target_node": dst,
+                "link": [edge_key[0], edge_key[1]],
+                "attributes": dict(attrs),
+                "total_links": self.sim.topology.total_links(),
+            }
+
+    def restore_node(self, node_id: str) -> dict[str, Any]:
+        with self._lock:
+            self._ensure_initialized()
+
+            node_key = str(node_id)
+            graph = self.sim.topology.G
+            if graph.has_node(node_key):
+                raise ValueError(f"Node already exists in the simulation: {node_key}")
+
+            topology = self.sim.topology
+            archived_attrs = getattr(topology, "removedNodeAttributes", {}).get(node_key)
+            if archived_attrs is None:
+                raise ValueError(f"No archived node exists for recovery: {node_key}")
+
+            graph.add_node(node_key, **dict(archived_attrs))
+            topology.nodeAttributes[node_key] = {
+                "id": node_key,
+                **dict(archived_attrs),
+            }
+
+            entity_metrics = getattr(self.sim, "entity_metrics", None)
+            if isinstance(entity_metrics, dict):
+                entity_metrics.setdefault("node", {})[node_key] = {}
+
+            restored_links: list[dict[str, Any]] = []
+            removed_edges = getattr(topology, "removedEdgeAttributes", {})
+            for edge_key, attrs in sorted(removed_edges.items(), key=lambda item: str(item[0])):
+                src, dst = edge_key
+                if node_key not in {str(src), str(dst)}:
+                    continue
+                if not graph.has_node(src) or not graph.has_node(dst):
+                    continue
+                if graph.has_edge(src, dst):
+                    continue
+                graph.add_edge(src, dst, **dict(attrs))
+                restored_links.append(
+                    {
+                        "src": str(src),
+                        "dst": str(dst),
+                        **dict(attrs),
+                    }
+                )
+                if isinstance(entity_metrics, dict):
+                    entity_metrics.setdefault("link", {})[edge_key] = {
+                        Topology.LINK_PR: attrs.get(Topology.LINK_PR),
+                        Topology.LINK_BW: attrs.get(Topology.LINK_BW),
+                    }
+
+            self._invalidate_routing_cache()
+
+            return {
+                "status": "successful",
+                "node": node_key,
+                "cluster": archived_attrs.get("cluster"),
+                "restored_links": restored_links,
+                "restored_link_count": len(restored_links),
                 "total_nodes": self.count_nodes(),
                 "total_clusters": self.count_clusters(),
             }
@@ -1885,6 +2852,9 @@ class Simulation:
                 distribution=dist,
                 source_definition=user,
             )
+
+        for registration in self._registered_processes.values():
+            self._deploy_registered_process(registration)
 
         self._initialized = True
 
@@ -2691,6 +3661,17 @@ class Simulation:
             results_suffix=results_suffix,
         )
         child._step = self._step
+        for name, registration in self._registered_processes.items():
+            child._registered_processes[name] = RegisteredProcess(
+                name=registration.name,
+                callback=registration.callback,
+                distribution=copy.deepcopy(registration.distribution),
+                params=copy.deepcopy(registration.params),
+                kind=registration.kind,
+                definition=copy.deepcopy(registration.definition),
+                enabled=registration.enabled,
+                activation_count=registration.activation_count,
+            )
 
         if current_now > 0:
             child._ensure_initialized()

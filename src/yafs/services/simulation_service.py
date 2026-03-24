@@ -614,6 +614,78 @@ class SimulationService:
             cluster_name=cluster_name,
         )
 
+    def list_processes(self, simulation_id: str) -> list[dict[str, object]]:
+        managed = self.registry.require(simulation_id)
+        return managed.simulation.list_processes()
+
+    def create_process(
+        self,
+        simulation_id: str,
+        definition: str | Path | dict[str, object],
+    ) -> dict[str, object]:
+        managed = self.registry.require(simulation_id)
+        self._ensure_actionable(managed)
+        self._refresh_status(managed)
+        if managed.simulation.is_running():
+            raise RuntimeError(
+                "Process registration requires the simulation to be ready; "
+                "wait until the scheduled window finishes or pause it first"
+            )
+
+        payload: str | Path | dict[str, object]
+        if isinstance(definition, (str, Path)):
+            path = Path(definition)
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        else:
+            payload = definition
+
+        return managed.simulation.register_process_definition(payload)
+
+    def enable_process(
+        self,
+        simulation_id: str,
+        process_name: str,
+    ) -> dict[str, object]:
+        managed = self.registry.require(simulation_id)
+        self._ensure_actionable(managed)
+        self._refresh_status(managed)
+        if managed.simulation.is_running():
+            raise RuntimeError(
+                "Process mutations require the simulation to be ready; "
+                "wait until the scheduled window finishes or pause it first"
+            )
+        return managed.simulation.enable_process(process_name)
+
+    def disable_process(
+        self,
+        simulation_id: str,
+        process_name: str,
+    ) -> dict[str, object]:
+        managed = self.registry.require(simulation_id)
+        self._ensure_actionable(managed)
+        self._refresh_status(managed)
+        if managed.simulation.is_running():
+            raise RuntimeError(
+                "Process mutations require the simulation to be ready; "
+                "wait until the scheduled window finishes or pause it first"
+            )
+        return managed.simulation.disable_process(process_name)
+
+    def remove_process(
+        self,
+        simulation_id: str,
+        process_name: str,
+    ) -> dict[str, object]:
+        managed = self.registry.require(simulation_id)
+        self._ensure_actionable(managed)
+        self._refresh_status(managed)
+        if managed.simulation.is_running():
+            raise RuntimeError(
+                "Process mutations require the simulation to be ready; "
+                "wait until the scheduled window finishes or pause it first"
+            )
+        return managed.simulation.remove_process(process_name)
+
     def update_user_lambda(
         self,
         simulation_id: str,

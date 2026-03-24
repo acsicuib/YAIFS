@@ -8,6 +8,7 @@ The following tables list all of the available components in this module.
 """
 from pkgutil import extend_path
 
+from yafs.api import ProcessContext
 from yafs.core import Sim
 from yafs.placement import ClusterPlacement, Placement
 from yafs.selection import First_ShortestPath, OneRandomPath, Selection
@@ -40,6 +41,7 @@ toc = (
     ("Placement", [Placement, ClusterPlacement]),
     ("Selection", [Selection, OneRandomPath, First_ShortestPath]),
     ("Metrics", [Metrics, MetricsAnalyzer, ServiceDefinition, ServicePath]),
+    ("Runtime", [ProcessContext]),
     (
         "Distribution",
         [Distribution, deterministic_distribution, exponential_distribution],

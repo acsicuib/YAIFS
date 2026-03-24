@@ -28,6 +28,7 @@ class Topology:
         self.G = None
         self.nodeAttributes = {}
         self.removedEdgeAttributes = {}
+        self.removedNodeAttributes = {}
         self.logger = logger or logging.getLogger(__name__)
 
     def __init_uptimes(self):
@@ -157,6 +158,12 @@ class Topology:
         Persist attributes of a removed edge for historical analysis.
         """
         self.removedEdgeAttributes[self.canonical_edge(key)] = dict(attrs)
+
+    def archive_removed_node(self, node_id, attrs):
+        """
+        Persist attributes of a removed node for later recovery.
+        """
+        self.removedNodeAttributes[node_id] = dict(attrs)
 
     def create_topology_from_graph(self, G):
         """
