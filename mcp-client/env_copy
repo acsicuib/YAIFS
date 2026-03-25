@@ -1,8 +1,0 @@
-# Copy this file to `mcp-client/.env` and fill in your values.
-
-# Required
-OPENAI_API_KEY=your_openai_api_key_here
-
-# Optional
-OPENAI_MODEL=gpt-5
-OPENAI_BASE_URL=https://api.openai.com/v1

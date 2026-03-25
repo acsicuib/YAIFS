@@ -1,6 +1,6 @@
-==================
+=====================
 ``yafs.distribution``
-==================
+=====================
 
 .. automodule:: yafs.distribution
     :members:

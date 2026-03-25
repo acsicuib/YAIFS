@@ -4,9 +4,9 @@
 API REFERENCE
 =============
 
-The API reference provides detailed descriptions of YAFS's classes and
-functions. It should be helpful if you plan to extend YAFS with custom
-components.
+The API reference provides detailed descriptions of the ``yafs`` package
+classes and functions used by YAIFS. It should be helpful if you plan to
+extend the simulator with custom components.
 
 
 .. toctree::

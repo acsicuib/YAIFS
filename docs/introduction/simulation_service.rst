@@ -2,7 +2,7 @@
 Simulation Service Guide
 ==========================
 
-YAFS 3.1 includes a high-level ``SimulationService`` for long-lived simulations.
+YAIFS 3.1 includes a high-level ``SimulationService`` for long-lived simulations.
 In this API, a simulation is conceptually open-ended and only becomes terminal
 when ``service.stop(...)`` is invoked.
 
@@ -44,7 +44,7 @@ Dynamic topology inventory
 
 These actions are evaluated against the live topology of the simulation,
 not against the initial ``topology.json``. This distinction is important
-because YAFS can add or remove nodes during execution through simulator
+because YAIFS can add or remove nodes during execution through simulator
 events and strategies.
 
 In practice, the inventory is derived from the current graph stored in the
@@ -64,7 +64,7 @@ file or a dictionary with the same structure used by the topology definition:
 
 The action updates the graph managed by the simulator itself, not only the
 scenario files on disk. Newly created nodes are added to ``sim.topology.G`` and
-to the topology metadata used by other YAFS components.
+to the topology metadata used by other ``yafs`` components.
 
 For safety, this topology mutation should be executed only when the simulation
 is ready for the next command, for example after

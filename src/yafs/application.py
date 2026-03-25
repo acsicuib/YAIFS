@@ -241,7 +241,7 @@ class Application:
         Register messages that originate from pure sources (sensors).
 
         This distinction allows them to be controlled by the
-        :mod:`Population` algorithm.
+        :class:`yafs.population.Population` algorithm.
         """
         self.messages[msg.name] = msg
 

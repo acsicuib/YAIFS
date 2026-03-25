@@ -1,13 +1,13 @@
-.. YAFS documentation master file, created by
+.. YAIFS documentation master file, created by
    sphinx-quickstart on Mon Nov 20 09:57:49 2017.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
 
 
-======================
-Documentation for YAFS
-======================
+=======================
+Documentation for YAIFS
+=======================
 
 .. only:: html
 

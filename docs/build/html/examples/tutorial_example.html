@@ -1,40 +1,1013 @@
+
+
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<html lang="en" data-content_root="../">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorial Example &mdash; YAIFS 0.3 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
-    <title>Tutorial Example &#8212; YAFS 0.3 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-    <link rel="stylesheet" type="text/css" href="../_static/basic.css?v=b08954a9" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css?v=27fed22d" />
-    <script src="../_static/documentation_options.js?v=b489f392"></script>
-    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
-    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=b489f392"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="API REFERENCE" href="../api_reference/index.html" />
-    <link rel="prev" title="Examples" href="index.html" />
-   
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
+    <link rel="prev" title="Examples" href="index.html" /> 
+</head>
 
-  
-  
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
 
-  </head><body>
-  
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
           
+          
+          <a href="../contents.html" class="icon icon-home">
+            YAIFS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+<div class="yaifs-ascii-sidebar" style="margin-top: 0.75rem;">
+  <pre style="font-size: 10px; line-height: 1.15; overflow-x: auto; margin: 0;">
+██╗   ██╗ █████╗ ██╗███████╗███████╗
+╚██╗ ██╔╝██╔══██╗██║██╔════╝██╔════╝
+ ╚████╔╝ ███████║██║█████╗  ███████╗
+  ╚██╔╝  ██╔══██║██║██╔══╝  ╚════██║
+   ██║   ██║  ██║██║██║     ███████║
+   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝     ╚══════╝
+   
+ Yet Another Intelligent Fog System 
+  </pre>
+</div>
 
-          <div class="body" role="main">
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">OVERVIEW</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#cite-this-work">Cite this work</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#acknowledge">Acknowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">YAIFS in 5 Minutes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/installation.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/installation.html#yaifs-dependencies">YAIFS dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/glossary.html">Glossary of terms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/basic.html">Basic Concepts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/basic.html#network-topology">Network Topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/basic.html#application">Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/basic.html#population-model">Population model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/basic.html#selector-model">Selector model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/basic.html#placement-algorithm">Placement algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/basic.html#running-the-simulator">Running the simulator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/basic.html#results">Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/simulation_service.html">Simulation Service Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#key-ideas">Key ideas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#status-semantics">Status semantics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#dynamic-topology-inventory">Dynamic topology inventory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#creating-clusters-dynamically">Creating clusters dynamically</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#adding-nodes-to-an-existing-cluster">Adding nodes to an existing cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#updating-node-characteristics">Updating node characteristics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#removing-a-node">Removing a node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#removing-a-cluster">Removing a cluster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#application-placement-actions">Application placement actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#creating-an-application">Creating an application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#creating-users">Creating users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#removing-users">Removing users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#listing-users">Listing users</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#updating-user-request-frequency">Updating user request frequency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#moving-users-to-another-node">Moving users to another node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#listing-deployed-applications">Listing deployed applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#listing-application-vnfs">Listing application VNFs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#listing-placements-on-a-node">Listing placements on a node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#deploying-vnfs-for-an-existing-application">Deploying VNFs for an existing application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#moving-a-deployed-vnf">Moving a deployed VNF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#replicating-a-deployed-vnf">Replicating a deployed VNF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#removing-one-deployed-vnf">Removing one deployed VNF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#removing-all-vnfs-of-an-application">Removing all VNFs of an application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#typical-flow">Typical flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#time-windowed-application-metrics">Time-windowed application metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#typical-node-and-cluster-payloads">Typical node and cluster payloads</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/simulation_service.html#compatibility-note">Compatibility note</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../introduction/metrics.html">Metrics Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/metrics.html#trace-based-metrics">Trace-based metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/metrics.html#deployment-based-metrics">Deployment-based metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/metrics.html#time-windowed-application-metrics">Time-windowed application metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/metrics.html#important-semantic-distinction">Important semantic distinction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/metrics.html#distance-assumptions">Distance assumptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../introduction/metrics.html#reference">Reference</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../architecture/architecture.html">Architecture</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/index.html">API REFERENCE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/yafs.html"><code class="docutils literal notranslate"><span class="pre">yafs</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#core">Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#topology">Topology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#application">Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#population">Population</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#placement">Placement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#selection">Selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#metrics">Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#runtime">Runtime</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#distribution">Distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.Application"><code class="docutils literal notranslate"><span class="pre">Application</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Application.TYPE_MODULE"><code class="docutils literal notranslate"><span class="pre">Application.TYPE_MODULE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Application.TYPE_SINK"><code class="docutils literal notranslate"><span class="pre">Application.TYPE_SINK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Application.TYPE_SOURCE"><code class="docutils literal notranslate"><span class="pre">Application.TYPE_SOURCE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Application.add_service_module"><code class="docutils literal notranslate"><span class="pre">Application.add_service_module()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Application.add_service_source"><code class="docutils literal notranslate"><span class="pre">Application.add_service_source()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Application.add_source_messages"><code class="docutils literal notranslate"><span class="pre">Application.add_source_messages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Application.get_message"><code class="docutils literal notranslate"><span class="pre">Application.get_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Application.get_pure_modules"><code class="docutils literal notranslate"><span class="pre">Application.get_pure_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Application.get_sink_modules"><code class="docutils literal notranslate"><span class="pre">Application.get_sink_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Application.set_modules"><code class="docutils literal notranslate"><span class="pre">Application.set_modules()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.ClusterPlacement"><code class="docutils literal notranslate"><span class="pre">ClusterPlacement</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ClusterPlacement.get_next_activation"><code class="docutils literal notranslate"><span class="pre">ClusterPlacement.get_next_activation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ClusterPlacement.initial_allocation"><code class="docutils literal notranslate"><span class="pre">ClusterPlacement.initial_allocation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ClusterPlacement.run"><code class="docutils literal notranslate"><span class="pre">ClusterPlacement.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ClusterPlacement.scaleService"><code class="docutils literal notranslate"><span class="pre">ClusterPlacement.scaleService()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.Distribution"><code class="docutils literal notranslate"><span class="pre">Distribution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Distribution.next"><code class="docutils literal notranslate"><span class="pre">Distribution.next()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.First_ShortestPath"><code class="docutils literal notranslate"><span class="pre">First_ShortestPath</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.First_ShortestPath.get_path"><code class="docutils literal notranslate"><span class="pre">First_ShortestPath.get_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.First_ShortestPath.get_path_from_failure"><code class="docutils literal notranslate"><span class="pre">First_ShortestPath.get_path_from_failure()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.Message"><code class="docutils literal notranslate"><span class="pre">Message</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.Metrics"><code class="docutils literal notranslate"><span class="pre">Metrics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Metrics.EVENT_COLUMNS"><code class="docutils literal notranslate"><span class="pre">Metrics.EVENT_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Metrics.LINK_COLUMNS"><code class="docutils literal notranslate"><span class="pre">Metrics.LINK_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Metrics.TIME_LATENCY"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_LATENCY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Metrics.TIME_RESPONSE"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_RESPONSE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Metrics.TIME_SERVICE"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_SERVICE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Metrics.TIME_TOTAL_RESPONSE"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_TOTAL_RESPONSE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Metrics.TIME_WAIT"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_WAIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Metrics.WATT_SERVICE"><code class="docutils literal notranslate"><span class="pre">Metrics.WATT_SERVICE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Metrics.WATT_UPTIME"><code class="docutils literal notranslate"><span class="pre">Metrics.WATT_UPTIME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Metrics.close"><code class="docutils literal notranslate"><span class="pre">Metrics.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Metrics.flush"><code class="docutils literal notranslate"><span class="pre">Metrics.flush()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Metrics.insert"><code class="docutils literal notranslate"><span class="pre">Metrics.insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Metrics.insert_link"><code class="docutils literal notranslate"><span class="pre">Metrics.insert_link()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.AUXILIARY_EVENT_TYPES"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.AUXILIARY_EVENT_TYPES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.EVENT_COLUMNS"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.EVENT_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.LINK_COLUMNS"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.LINK_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.application_cost_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.application_cost_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.application_distance_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.application_distance_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.application_execution_cost_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.application_execution_cost_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.average_application_response_latency"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.average_application_response_latency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.average_loop_response"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.average_loop_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.average_messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.average_messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.bytes_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.bytes_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.compute_times_df"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.compute_times_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.count_messages"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.count_messages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.emitted_request_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.emitted_request_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.estimate_egress_cost"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.estimate_egress_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.get_cost_cloud"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_cost_cloud()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.get_df_modules"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_df_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.get_df_service_utilization"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_df_service_utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.get_service_definition"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_service_definition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.get_watt"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_watt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.link_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.link_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.link_utilization"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.link_utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.mean_topology_congestion"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.mean_topology_congestion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.message_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.message_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.message_instances"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.message_instances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.observation_window"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.observation_window()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.peak_messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.peak_messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.request_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.request_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.request_distance_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.request_distance_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.request_hops"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.request_hops()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.service_path_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.service_path_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.service_paths"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.service_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.service_response"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.service_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.showLoops"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.showLoops()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.showResults"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.showResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.showResults2"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.showResults2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.summarize_application_cost"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.summarize_application_execution_cost"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_execution_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.summarize_application_execution_metrics"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_execution_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.summarize_application_metrics"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.summarize_service_response"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_service_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.times"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.times()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.total_bandwidth_available"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_bandwidth_available()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.total_bandwidth_used"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_bandwidth_used()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.total_links"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_links()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.utilization"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.MetricsAnalyzer.valueLoop"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.valueLoop()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.OneRandomPath"><code class="docutils literal notranslate"><span class="pre">OneRandomPath</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.OneRandomPath.get_path"><code class="docutils literal notranslate"><span class="pre">OneRandomPath.get_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.OneRandomPath.get_path_from_failure"><code class="docutils literal notranslate"><span class="pre">OneRandomPath.get_path_from_failure()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.Placement"><code class="docutils literal notranslate"><span class="pre">Placement</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Placement.get_next_activation"><code class="docutils literal notranslate"><span class="pre">Placement.get_next_activation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Placement.initial_allocation"><code class="docutils literal notranslate"><span class="pre">Placement.initial_allocation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Placement.run"><code class="docutils literal notranslate"><span class="pre">Placement.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Placement.scaleService"><code class="docutils literal notranslate"><span class="pre">Placement.scaleService()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.Population"><code class="docutils literal notranslate"><span class="pre">Population</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Population.get_next_activation"><code class="docutils literal notranslate"><span class="pre">Population.get_next_activation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Population.initial_allocation"><code class="docutils literal notranslate"><span class="pre">Population.initial_allocation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Population.run"><code class="docutils literal notranslate"><span class="pre">Population.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Population.set_sink_control"><code class="docutils literal notranslate"><span class="pre">Population.set_sink_control()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Population.set_src_control"><code class="docutils literal notranslate"><span class="pre">Population.set_src_control()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext"><code class="docutils literal notranslate"><span class="pre">ProcessContext</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.create_cluster"><code class="docutils literal notranslate"><span class="pre">ProcessContext.create_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.create_nodes"><code class="docutils literal notranslate"><span class="pre">ProcessContext.create_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.create_user"><code class="docutils literal notranslate"><span class="pre">ProcessContext.create_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.create_users"><code class="docutils literal notranslate"><span class="pre">ProcessContext.create_users()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.deploy_application_vnfs"><code class="docutils literal notranslate"><span class="pre">ProcessContext.deploy_application_vnfs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.deploy_application_vnfs_generated"><code class="docutils literal notranslate"><span class="pre">ProcessContext.deploy_application_vnfs_generated()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.get_node_resource_summary"><code class="docutils literal notranslate"><span class="pre">ProcessContext.get_node_resource_summary()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.list_application_vnfs"><code class="docutils literal notranslate"><span class="pre">ProcessContext.list_application_vnfs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.list_clusters"><code class="docutils literal notranslate"><span class="pre">ProcessContext.list_clusters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.list_nodes"><code class="docutils literal notranslate"><span class="pre">ProcessContext.list_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.list_users"><code class="docutils literal notranslate"><span class="pre">ProcessContext.list_users()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.move_application_vnf"><code class="docutils literal notranslate"><span class="pre">ProcessContext.move_application_vnf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.move_user"><code class="docutils literal notranslate"><span class="pre">ProcessContext.move_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.move_users_to_node"><code class="docutils literal notranslate"><span class="pre">ProcessContext.move_users_to_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.now"><code class="docutils literal notranslate"><span class="pre">ProcessContext.now</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.remove_application_vnf"><code class="docutils literal notranslate"><span class="pre">ProcessContext.remove_application_vnf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.remove_application_vnfs"><code class="docutils literal notranslate"><span class="pre">ProcessContext.remove_application_vnfs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.remove_cluster"><code class="docutils literal notranslate"><span class="pre">ProcessContext.remove_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.remove_link"><code class="docutils literal notranslate"><span class="pre">ProcessContext.remove_link()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.remove_node"><code class="docutils literal notranslate"><span class="pre">ProcessContext.remove_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.remove_user"><code class="docutils literal notranslate"><span class="pre">ProcessContext.remove_user()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.remove_users_by_application"><code class="docutils literal notranslate"><span class="pre">ProcessContext.remove_users_by_application()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.remove_users_by_cluster"><code class="docutils literal notranslate"><span class="pre">ProcessContext.remove_users_by_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.remove_users_by_node"><code class="docutils literal notranslate"><span class="pre">ProcessContext.remove_users_by_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.replicate_application_vnf"><code class="docutils literal notranslate"><span class="pre">ProcessContext.replicate_application_vnf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.restore_link"><code class="docutils literal notranslate"><span class="pre">ProcessContext.restore_link()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.restore_node"><code class="docutils literal notranslate"><span class="pre">ProcessContext.restore_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.rng"><code class="docutils literal notranslate"><span class="pre">ProcessContext.rng</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.update_application_users_lambda"><code class="docutils literal notranslate"><span class="pre">ProcessContext.update_application_users_lambda()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.update_node"><code class="docutils literal notranslate"><span class="pre">ProcessContext.update_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ProcessContext.update_user_lambda"><code class="docutils literal notranslate"><span class="pre">ProcessContext.update_user_lambda()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.Selection"><code class="docutils literal notranslate"><span class="pre">Selection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Selection.get_path"><code class="docutils literal notranslate"><span class="pre">Selection.get_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Selection.get_path_from_failure"><code class="docutils literal notranslate"><span class="pre">Selection.get_path_from_failure()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServiceDefinition"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServiceDefinition.app_id"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.app_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServiceDefinition.deadline"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.deadline</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServiceDefinition.from_dict"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServiceDefinition.has_backward_return"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.has_backward_return</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServiceDefinition.iter_paths"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.iter_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServiceDefinition.messages"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.messages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServiceDefinition.name"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServiceDefinition.paths"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.paths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServiceDefinition.return_messages"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.return_messages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServiceDefinition.to_dict"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.to_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServiceDefinition.transmissions"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.transmissions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServicePath"><code class="docutils literal notranslate"><span class="pre">ServicePath</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServicePath.app_name"><code class="docutils literal notranslate"><span class="pre">ServicePath.app_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServicePath.messages"><code class="docutils literal notranslate"><span class="pre">ServicePath.messages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServicePath.path_id"><code class="docutils literal notranslate"><span class="pre">ServicePath.path_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServicePath.terminal_message"><code class="docutils literal notranslate"><span class="pre">ServicePath.terminal_message</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.ServicePath.to_dict"><code class="docutils literal notranslate"><span class="pre">ServicePath.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim"><code class="docutils literal notranslate"><span class="pre">Sim</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.FORWARD_METRIC"><code class="docutils literal notranslate"><span class="pre">Sim.FORWARD_METRIC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.LINK_METRIC"><code class="docutils literal notranslate"><span class="pre">Sim.LINK_METRIC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.LOST_METRIC"><code class="docutils literal notranslate"><span class="pre">Sim.LOST_METRIC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.NODE_METRIC"><code class="docutils literal notranslate"><span class="pre">Sim.NODE_METRIC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.SINK_METRIC"><code class="docutils literal notranslate"><span class="pre">Sim.SINK_METRIC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.SOURCE_METRIC"><code class="docutils literal notranslate"><span class="pre">Sim.SOURCE_METRIC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.alloc_DES"><code class="docutils literal notranslate"><span class="pre">Sim.alloc_DES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.alloc_module"><code class="docutils literal notranslate"><span class="pre">Sim.alloc_module</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.alloc_source"><code class="docutils literal notranslate"><span class="pre">Sim.alloc_source</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.deploy_app"><code class="docutils literal notranslate"><span class="pre">Sim.deploy_app()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.deploy_app2"><code class="docutils literal notranslate"><span class="pre">Sim.deploy_app2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.deploy_module"><code class="docutils literal notranslate"><span class="pre">Sim.deploy_module()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.deploy_monitor"><code class="docutils literal notranslate"><span class="pre">Sim.deploy_monitor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.deploy_sink"><code class="docutils literal notranslate"><span class="pre">Sim.deploy_sink()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.deploy_source"><code class="docutils literal notranslate"><span class="pre">Sim.deploy_source()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.entity_metrics"><code class="docutils literal notranslate"><span class="pre">Sim.entity_metrics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.env"><code class="docutils literal notranslate"><span class="pre">Sim.env</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.get_DES"><code class="docutils literal notranslate"><span class="pre">Sim.get_DES()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.get_DES_from_Service_In_Node"><code class="docutils literal notranslate"><span class="pre">Sim.get_DES_from_Service_In_Node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.get_alloc_entities"><code class="docutils literal notranslate"><span class="pre">Sim.get_alloc_entities()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.get_assigned_structured_modules_from_DES"><code class="docutils literal notranslate"><span class="pre">Sim.get_assigned_structured_modules_from_DES()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.print_debug_assignaments"><code class="docutils literal notranslate"><span class="pre">Sim.print_debug_assignaments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.register_event_entity"><code class="docutils literal notranslate"><span class="pre">Sim.register_event_entity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.remove_node"><code class="docutils literal notranslate"><span class="pre">Sim.remove_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.run"><code class="docutils literal notranslate"><span class="pre">Sim.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.start_process"><code class="docutils literal notranslate"><span class="pre">Sim.start_process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.stop"><code class="docutils literal notranslate"><span class="pre">Sim.stop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.stop_process"><code class="docutils literal notranslate"><span class="pre">Sim.stop_process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.undeploy_all_modules"><code class="docutils literal notranslate"><span class="pre">Sim.undeploy_all_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.undeploy_module"><code class="docutils literal notranslate"><span class="pre">Sim.undeploy_module()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.undeploy_source"><code class="docutils literal notranslate"><span class="pre">Sim.undeploy_source()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Sim.unreachabled_links"><code class="docutils literal notranslate"><span class="pre">Sim.unreachabled_links</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.Statical"><code class="docutils literal notranslate"><span class="pre">Statical</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Statical.get_next_activation"><code class="docutils literal notranslate"><span class="pre">Statical.get_next_activation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Statical.initial_allocation"><code class="docutils literal notranslate"><span class="pre">Statical.initial_allocation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Statical.run"><code class="docutils literal notranslate"><span class="pre">Statical.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Statical.set_sink_control"><code class="docutils literal notranslate"><span class="pre">Statical.set_sink_control()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Statical.set_src_control"><code class="docutils literal notranslate"><span class="pre">Statical.set_src_control()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology"><code class="docutils literal notranslate"><span class="pre">Topology</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.LINK_BW"><code class="docutils literal notranslate"><span class="pre">Topology.LINK_BW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.LINK_PR"><code class="docutils literal notranslate"><span class="pre">Topology.LINK_PR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.NODE_IPT"><code class="docutils literal notranslate"><span class="pre">Topology.NODE_IPT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.add_node"><code class="docutils literal notranslate"><span class="pre">Topology.add_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.archive_removed_edge"><code class="docutils literal notranslate"><span class="pre">Topology.archive_removed_edge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.archive_removed_node"><code class="docutils literal notranslate"><span class="pre">Topology.archive_removed_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.canonical_edge"><code class="docutils literal notranslate"><span class="pre">Topology.canonical_edge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.create_random_topology"><code class="docutils literal notranslate"><span class="pre">Topology.create_random_topology()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.create_topology_from_graph"><code class="docutils literal notranslate"><span class="pre">Topology.create_topology_from_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.find_IDs"><code class="docutils literal notranslate"><span class="pre">Topology.find_IDs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.get_edge"><code class="docutils literal notranslate"><span class="pre">Topology.get_edge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.get_edge_distance"><code class="docutils literal notranslate"><span class="pre">Topology.get_edge_distance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.get_edges"><code class="docutils literal notranslate"><span class="pre">Topology.get_edges()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.get_info"><code class="docutils literal notranslate"><span class="pre">Topology.get_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.get_node"><code class="docutils literal notranslate"><span class="pre">Topology.get_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.get_nodes"><code class="docutils literal notranslate"><span class="pre">Topology.get_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.get_nodes_att"><code class="docutils literal notranslate"><span class="pre">Topology.get_nodes_att()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.load"><code class="docutils literal notranslate"><span class="pre">Topology.load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.load_all_node_attr"><code class="docutils literal notranslate"><span class="pre">Topology.load_all_node_attr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.load_graphml"><code class="docutils literal notranslate"><span class="pre">Topology.load_graphml()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.path_distance"><code class="docutils literal notranslate"><span class="pre">Topology.path_distance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.remove_node"><code class="docutils literal notranslate"><span class="pre">Topology.remove_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.shortest_path_distance"><code class="docutils literal notranslate"><span class="pre">Topology.shortest_path_distance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.size"><code class="docutils literal notranslate"><span class="pre">Topology.size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.total_bandwidth"><code class="docutils literal notranslate"><span class="pre">Topology.total_bandwidth()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.Topology.total_links"><code class="docutils literal notranslate"><span class="pre">Topology.total_links()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.deterministic_distribution"><code class="docutils literal notranslate"><span class="pre">deterministic_distribution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.deterministic_distribution.next"><code class="docutils literal notranslate"><span class="pre">deterministic_distribution.next()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.html#yafs.exponential_distribution"><code class="docutils literal notranslate"><span class="pre">exponential_distribution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.html#yafs.exponential_distribution.next"><code class="docutils literal notranslate"><span class="pre">exponential_distribution.next()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/yafs.core.html"><code class="docutils literal notranslate"><span class="pre">yafs.core</span></code> — Simulator engine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim"><code class="docutils literal notranslate"><span class="pre">Sim</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.FORWARD_METRIC"><code class="docutils literal notranslate"><span class="pre">Sim.FORWARD_METRIC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.LINK_METRIC"><code class="docutils literal notranslate"><span class="pre">Sim.LINK_METRIC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.LOST_METRIC"><code class="docutils literal notranslate"><span class="pre">Sim.LOST_METRIC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.NODE_METRIC"><code class="docutils literal notranslate"><span class="pre">Sim.NODE_METRIC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.SINK_METRIC"><code class="docutils literal notranslate"><span class="pre">Sim.SINK_METRIC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.SOURCE_METRIC"><code class="docutils literal notranslate"><span class="pre">Sim.SOURCE_METRIC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.alloc_DES"><code class="docutils literal notranslate"><span class="pre">Sim.alloc_DES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.alloc_module"><code class="docutils literal notranslate"><span class="pre">Sim.alloc_module</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.alloc_source"><code class="docutils literal notranslate"><span class="pre">Sim.alloc_source</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.deploy_app"><code class="docutils literal notranslate"><span class="pre">Sim.deploy_app()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.deploy_app2"><code class="docutils literal notranslate"><span class="pre">Sim.deploy_app2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.deploy_module"><code class="docutils literal notranslate"><span class="pre">Sim.deploy_module()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.deploy_monitor"><code class="docutils literal notranslate"><span class="pre">Sim.deploy_monitor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.deploy_sink"><code class="docutils literal notranslate"><span class="pre">Sim.deploy_sink()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.deploy_source"><code class="docutils literal notranslate"><span class="pre">Sim.deploy_source()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.entity_metrics"><code class="docutils literal notranslate"><span class="pre">Sim.entity_metrics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.env"><code class="docutils literal notranslate"><span class="pre">Sim.env</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.get_DES"><code class="docutils literal notranslate"><span class="pre">Sim.get_DES()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.get_DES_from_Service_In_Node"><code class="docutils literal notranslate"><span class="pre">Sim.get_DES_from_Service_In_Node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.get_alloc_entities"><code class="docutils literal notranslate"><span class="pre">Sim.get_alloc_entities()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.get_assigned_structured_modules_from_DES"><code class="docutils literal notranslate"><span class="pre">Sim.get_assigned_structured_modules_from_DES()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.print_debug_assignaments"><code class="docutils literal notranslate"><span class="pre">Sim.print_debug_assignaments()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.register_event_entity"><code class="docutils literal notranslate"><span class="pre">Sim.register_event_entity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.remove_node"><code class="docutils literal notranslate"><span class="pre">Sim.remove_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.run"><code class="docutils literal notranslate"><span class="pre">Sim.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.start_process"><code class="docutils literal notranslate"><span class="pre">Sim.start_process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.stop"><code class="docutils literal notranslate"><span class="pre">Sim.stop</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.stop_process"><code class="docutils literal notranslate"><span class="pre">Sim.stop_process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.undeploy_all_modules"><code class="docutils literal notranslate"><span class="pre">Sim.undeploy_all_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.undeploy_module"><code class="docutils literal notranslate"><span class="pre">Sim.undeploy_module()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.undeploy_source"><code class="docutils literal notranslate"><span class="pre">Sim.undeploy_source()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.core.html#yafs.core.Sim.unreachabled_links"><code class="docutils literal notranslate"><span class="pre">Sim.unreachabled_links</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/yafs.topology.html"><code class="docutils literal notranslate"><span class="pre">yafs.topology</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology"><code class="docutils literal notranslate"><span class="pre">Topology</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.LINK_BW"><code class="docutils literal notranslate"><span class="pre">Topology.LINK_BW</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.LINK_PR"><code class="docutils literal notranslate"><span class="pre">Topology.LINK_PR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.NODE_IPT"><code class="docutils literal notranslate"><span class="pre">Topology.NODE_IPT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.add_node"><code class="docutils literal notranslate"><span class="pre">Topology.add_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.archive_removed_edge"><code class="docutils literal notranslate"><span class="pre">Topology.archive_removed_edge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.archive_removed_node"><code class="docutils literal notranslate"><span class="pre">Topology.archive_removed_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.canonical_edge"><code class="docutils literal notranslate"><span class="pre">Topology.canonical_edge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.create_random_topology"><code class="docutils literal notranslate"><span class="pre">Topology.create_random_topology()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.create_topology_from_graph"><code class="docutils literal notranslate"><span class="pre">Topology.create_topology_from_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.find_IDs"><code class="docutils literal notranslate"><span class="pre">Topology.find_IDs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.get_edge"><code class="docutils literal notranslate"><span class="pre">Topology.get_edge()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.get_edge_distance"><code class="docutils literal notranslate"><span class="pre">Topology.get_edge_distance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.get_edges"><code class="docutils literal notranslate"><span class="pre">Topology.get_edges()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.get_info"><code class="docutils literal notranslate"><span class="pre">Topology.get_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.get_node"><code class="docutils literal notranslate"><span class="pre">Topology.get_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.get_nodes"><code class="docutils literal notranslate"><span class="pre">Topology.get_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.get_nodes_att"><code class="docutils literal notranslate"><span class="pre">Topology.get_nodes_att()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.load"><code class="docutils literal notranslate"><span class="pre">Topology.load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.load_all_node_attr"><code class="docutils literal notranslate"><span class="pre">Topology.load_all_node_attr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.load_graphml"><code class="docutils literal notranslate"><span class="pre">Topology.load_graphml()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.path_distance"><code class="docutils literal notranslate"><span class="pre">Topology.path_distance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.remove_node"><code class="docutils literal notranslate"><span class="pre">Topology.remove_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.shortest_path_distance"><code class="docutils literal notranslate"><span class="pre">Topology.shortest_path_distance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.size"><code class="docutils literal notranslate"><span class="pre">Topology.size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.total_bandwidth"><code class="docutils literal notranslate"><span class="pre">Topology.total_bandwidth()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.topology.html#yafs.topology.Topology.total_links"><code class="docutils literal notranslate"><span class="pre">Topology.total_links()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/yafs.application.html"><code class="docutils literal notranslate"><span class="pre">yafs.application</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.application.html#yafs.application.Application"><code class="docutils literal notranslate"><span class="pre">Application</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.application.html#yafs.application.Application.TYPE_MODULE"><code class="docutils literal notranslate"><span class="pre">Application.TYPE_MODULE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.application.html#yafs.application.Application.TYPE_SINK"><code class="docutils literal notranslate"><span class="pre">Application.TYPE_SINK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.application.html#yafs.application.Application.TYPE_SOURCE"><code class="docutils literal notranslate"><span class="pre">Application.TYPE_SOURCE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.application.html#yafs.application.Application.add_service_module"><code class="docutils literal notranslate"><span class="pre">Application.add_service_module()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.application.html#yafs.application.Application.add_service_source"><code class="docutils literal notranslate"><span class="pre">Application.add_service_source()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.application.html#yafs.application.Application.add_source_messages"><code class="docutils literal notranslate"><span class="pre">Application.add_source_messages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.application.html#yafs.application.Application.get_message"><code class="docutils literal notranslate"><span class="pre">Application.get_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.application.html#yafs.application.Application.get_pure_modules"><code class="docutils literal notranslate"><span class="pre">Application.get_pure_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.application.html#yafs.application.Application.get_sink_modules"><code class="docutils literal notranslate"><span class="pre">Application.get_sink_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.application.html#yafs.application.Application.set_modules"><code class="docutils literal notranslate"><span class="pre">Application.set_modules()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.application.html#yafs.application.Message"><code class="docutils literal notranslate"><span class="pre">Message</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.application.html#yafs.application.create_applications_from_json"><code class="docutils literal notranslate"><span class="pre">create_applications_from_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.application.html#yafs.application.fractional_selectivity"><code class="docutils literal notranslate"><span class="pre">fractional_selectivity()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/yafs.population.html"><code class="docutils literal notranslate"><span class="pre">yafs.population</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.population.html#yafs.population.Population"><code class="docutils literal notranslate"><span class="pre">Population</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.population.html#yafs.population.Population.get_next_activation"><code class="docutils literal notranslate"><span class="pre">Population.get_next_activation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.population.html#yafs.population.Population.initial_allocation"><code class="docutils literal notranslate"><span class="pre">Population.initial_allocation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.population.html#yafs.population.Population.run"><code class="docutils literal notranslate"><span class="pre">Population.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.population.html#yafs.population.Population.set_sink_control"><code class="docutils literal notranslate"><span class="pre">Population.set_sink_control()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.population.html#yafs.population.Population.set_src_control"><code class="docutils literal notranslate"><span class="pre">Population.set_src_control()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.population.html#yafs.population.Statical"><code class="docutils literal notranslate"><span class="pre">Statical</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.population.html#yafs.population.Statical.initial_allocation"><code class="docutils literal notranslate"><span class="pre">Statical.initial_allocation()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/yafs.placement.html"><code class="docutils literal notranslate"><span class="pre">yafs.placement</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.ClusterPlacement"><code class="docutils literal notranslate"><span class="pre">ClusterPlacement</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.ClusterPlacement.get_next_activation"><code class="docutils literal notranslate"><span class="pre">ClusterPlacement.get_next_activation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.ClusterPlacement.initial_allocation"><code class="docutils literal notranslate"><span class="pre">ClusterPlacement.initial_allocation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.ClusterPlacement.run"><code class="docutils literal notranslate"><span class="pre">ClusterPlacement.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.ClusterPlacement.scaleService"><code class="docutils literal notranslate"><span class="pre">ClusterPlacement.scaleService()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.EdgePlacement"><code class="docutils literal notranslate"><span class="pre">EdgePlacement</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.EdgePlacement.get_next_activation"><code class="docutils literal notranslate"><span class="pre">EdgePlacement.get_next_activation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.EdgePlacement.initial_allocation"><code class="docutils literal notranslate"><span class="pre">EdgePlacement.initial_allocation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.EdgePlacement.run"><code class="docutils literal notranslate"><span class="pre">EdgePlacement.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.EdgePlacement.scaleService"><code class="docutils literal notranslate"><span class="pre">EdgePlacement.scaleService()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.JSONPlacement"><code class="docutils literal notranslate"><span class="pre">JSONPlacement</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.JSONPlacement.get_next_activation"><code class="docutils literal notranslate"><span class="pre">JSONPlacement.get_next_activation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.JSONPlacement.initial_allocation"><code class="docutils literal notranslate"><span class="pre">JSONPlacement.initial_allocation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.JSONPlacement.run"><code class="docutils literal notranslate"><span class="pre">JSONPlacement.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.JSONPlacement.scaleService"><code class="docutils literal notranslate"><span class="pre">JSONPlacement.scaleService()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.JSONPlacementOnCloud"><code class="docutils literal notranslate"><span class="pre">JSONPlacementOnCloud</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.JSONPlacementOnCloud.get_next_activation"><code class="docutils literal notranslate"><span class="pre">JSONPlacementOnCloud.get_next_activation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.JSONPlacementOnCloud.initial_allocation"><code class="docutils literal notranslate"><span class="pre">JSONPlacementOnCloud.initial_allocation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.JSONPlacementOnCloud.run"><code class="docutils literal notranslate"><span class="pre">JSONPlacementOnCloud.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.JSONPlacementOnCloud.scaleService"><code class="docutils literal notranslate"><span class="pre">JSONPlacementOnCloud.scaleService()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.NoPlacementOfModules"><code class="docutils literal notranslate"><span class="pre">NoPlacementOfModules</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.NoPlacementOfModules.get_next_activation"><code class="docutils literal notranslate"><span class="pre">NoPlacementOfModules.get_next_activation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.NoPlacementOfModules.initial_allocation"><code class="docutils literal notranslate"><span class="pre">NoPlacementOfModules.initial_allocation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.NoPlacementOfModules.run"><code class="docutils literal notranslate"><span class="pre">NoPlacementOfModules.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.NoPlacementOfModules.scaleService"><code class="docutils literal notranslate"><span class="pre">NoPlacementOfModules.scaleService()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.Placement"><code class="docutils literal notranslate"><span class="pre">Placement</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.Placement.get_next_activation"><code class="docutils literal notranslate"><span class="pre">Placement.get_next_activation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.Placement.initial_allocation"><code class="docutils literal notranslate"><span class="pre">Placement.initial_allocation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.Placement.run"><code class="docutils literal notranslate"><span class="pre">Placement.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.placement.html#yafs.placement.Placement.scaleService"><code class="docutils literal notranslate"><span class="pre">Placement.scaleService()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/yafs.selection.html"><code class="docutils literal notranslate"><span class="pre">yafs.selection</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.selection.html#yafs.selection.First_ShortestPath"><code class="docutils literal notranslate"><span class="pre">First_ShortestPath</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.selection.html#yafs.selection.First_ShortestPath.get_path"><code class="docutils literal notranslate"><span class="pre">First_ShortestPath.get_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.selection.html#yafs.selection.First_ShortestPath.get_path_from_failure"><code class="docutils literal notranslate"><span class="pre">First_ShortestPath.get_path_from_failure()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.selection.html#yafs.selection.OneRandomPath"><code class="docutils literal notranslate"><span class="pre">OneRandomPath</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.selection.html#yafs.selection.OneRandomPath.get_path"><code class="docutils literal notranslate"><span class="pre">OneRandomPath.get_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.selection.html#yafs.selection.OneRandomPath.get_path_from_failure"><code class="docutils literal notranslate"><span class="pre">OneRandomPath.get_path_from_failure()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.selection.html#yafs.selection.Selection"><code class="docutils literal notranslate"><span class="pre">Selection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.selection.html#yafs.selection.Selection.get_path"><code class="docutils literal notranslate"><span class="pre">Selection.get_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.selection.html#yafs.selection.Selection.get_path_from_failure"><code class="docutils literal notranslate"><span class="pre">Selection.get_path_from_failure()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/yafs.distribution.html"><code class="docutils literal notranslate"><span class="pre">yafs.distribution</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.distribution.html#yafs.distribution.Distribution"><code class="docutils literal notranslate"><span class="pre">Distribution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.distribution.html#yafs.distribution.Distribution.next"><code class="docutils literal notranslate"><span class="pre">Distribution.next()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.distribution.html#yafs.distribution.deterministicDistributionStartPoint"><code class="docutils literal notranslate"><span class="pre">deterministicDistributionStartPoint</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.distribution.html#yafs.distribution.deterministicDistributionStartPoint.next"><code class="docutils literal notranslate"><span class="pre">deterministicDistributionStartPoint.next()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.distribution.html#yafs.distribution.deterministic_distribution"><code class="docutils literal notranslate"><span class="pre">deterministic_distribution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.distribution.html#yafs.distribution.deterministic_distribution.next"><code class="docutils literal notranslate"><span class="pre">deterministic_distribution.next()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.distribution.html#yafs.distribution.exponentialDistribution"><code class="docutils literal notranslate"><span class="pre">exponentialDistribution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.distribution.html#yafs.distribution.exponentialDistribution.next"><code class="docutils literal notranslate"><span class="pre">exponentialDistribution.next()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.distribution.html#yafs.distribution.exponentialDistributionStartPoint"><code class="docutils literal notranslate"><span class="pre">exponentialDistributionStartPoint</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.distribution.html#yafs.distribution.exponentialDistributionStartPoint.next"><code class="docutils literal notranslate"><span class="pre">exponentialDistributionStartPoint.next()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.distribution.html#yafs.distribution.exponential_distribution"><code class="docutils literal notranslate"><span class="pre">exponential_distribution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.distribution.html#yafs.distribution.exponential_distribution.next"><code class="docutils literal notranslate"><span class="pre">exponential_distribution.next()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.distribution.html#yafs.distribution.uniformDistribution"><code class="docutils literal notranslate"><span class="pre">uniformDistribution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.distribution.html#yafs.distribution.uniformDistribution.next"><code class="docutils literal notranslate"><span class="pre">uniformDistribution.next()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/yafs.stats.html"><code class="docutils literal notranslate"><span class="pre">yafs.stats</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Metrics"><code class="docutils literal notranslate"><span class="pre">Metrics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Metrics.EVENT_COLUMNS"><code class="docutils literal notranslate"><span class="pre">Metrics.EVENT_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Metrics.LINK_COLUMNS"><code class="docutils literal notranslate"><span class="pre">Metrics.LINK_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Metrics.TIME_LATENCY"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_LATENCY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Metrics.TIME_RESPONSE"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_RESPONSE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Metrics.TIME_SERVICE"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_SERVICE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Metrics.TIME_TOTAL_RESPONSE"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_TOTAL_RESPONSE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Metrics.TIME_WAIT"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_WAIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Metrics.WATT_SERVICE"><code class="docutils literal notranslate"><span class="pre">Metrics.WATT_SERVICE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Metrics.WATT_UPTIME"><code class="docutils literal notranslate"><span class="pre">Metrics.WATT_UPTIME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Metrics.close"><code class="docutils literal notranslate"><span class="pre">Metrics.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Metrics.flush"><code class="docutils literal notranslate"><span class="pre">Metrics.flush()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Metrics.insert"><code class="docutils literal notranslate"><span class="pre">Metrics.insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Metrics.insert_link"><code class="docutils literal notranslate"><span class="pre">Metrics.insert_link()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.AUXILIARY_EVENT_TYPES"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.AUXILIARY_EVENT_TYPES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.EVENT_COLUMNS"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.EVENT_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.LINK_COLUMNS"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.LINK_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.application_cost_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.application_cost_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.application_distance_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.application_distance_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.application_execution_cost_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.application_execution_cost_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.average_application_response_latency"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.average_application_response_latency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.average_loop_response"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.average_loop_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.average_messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.average_messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.bytes_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.bytes_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.compute_times_df"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.compute_times_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.count_messages"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.count_messages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.emitted_request_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.emitted_request_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.estimate_egress_cost"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.estimate_egress_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.get_cost_cloud"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_cost_cloud()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.get_df_modules"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_df_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.get_df_service_utilization"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_df_service_utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.get_service_definition"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_service_definition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.get_watt"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_watt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.link_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.link_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.link_utilization"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.link_utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.mean_topology_congestion"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.mean_topology_congestion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.message_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.message_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.message_instances"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.message_instances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.observation_window"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.observation_window()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.peak_messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.peak_messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.request_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.request_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.request_distance_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.request_distance_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.request_hops"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.request_hops()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.service_path_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.service_path_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.service_paths"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.service_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.service_response"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.service_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.showLoops"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.showLoops()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.showResults"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.showResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.showResults2"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.showResults2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.summarize_application_cost"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.summarize_application_execution_cost"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_execution_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.summarize_application_execution_metrics"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_execution_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.summarize_application_metrics"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.summarize_service_response"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_service_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.times"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.times()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.total_bandwidth_available"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_bandwidth_available()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.total_bandwidth_used"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_bandwidth_used()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.total_links"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_links()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.utilization"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.MetricsAnalyzer.valueLoop"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.valueLoop()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats"><code class="docutils literal notranslate"><span class="pre">Stats</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.AUXILIARY_EVENT_TYPES"><code class="docutils literal notranslate"><span class="pre">Stats.AUXILIARY_EVENT_TYPES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.EVENT_COLUMNS"><code class="docutils literal notranslate"><span class="pre">Stats.EVENT_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.LINK_COLUMNS"><code class="docutils literal notranslate"><span class="pre">Stats.LINK_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.application_cost_breakdown"><code class="docutils literal notranslate"><span class="pre">Stats.application_cost_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.application_distance_breakdown"><code class="docutils literal notranslate"><span class="pre">Stats.application_distance_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.application_execution_cost_breakdown"><code class="docutils literal notranslate"><span class="pre">Stats.application_execution_cost_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.average_application_response_latency"><code class="docutils literal notranslate"><span class="pre">Stats.average_application_response_latency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.average_loop_response"><code class="docutils literal notranslate"><span class="pre">Stats.average_loop_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.average_messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">Stats.average_messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.bytes_transmitted"><code class="docutils literal notranslate"><span class="pre">Stats.bytes_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.compute_times_df"><code class="docutils literal notranslate"><span class="pre">Stats.compute_times_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.count_messages"><code class="docutils literal notranslate"><span class="pre">Stats.count_messages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.emitted_request_breakdown"><code class="docutils literal notranslate"><span class="pre">Stats.emitted_request_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.estimate_egress_cost"><code class="docutils literal notranslate"><span class="pre">Stats.estimate_egress_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.get_cost_cloud"><code class="docutils literal notranslate"><span class="pre">Stats.get_cost_cloud()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.get_df_modules"><code class="docutils literal notranslate"><span class="pre">Stats.get_df_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.get_df_service_utilization"><code class="docutils literal notranslate"><span class="pre">Stats.get_df_service_utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.get_service_definition"><code class="docutils literal notranslate"><span class="pre">Stats.get_service_definition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.get_watt"><code class="docutils literal notranslate"><span class="pre">Stats.get_watt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.link_breakdown"><code class="docutils literal notranslate"><span class="pre">Stats.link_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.link_utilization"><code class="docutils literal notranslate"><span class="pre">Stats.link_utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.mean_topology_congestion"><code class="docutils literal notranslate"><span class="pre">Stats.mean_topology_congestion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.message_breakdown"><code class="docutils literal notranslate"><span class="pre">Stats.message_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.message_instances"><code class="docutils literal notranslate"><span class="pre">Stats.message_instances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">Stats.messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.observation_window"><code class="docutils literal notranslate"><span class="pre">Stats.observation_window()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.peak_messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">Stats.peak_messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.request_breakdown"><code class="docutils literal notranslate"><span class="pre">Stats.request_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.request_distance_breakdown"><code class="docutils literal notranslate"><span class="pre">Stats.request_distance_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.request_hops"><code class="docutils literal notranslate"><span class="pre">Stats.request_hops()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.service_path_breakdown"><code class="docutils literal notranslate"><span class="pre">Stats.service_path_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.service_paths"><code class="docutils literal notranslate"><span class="pre">Stats.service_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.service_response"><code class="docutils literal notranslate"><span class="pre">Stats.service_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.showLoops"><code class="docutils literal notranslate"><span class="pre">Stats.showLoops()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.showResults"><code class="docutils literal notranslate"><span class="pre">Stats.showResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.showResults2"><code class="docutils literal notranslate"><span class="pre">Stats.showResults2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.summarize_application_cost"><code class="docutils literal notranslate"><span class="pre">Stats.summarize_application_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.summarize_application_execution_cost"><code class="docutils literal notranslate"><span class="pre">Stats.summarize_application_execution_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.summarize_application_execution_metrics"><code class="docutils literal notranslate"><span class="pre">Stats.summarize_application_execution_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.summarize_application_metrics"><code class="docutils literal notranslate"><span class="pre">Stats.summarize_application_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.summarize_service_response"><code class="docutils literal notranslate"><span class="pre">Stats.summarize_service_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.times"><code class="docutils literal notranslate"><span class="pre">Stats.times()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.total_bandwidth_available"><code class="docutils literal notranslate"><span class="pre">Stats.total_bandwidth_available()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.total_bandwidth_used"><code class="docutils literal notranslate"><span class="pre">Stats.total_bandwidth_used()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.total_links"><code class="docutils literal notranslate"><span class="pre">Stats.total_links()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.utilization"><code class="docutils literal notranslate"><span class="pre">Stats.utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.stats.html#yafs.stats.Stats.valueLoop"><code class="docutils literal notranslate"><span class="pre">Stats.valueLoop()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/yafs.metrics.html"><code class="docutils literal notranslate"><span class="pre">yafs.metrics</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.Metrics"><code class="docutils literal notranslate"><span class="pre">Metrics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.Metrics.EVENT_COLUMNS"><code class="docutils literal notranslate"><span class="pre">Metrics.EVENT_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.Metrics.LINK_COLUMNS"><code class="docutils literal notranslate"><span class="pre">Metrics.LINK_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.Metrics.TIME_LATENCY"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_LATENCY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.Metrics.TIME_RESPONSE"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_RESPONSE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.Metrics.TIME_SERVICE"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_SERVICE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.Metrics.TIME_TOTAL_RESPONSE"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_TOTAL_RESPONSE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.Metrics.TIME_WAIT"><code class="docutils literal notranslate"><span class="pre">Metrics.TIME_WAIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.Metrics.WATT_SERVICE"><code class="docutils literal notranslate"><span class="pre">Metrics.WATT_SERVICE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.Metrics.WATT_UPTIME"><code class="docutils literal notranslate"><span class="pre">Metrics.WATT_UPTIME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.Metrics.close"><code class="docutils literal notranslate"><span class="pre">Metrics.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.Metrics.flush"><code class="docutils literal notranslate"><span class="pre">Metrics.flush()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.Metrics.insert"><code class="docutils literal notranslate"><span class="pre">Metrics.insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.Metrics.insert_link"><code class="docutils literal notranslate"><span class="pre">Metrics.insert_link()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.AUXILIARY_EVENT_TYPES"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.AUXILIARY_EVENT_TYPES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.EVENT_COLUMNS"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.EVENT_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.LINK_COLUMNS"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.LINK_COLUMNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.application_cost_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.application_cost_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.application_distance_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.application_distance_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.application_execution_cost_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.application_execution_cost_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.average_application_response_latency"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.average_application_response_latency()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.average_loop_response"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.average_loop_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.average_messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.average_messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.bytes_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.bytes_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.compute_times_df"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.compute_times_df()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.count_messages"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.count_messages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.emitted_request_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.emitted_request_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.estimate_egress_cost"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.estimate_egress_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.get_cost_cloud"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_cost_cloud()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.get_df_modules"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_df_modules()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.get_df_service_utilization"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_df_service_utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.get_service_definition"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_service_definition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.get_watt"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.get_watt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.link_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.link_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.link_utilization"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.link_utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.mean_topology_congestion"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.mean_topology_congestion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.message_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.message_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.message_instances"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.message_instances()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.observation_window"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.observation_window()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.peak_messages_not_transmitted"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.peak_messages_not_transmitted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.request_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.request_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.request_distance_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.request_distance_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.request_hops"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.request_hops()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.service_path_breakdown"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.service_path_breakdown()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.service_paths"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.service_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.service_response"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.service_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.showLoops"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.showLoops()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.showResults"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.showResults()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.showResults2"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.showResults2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.summarize_application_cost"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.summarize_application_execution_cost"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_execution_cost()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.summarize_application_execution_metrics"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_execution_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.summarize_application_metrics"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_application_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.summarize_service_response"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.summarize_service_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.times"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.times()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.total_bandwidth_available"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_bandwidth_available()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.total_bandwidth_used"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_bandwidth_used()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.total_links"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.total_links()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.utilization"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.utilization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.MetricsAnalyzer.valueLoop"><code class="docutils literal notranslate"><span class="pre">MetricsAnalyzer.valueLoop()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServiceDefinition"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServiceDefinition.app_id"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.app_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServiceDefinition.deadline"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.deadline</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServiceDefinition.from_dict"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.from_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServiceDefinition.has_backward_return"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.has_backward_return</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServiceDefinition.iter_paths"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.iter_paths()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServiceDefinition.messages"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.messages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServiceDefinition.name"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServiceDefinition.paths"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.paths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServiceDefinition.return_messages"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.return_messages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServiceDefinition.to_dict"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.to_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServiceDefinition.transmissions"><code class="docutils literal notranslate"><span class="pre">ServiceDefinition.transmissions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServicePath"><code class="docutils literal notranslate"><span class="pre">ServicePath</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServicePath.app_name"><code class="docutils literal notranslate"><span class="pre">ServicePath.app_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServicePath.messages"><code class="docutils literal notranslate"><span class="pre">ServicePath.messages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServicePath.path_id"><code class="docutils literal notranslate"><span class="pre">ServicePath.path_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServicePath.terminal_message"><code class="docutils literal notranslate"><span class="pre">ServicePath.terminal_message</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.ServicePath.to_dict"><code class="docutils literal notranslate"><span class="pre">ServicePath.to_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.load_node_regions"><code class="docutils literal notranslate"><span class="pre">load_node_regions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.metrics.html#yafs.metrics.load_service_definitions"><code class="docutils literal notranslate"><span class="pre">load_service_definitions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_reference/yafs.services.html"><code class="docutils literal notranslate"><span class="pre">yafs.services</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.ManagedSimulation"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.ManagedSimulation.created_at"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.ManagedSimulation.id"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.ManagedSimulation.last_error"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.last_error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.ManagedSimulation.name"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.ManagedSimulation.parent_id"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.parent_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.ManagedSimulation.scenario_path"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.scenario_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.ManagedSimulation.seed"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.seed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.ManagedSimulation.simulation"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.simulation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.ManagedSimulation.status"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.status</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.ManagedSimulation.to_summary"><code class="docutils literal notranslate"><span class="pre">ManagedSimulation.to_summary()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationMetricsSnapshot"><code class="docutils literal notranslate"><span class="pre">SimulationMetricsSnapshot</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationMetricsSnapshot.entity_metrics"><code class="docutils literal notranslate"><span class="pre">SimulationMetricsSnapshot.entity_metrics</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationMetricsSnapshot.simulation_id"><code class="docutils literal notranslate"><span class="pre">SimulationMetricsSnapshot.simulation_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationMetricsSnapshot.unreachabled_links"><code class="docutils literal notranslate"><span class="pre">SimulationMetricsSnapshot.unreachabled_links</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationRegistry"><code class="docutils literal notranslate"><span class="pre">SimulationRegistry</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationRegistry.add"><code class="docutils literal notranslate"><span class="pre">SimulationRegistry.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationRegistry.get"><code class="docutils literal notranslate"><span class="pre">SimulationRegistry.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationRegistry.list"><code class="docutils literal notranslate"><span class="pre">SimulationRegistry.list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationRegistry.remove"><code class="docutils literal notranslate"><span class="pre">SimulationRegistry.remove()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationRegistry.require"><code class="docutils literal notranslate"><span class="pre">SimulationRegistry.require()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationRegistry.values"><code class="docutils literal notranslate"><span class="pre">SimulationRegistry.values()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService"><code class="docutils literal notranslate"><span class="pre">SimulationService</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.clone"><code class="docutils literal notranslate"><span class="pre">SimulationService.clone()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.count_clusters"><code class="docutils literal notranslate"><span class="pre">SimulationService.count_clusters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.count_nodes"><code class="docutils literal notranslate"><span class="pre">SimulationService.count_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.create_application"><code class="docutils literal notranslate"><span class="pre">SimulationService.create_application()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.create_cluster"><code class="docutils literal notranslate"><span class="pre">SimulationService.create_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.create_nodes"><code class="docutils literal notranslate"><span class="pre">SimulationService.create_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.create_process"><code class="docutils literal notranslate"><span class="pre">SimulationService.create_process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.create_simulation"><code class="docutils literal notranslate"><span class="pre">SimulationService.create_simulation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.create_simulation_configuration"><code class="docutils literal notranslate"><span class="pre">SimulationService.create_simulation_configuration()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.create_simulation_from_configuration"><code class="docutils literal notranslate"><span class="pre">SimulationService.create_simulation_from_configuration()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.create_users"><code class="docutils literal notranslate"><span class="pre">SimulationService.create_users()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.deploy_application_vnfs"><code class="docutils literal notranslate"><span class="pre">SimulationService.deploy_application_vnfs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.deploy_application_vnfs_generated"><code class="docutils literal notranslate"><span class="pre">SimulationService.deploy_application_vnfs_generated()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.destroy"><code class="docutils literal notranslate"><span class="pre">SimulationService.destroy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.disable_process"><code class="docutils literal notranslate"><span class="pre">SimulationService.disable_process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.enable_process"><code class="docutils literal notranslate"><span class="pre">SimulationService.enable_process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.fork"><code class="docutils literal notranslate"><span class="pre">SimulationService.fork()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.get_application_metrics"><code class="docutils literal notranslate"><span class="pre">SimulationService.get_application_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.get_metrics_snapshot"><code class="docutils literal notranslate"><span class="pre">SimulationService.get_metrics_snapshot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.get_network_metrics"><code class="docutils literal notranslate"><span class="pre">SimulationService.get_network_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.get_state"><code class="docutils literal notranslate"><span class="pre">SimulationService.get_state()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.list_application_vnfs"><code class="docutils literal notranslate"><span class="pre">SimulationService.list_application_vnfs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.list_clusters"><code class="docutils literal notranslate"><span class="pre">SimulationService.list_clusters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.list_deployed_applications"><code class="docutils literal notranslate"><span class="pre">SimulationService.list_deployed_applications()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.list_node_placements"><code class="docutils literal notranslate"><span class="pre">SimulationService.list_node_placements()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.list_nodes"><code class="docutils literal notranslate"><span class="pre">SimulationService.list_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.list_nodes_in_cluster"><code class="docutils literal notranslate"><span class="pre">SimulationService.list_nodes_in_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.list_processes"><code class="docutils literal notranslate"><span class="pre">SimulationService.list_processes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.list_simulations"><code class="docutils literal notranslate"><span class="pre">SimulationService.list_simulations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.list_users"><code class="docutils literal notranslate"><span class="pre">SimulationService.list_users()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.move_application_vnf"><code class="docutils literal notranslate"><span class="pre">SimulationService.move_application_vnf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.move_users_to_node"><code class="docutils literal notranslate"><span class="pre">SimulationService.move_users_to_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.pause"><code class="docutils literal notranslate"><span class="pre">SimulationService.pause()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.remove_application_vnf"><code class="docutils literal notranslate"><span class="pre">SimulationService.remove_application_vnf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.remove_application_vnfs"><code class="docutils literal notranslate"><span class="pre">SimulationService.remove_application_vnfs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.remove_cluster"><code class="docutils literal notranslate"><span class="pre">SimulationService.remove_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.remove_node"><code class="docutils literal notranslate"><span class="pre">SimulationService.remove_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.remove_process"><code class="docutils literal notranslate"><span class="pre">SimulationService.remove_process()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.remove_users_by_application"><code class="docutils literal notranslate"><span class="pre">SimulationService.remove_users_by_application()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.remove_users_by_cluster"><code class="docutils literal notranslate"><span class="pre">SimulationService.remove_users_by_cluster()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.remove_users_by_node"><code class="docutils literal notranslate"><span class="pre">SimulationService.remove_users_by_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.replicate_application_vnf"><code class="docutils literal notranslate"><span class="pre">SimulationService.replicate_application_vnf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.resume"><code class="docutils literal notranslate"><span class="pre">SimulationService.resume()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.run_for"><code class="docutils literal notranslate"><span class="pre">SimulationService.run_for()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.schedule_for"><code class="docutils literal notranslate"><span class="pre">SimulationService.schedule_for()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.stop"><code class="docutils literal notranslate"><span class="pre">SimulationService.stop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.update_application_users_lambda"><code class="docutils literal notranslate"><span class="pre">SimulationService.update_application_users_lambda()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.update_node"><code class="docutils literal notranslate"><span class="pre">SimulationService.update_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.update_user_lambda"><code class="docutils literal notranslate"><span class="pre">SimulationService.update_user_lambda()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.wait_until_idle"><code class="docutils literal notranslate"><span class="pre">SimulationService.wait_until_idle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationService.wait_until_ready"><code class="docutils literal notranslate"><span class="pre">SimulationService.wait_until_ready()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationState"><code class="docutils literal notranslate"><span class="pre">SimulationState</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationState.alloc_module_count"><code class="docutils literal notranslate"><span class="pre">SimulationState.alloc_module_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationState.alloc_source_count"><code class="docutils literal notranslate"><span class="pre">SimulationState.alloc_source_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationState.initialized"><code class="docutils literal notranslate"><span class="pre">SimulationState.initialized</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationState.network_buffer"><code class="docutils literal notranslate"><span class="pre">SimulationState.network_buffer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationState.paused"><code class="docutils literal notranslate"><span class="pre">SimulationState.paused</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationState.step"><code class="docutils literal notranslate"><span class="pre">SimulationState.step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationState.stop_requested"><code class="docutils literal notranslate"><span class="pre">SimulationState.stop_requested</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationState.summary"><code class="docutils literal notranslate"><span class="pre">SimulationState.summary</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus"><code class="docutils literal notranslate"><span class="pre">SimulationStatus</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.CREATED"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.CREATED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.FAILED"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.FAILED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.IDLE"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.IDLE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.INITIALIZED"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.INITIALIZED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.PAUSED"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.PAUSED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.RUNNING"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.RUNNING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.STOPPED"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.STOPPED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.capitalize"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.capitalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.casefold"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.casefold()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.center"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.center()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.count"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.encode"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.encode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.endswith"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.endswith()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.expandtabs"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.expandtabs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.find"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.find()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.format"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.format_map"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.format_map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.index"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.isalnum"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isalnum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.isalpha"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isalpha()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.isascii"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isascii()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.isdecimal"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isdecimal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.isdigit"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isdigit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.isidentifier"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isidentifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.islower"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.islower()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.isnumeric"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isnumeric()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.isprintable"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isprintable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.isspace"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isspace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.istitle"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.istitle()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.isupper"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.isupper()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.join"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.ljust"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.ljust()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.lower"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.lower()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.lstrip"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.lstrip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.maketrans"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.maketrans()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.partition"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.partition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.removeprefix"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.removeprefix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.removesuffix"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.removesuffix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.replace"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.rfind"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.rfind()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.rindex"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.rindex()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.rjust"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.rjust()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.rpartition"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.rpartition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.rsplit"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.rsplit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.rstrip"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.rstrip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.split"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.splitlines"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.splitlines()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.startswith"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.startswith()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.strip"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.strip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.swapcase"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.swapcase()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.title"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.title()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.translate"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.translate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.upper"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.upper()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationStatus.zfill"><code class="docutils literal notranslate"><span class="pre">SimulationStatus.zfill()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationSummary"><code class="docutils literal notranslate"><span class="pre">SimulationSummary</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationSummary.created_at"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.created_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationSummary.error"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationSummary.id"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationSummary.name"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationSummary.now"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.now</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationSummary.parent_id"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.parent_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationSummary.scenario_path"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.scenario_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationSummary.scheduled_until"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.scheduled_until</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationSummary.seed"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.seed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api_reference/yafs.services.html#yafs.services.SimulationSummary.status"><code class="docutils literal notranslate"><span class="pre">SimulationSummary.status</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.services.html#simulationservice-topology-inventory">SimulationService Topology Inventory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference/yafs.services.html#simulationservice-application-actions">SimulationService Application Actions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../about/index.html">ABOUT</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../contents.html">YAIFS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../contents.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Examples</a></li>
+      <li class="breadcrumb-item active">Tutorial Example</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/tutorial_example.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
   <section id="tutorial-example">
-<span id="id1"></span><h1>Tutorial Example<a class="headerlink" href="#tutorial-example" title="Link to this heading">¶</a></h1>
+<span id="id1"></span><h1>Tutorial Example<a class="headerlink" href="#tutorial-example" title="Link to this heading"></a></h1>
 <p>In this section, we explain the examples from Tutorial/ directory but you can see most sophisticated implemented cases:</p>
 <ul class="simple">
 <li><p><strong>Tutorial/main1.py</strong> The most basic case: cloud allocation, and  minimum  path routing,</p></li>
@@ -51,64 +1024,34 @@
 </section>
 
 
+           </div>
           </div>
-          
-        </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="Main">
-        <div class="sphinxsidebarwrapper">
-<h3><a href="../contents.html">Table of Contents</a></h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../index.html">OVERVIEW</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../index.html#acknowledge">Acknowledge</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../introduction/index.html">YAFS in 5 Minutes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../architecture/index.html">Architecture</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">Examples</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Tutorial Example</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../api_reference/index.html">API REFERENCE</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../about/index.html">ABOUT</a></li>
-</ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../contents.html">Documentation overview</a><ul>
-  <li><a href="index.html">Examples</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Examples</a></li>
-      <li>Next: <a href="../api_reference/index.html" title="next chapter">API REFERENCE</a></li>
-  </ul></li>
-  </ul></li>
-</ul>
-</div>
-<search id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</search>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &#169;2017, Isaac Lera, Carlos Guerrero.
-      
-      |
-      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
-      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
-      
-      |
-      <a href="../_sources/examples/tutorial_example.rst.txt"
-          rel="nofollow">Page source</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api_reference/index.html" class="btn btn-neutral float-right" title="API REFERENCE" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
-    
+  <hr/>
 
-    
-  </body>
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Isaac Lera, Carlos Guerrero.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
 </html>

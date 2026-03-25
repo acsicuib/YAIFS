@@ -171,7 +171,7 @@ class Topology:
 
         Parameters
         ----------
-        G : :class:`networkx.Graph`
+        G : :class:`~networkx.classes.graph.Graph`
             Graph instance to use as the topology.
         """
         if isinstance(G, nx.Graph):
@@ -186,7 +186,7 @@ class Topology:
         Parameters
         ----------
         nxGraphGenerator : callable
-            Graph generator function (e.g. from :mod:`networkx.generators`).
+            Graph generator function (for example, one from ``networkx``).
         params : list
             Positional parameters to pass to ``nxGraphGenerator``.
         """

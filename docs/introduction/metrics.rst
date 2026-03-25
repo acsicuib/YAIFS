@@ -2,7 +2,8 @@
 Metrics Overview
 =================
 
-YAFS 3.1 exposes metrics from two complementary layers:
+YAIFS 3.1 exposes metrics from two complementary layers through the compatible
+``yafs`` package:
 
 - offline trace analysis through ``yafs.metrics.MetricsAnalyzer``
 - live deployment metrics through ``yafs.api.Simulation`` and ``SimulationService``
@@ -131,7 +132,7 @@ user. It avoids diluting local degradations with the complete historical trace.
 Important semantic distinction
 ==============================
 
-YAFS now distinguishes two cost models:
+YAIFS now distinguishes two cost models:
 
 - ``execution cost``: depends on service time and simulation workload
 - ``placement cost``: depends only on deployed instances and node ``COST``

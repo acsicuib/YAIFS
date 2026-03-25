@@ -3,7 +3,7 @@
 Core simulation engine for YAFS.
 
 This module integrates the discrete‑event simulation environment
-(:mod:`simpy`) with the rest of the framework components:
+(``simpy``) with the rest of the framework components:
 placement, topology, selection, population, utilities, and metrics.
 
 """
@@ -172,7 +172,7 @@ class Sim:
         """
         Represents the deployment of a module in a DES PROCESS each DES has a one topology.node.id (see alloc_des var.)
 
-        It used for (:mod:`Placement`) class interaction.
+        It is used for :class:`yafs.placement.Placement` interaction.
 
         A dictionary where the key is an app.name and value is a dictionary with key is a module and value an array of id DES process
 
@@ -210,7 +210,7 @@ class Sim:
         Args:
             app_name (string)º
 
-            message: (:mod:`Message`)
+            message: (:class:`yafs.application.Message`)
 
         Kwargs:
             id_src (int) identifier of a pure source module
@@ -1092,7 +1092,7 @@ class Sim:
     ):
         """
         Add a DES process for deploy pure source modules (sensors)
-        This function its used by (:mod:`Population`) algorithm
+        This function is used by :class:`yafs.population.Population`.
 
         Args:
             app_name (str): application name
@@ -1130,7 +1130,7 @@ class Sim:
     def __deploy_source_module(self, app_name, module, id_node, msg, distribution):
         """
         Add a DES process for deploy  source modules
-        This function its used by (:mod:`Population`) algorithm
+        This function is used by :class:`yafs.population.Population`.
 
         Args:
             app_name (str): application name
@@ -1158,7 +1158,7 @@ class Sim:
     def __deploy_module(self, app_name, module, id_node, register_consumer_msg):
         """
         Add a DES process for deploy  modules
-        This function its used by (:mod:`Population`) algorithm
+        This function is used by :class:`yafs.population.Population`.
 
         Args:
             app_name (str): application name
@@ -1195,7 +1195,7 @@ class Sim:
     def deploy_sink(self, app_name, node, module):
         """
         Add a DES process for deploy pure SINK modules (actuators)
-        This function its used by (:mod:`Placement`): algorithm
+        This function is used by :class:`yafs.placement.Placement`.
         Internatlly, there is not a DES PROCESS for this type of behaviour
 
         Args:
@@ -1221,7 +1221,7 @@ class Sim:
     def stop_process(self, id):
         """
         All pure source modules (sensors) are controlled by this boolean.
-        Using this function (:mod:`Population`) algorithm can stop one source
+        Using this function, :class:`yafs.population.Population` can stop one source.
 
         Args:
             id.source (int): the identifier of the DES process.
@@ -1231,7 +1231,7 @@ class Sim:
     def start_process(self, id):
         """
         All pure source modules (sensors) are controlled by this boolean.
-        Using this function (:mod:`Population`) algorithm can start one source
+        Using this function, :class:`yafs.population.Population` can start one source.
 
         Args:
             id.source (int): the identifier of the DES process.
@@ -1243,11 +1243,11 @@ class Sim:
         This process is responsible for linking the *application* to the different algorithms (placement, population, and service)
 
         Args:
-            app (object): :mod:`Application` class
+            app (object): :class:`yafs.application.Application` instance
 
-            placement (object): :mod:`Placement` class
+            placement (object): :class:`yafs.placement.Placement` instance
 
-            selector (object): :mod:`Selector` class
+            selector (object): :class:`yafs.selection.Selection` instance
         """
         # Application
         self.apps[app.name] = app
@@ -1275,13 +1275,13 @@ class Sim:
         This process is responsible for linking the *application* to the different algorithms (placement, population, and service)
 
         Args:
-            app (object): :mod:`Application` class
+            app (object): :class:`yafs.application.Application` instance
 
-            placement (object): :mod:`Placement` class
+            placement (object): :class:`yafs.placement.Placement` instance
 
-            population (object): :mod:`Population` class
+            population (object): :class:`yafs.population.Population` instance
 
-            selector (object): :mod:`Selector` class
+            selector (object): :class:`yafs.selection.Selection` instance
         """
         # Application
         self.apps[app.name] = app

@@ -1,13 +1,5 @@
 .. only:: html
 
-    .. figure:: _static/yafs_logo.png
-        :align: center
-
-        Yet Another Fog Simulator for Python
-
-
-.. only:: html
-
     .. sidebar:: Documentation
 
         :ref:`Tutorial <intro>`
@@ -20,7 +12,7 @@
             usage examples
 
         :ref:`API Reference <api_reference>`
-            detailed description of YAFS' API
+            detailed description of the `yafs` API
 
         :ref:`About <about>`
             authors, history, license, citing, ...
@@ -29,10 +21,17 @@
 OVERVIEW
 ========
 
-YAFS (Yet Another Fog Simulator) is a simulation library for Cloud, Edge or `Fog Computing <https://en.wikipedia.org/wiki/Fog_computing>`_ ecosystems enabling several analysis regarding with the allocation of resources, billing management, network design, and so on.
+YAIFS is the current public branding of the original YAFS simulator, a
+simulation library for Cloud, Edge or `Fog Computing <https://en.wikipedia.org/wiki/Fog_computing>`_
+ecosystems enabling several analyses regarding resource allocation, billing
+management, network design, and related topics.
 
-It is a lightweight, robust and highly configurable simulator based on Simpy library (discrete event simulator) and Complex Network theory. YAFS is set by a reduced number of classes (only 7) thus we believe the learning curve is quite low compared
-to other similar simulators. This number of classes offer an absolute control to the user for the implementation of several customized policies and environment characteristics. We highlight the following points:
+The user-facing project name is ``YAIFS``, while the Python package and import
+path remain ``yafs`` for compatibility. It is a lightweight, robust and highly
+configurable simulator based on the SimPy discrete-event simulator and Complex
+Network theory. The core design is intentionally compact, keeping the learning
+curve low while still giving users strong control over custom policies and
+environment characteristics. We highlight the following points:
 
 * **Topology** The infrastructure is modelled using `Complex Networks <https://en.wikipedia.org/wiki/Complex_network>`_ theory. Any element (network devices, cloud abstractions, software modules, workloads, etc.) are represented by nodes and the links represents the possible network connection between them. In addition, Complex Networks theory provides useful topological features in order to control the deployment of services, the allocation of resources, network design considerations and other customized user policies.
 * **Dynamic control** All process that the user can extend can be define dynamically, such as topology (i.e. new nodes, links failures, etc.), allocation policies, orchestration, etc.
@@ -41,23 +40,24 @@ to other similar simulators. This number of classes offer an absolute control to
 * **Selection algorithm** In a network, routing can be controlled by network devices but with new Fog applications the applications can controlled these messages, it depends on the user abstraction level. It offers new analytical models for the adaptation of traffic.
 * **Customized distribution** User can generate events to control policies or whatever action in the simulator using customized distributions as for example a simple array of timestamps to deploy software modules.
 
-YAFS gathers the main events in a raw format. There is not hidden variables or *stranger things* where this data is stored. This data can be accessed from any point of the simulator so any module has access to the stats.
+YAIFS gathers the main events in a raw format. There are no hidden variables or
+opaque stores for this data, so any module can access the same simulator stats.
 
 The documentation contains a :ref:`tutorial <intro>`, :ref:`architecture details <architecture>` explaining key concepts, a number of :ref:`examples <examples>` and the :ref:`API reference <api_reference>`.
 
 
-YAFS is released under the MIT License.
+YAIFS is released under the MIT License.
 
 Installation
 ^^^^^^^^^^^^
 
-YAFS requires Python 2.7 (Python 3.6 or above is not supported)
+YAIFS currently supports Python 3.12.
 
-You can download and install YAFS manually:
+You can download and install YAIFS manually:
 
 .. code-block:: bash
 
-    git clone https://github.com/acsicuib/YAFS
+    git clone https://github.com/acsicuib/YAIFS
 
 
 
@@ -67,6 +67,18 @@ Cite this work
 Please, consider including this reference in your works or publications:
 
 .. code-block:: python
+
+
+    ========================================================
+    YAIFS is still pending a proper citation.
+    ========================================================
+
+
+
+
+    ========================================================
+    YAFS
+    ========================================================
 
     Isaac Lera, Carlos Guerrero, Carlos Juiz. YAFS: A simulator for IoT scenarios in fog computing. IEEE Access. Vol. 7(1), pages 91745-91758,
     10.1109/ACCESS.2019.2927895, Jul 10 2019.
@@ -87,11 +99,13 @@ Please, consider including this reference in your works or publications:
     month={},
 
 
-Please let it knows us if you use this project in your research. We will cite them. Thank you
+Please let us know if you use this project in your research. We will be happy
+to reference it.
 
-You can find other related works developed with YAFS in the readme of YAFS git hub repository.
+You can find other related works developed with YAFS and YAIFS in the project
+repository README.
 
 ===========
 Acknowledge
 ===========
-Authors acknowledge financial support through project ORD-CoT (TIN2017-88547-P MINECO, SPAIN).
+Authors acknowledge financial support through project ORD-CoT (TIN2017-88547-P MINECO, SPAIN) and PID2024-158637OB-I00 (AEI/FEDER, UE).

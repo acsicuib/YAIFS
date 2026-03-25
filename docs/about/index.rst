@@ -4,8 +4,9 @@
 ABOUT
 =====
 
-YAFS is designed and implemented by Isaac Lera and Carlos Guerrero. Both work at Computer Science Faculty in the University Of Balearic Islands.
-
+YAIFS evolves the original YAFS simulator designed and implemented by Isaac
+Lera and Carlos Guerrero. Both work at the Computer Science Faculty of the
+University of the Balearic Islands.
 
 
 

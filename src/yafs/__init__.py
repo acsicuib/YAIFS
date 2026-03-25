@@ -29,7 +29,10 @@ def compile_toc(entries, section_marker="="):
         toc += ".. autosummary::\n\n"
 
         for obj in objs:
-            toc += "    ~%s.%s\n" % (obj.__module__, obj.__name__)
+            module_name = obj.__module__
+            if module_name.startswith("yafs."):
+                module_name = module_name[len("yafs.") :]
+            toc += "    ~%s.%s\n" % (module_name, obj.__name__)
     return toc
 
 

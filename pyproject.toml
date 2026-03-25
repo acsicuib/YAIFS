@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "yafs"
 version = "3.1.0"
-description = "Yet Another Fog Simulator for Python (YAFS). https://yafs.readthedocs.io, MIT License"
+description = "YAIFS (Yet Another Intelligent Fog System), evolved from YAFS. The public branding is YAIFS while the Python package remains yafs for compatibility."
 readme = "README.md"
 requires-python = ">=3.12"
 authors = [
@@ -23,7 +23,7 @@ classifiers = [
     "Programming Language :: Python",
     "Topic :: Scientific/Engineering",
 ]
-urls = { Homepage = "https://yafs.readthedocs.io", Source = "https://github.com/acsicuib/YAFS" }
+urls = { Homepage = "https://yafs.readthedocs.io", Source = "https://github.com/acsicuib/YAIFS" }
 dependencies = [
     "simpy>=4.0.1",
     "pandas>=1.4.3",
@@ -39,7 +39,7 @@ dependencies = [
 [project.optional-dependencies]
 docs = [
     "sphinx>=8.2.3",
-    "alabaster>=1.0.0",
+    "sphinx-rtd-theme>=3.0.2",
 ]
 
 [tool.setuptools]

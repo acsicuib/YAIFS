@@ -8,8 +8,28 @@
 ```
 ⚡ YAIFS :: Yet Another Intelligent Fog System ⚡
 
+YAIFS is the current project branding and evolution of the original YAFS
+simulator. For compatibility, the Python package name and import path remain
+`yafs`, so existing code and tutorials can continue to use
+`from yafs ... import ...` while the user-facing project name is `YAIFS`.
 
 YAIFS is released under the MIT License. However, we would like to know in which projects or publications you have used or mentioned YAIFS.
+
+**Please consider using the following citation when you use YAIFS or the `yafs` package**:
+
+```bash
+    Pending
+
+```
+
+Bibtex:
+```
+    Pending
+  
+```
+
+Architecture
+------------
 
 ```text
            AI Agent
@@ -24,19 +44,6 @@ YAIFS is released under the MIT License. However, we would like to know in which
 +---------------+
 |  CORE         | ◀── User
 +---------------+
-```
-
-**Please consider using the following citation when you use YAFS**:
-
-```bash
-    Pending
-
-```
-
-Bibtex:
-```
-    Pending
-  
 ```
 
 Resources
@@ -67,6 +74,12 @@ uv sync
 uv pip install -e .
 ```
 
+Compatibility note:
+
+- the project and documentation use the `YAIFS` name
+- the installed Python package is still `yafs`
+- imports therefore remain `import yafs` and `from yafs...`
+
 Getting started
 ---------------
 
@@ -79,17 +92,17 @@ MCP client enables you to chat with
 To run a simple  configuration of MCP:
 
 ```bash
-uv run python mcp-client/cli.py \
-  --env-file mcp-client/.env \
+uv run python apps/mcp/client/cli.py \
+  --env-file apps/mcp/client/.env \
   --server-command uv \
   --server-arg run \
   --server-arg python \
-  --server-arg mcp-server/server.py \
+  --server-arg apps/mcp/server/server.py \
   --server-arg --scenario-path \
   --server-arg lab_scenarios/case_three_cluster/three-cluster
 ```
 
-You can find more information in specific folders /mcp-client and /mcp-server
+You can find more information in `apps/mcp/client` and `apps/mcp/server`.
 
 
 Simulation Service API
@@ -151,7 +164,7 @@ Compatibility note:
 Metrics
 -------
 
-YAFS 3.1 includes an expanded metrics layer with two complementary views:
+YAIFS includes an expanded metrics layer with two complementary views:
 
 * Offline analysis through `yafs.metrics.MetricsAnalyzer` over `*.csv` and `*_link.csv`
 * Live deployment and infrastructure metrics through `Simulation` and `SimulationService`
@@ -187,7 +200,7 @@ Documentation and Help
 
 Changelog
 -----------
-- 24/03/2026 The new version of YAFS, called YAIFS is published.
+- 24/03/2026 YAIFS becomes the public project branding while the Python package remains `yafs` for compatibility.
 
 Acknowledgment
 --------------

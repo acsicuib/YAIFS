@@ -63,3 +63,4 @@ tutorial_scenarios/02_serviceMovement/
 tutorial_scenarios/03_topologyChanges/
 tutorial_scenarios/04_userMovement/
 .misnotas.md
+*/results/*.csv

@@ -1,8 +1,10 @@
 # Metrics Guide
 
-This document summarizes the metrics currently available in YAFS 3.1 after the metrics layer refactor.
+This document summarizes the metrics currently available in YAIFS after
+the metrics layer refactor.
 
-YAFS now exposes metrics from two complementary perspectives:
+YAIFS now exposes metrics from two complementary perspectives through the
+compatible `yafs` Python package:
 
 - `yafs.metrics.MetricsAnalyzer`: offline analysis over `*.csv` and `*_link.csv`
 - `yafs.api.Simulation`: live metrics derived from the current deployment state
@@ -345,7 +347,7 @@ Definition:
 
 ## Cost Semantics
 
-YAFS now distinguishes two cost concepts:
+YAIFS now distinguishes two cost concepts:
 
 ### Execution cost
 

@@ -92,19 +92,19 @@ In addition, the script prints the final DES-process assignments, including thei
 ----------------------------------------
 DES     | TOPO  | Src.Mod       | Modules
 ----------------------------------------
-0       | 1     | M.USER.APP.0          | --
-1       | 2     | M.USER.APP.1          | --
-2       | 3     | M.USER.APP.2          | --
-3       | 4     | M.USER.APP.3          | --
-13      | 12    | M.USER.APP.3          | --
-15      | 29    | M.USER.APP.5          | --
-30      | 15    | M.USER.APP.4          | --
-38      | 22    | M.USER.APP.2          | --
-45      | 11    | M.USER.APP.6          | --
-53      | 17    | M.USER.APP.0          | --
-54      | 19    | M.USER.APP.3          | --
-62      | 8     | M.USER.APP.5          | --
-77      | 1     | M.USER.APP.6          | --
+0       | 1     | M.USER.APP.0  | --
+1       | 2     | M.USER.APP.1  | --
+2       | 3     | M.USER.APP.2  | --
+3       | 4     | M.USER.APP.3  | --
+13      | 12    | M.USER.APP.3  | --
+15      | 29    | M.USER.APP.5  | --
+30      | 15    | M.USER.APP.4  | --
+38      | 22    | M.USER.APP.2  | --
+45      | 11    | M.USER.APP.6  | --
+53      | 17    | M.USER.APP.0  | --
+54      | 19    | M.USER.APP.3  | --
+62      | 8     | M.USER.APP.5  | --
+77      | 1     | M.USER.APP.6  | --
 78      | 15    | --            | 0_01
 79      | 22    | --            | 1_01
 80      | 3     | --            | 2_01
@@ -112,7 +112,7 @@ DES     | TOPO  | Src.Mod       | Modules
 82      | 9     | --            | 4_01
 83      | 2     | --            | 5_01
 84      | 8     | --            | 6_01
-85      | 11    | M.USER.APP.2          | --
+85      | 11    | M.USER.APP.2  | --
 ----------------------------------------
 ```
 
