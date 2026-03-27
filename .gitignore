@@ -64,3 +64,4 @@ tutorial_scenarios/03_topologyChanges/
 tutorial_scenarios/04_userMovement/
 .misnotas.md
 */results/*.csv
+apps/mcp/client/artifacts/

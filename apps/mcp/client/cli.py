@@ -40,6 +40,7 @@ When interacting with the simulator:
 """
 
 MULTILINE_END_MARKER = "EOF"
+DEFAULT_ARTIFACTS_ROOT = Path(__file__).resolve().parent / "artifacts"
 YAIFS_ASCII = r"""
 ██╗   ██╗ █████╗ ██╗███████╗███████╗
 ╚██╗ ██╔╝██╔══██╗██║██╔════╝██╔════╝
@@ -113,7 +114,7 @@ def _render_welcome(
         console.print(
             Panel(
                 Syntax(
-                    "you> /lab /Users/isaac/Projects/YAFS/lab_scenarios/case_three_cluster/three-cluster\n"
+                    "you> /lab ~/YAFS/tutorial_scenarios/using_service_layer_02/three-cluster\n"
                     "you> create a simulation named demo and run it for 500 units\n"
                     "you> fork it and remove a cluster to compare metrics",
                     "text",
@@ -211,6 +212,66 @@ def _read_prompt_from_file(path_str: str) -> str:
         return handle.read()
 
 
+def _append_jsonl(path: str | Path | None, entry: dict[str, Any]) -> None:
+    if not path:
+        return
+    log_path = Path(path).expanduser()
+    if not log_path.is_absolute():
+        log_path = Path.cwd() / log_path
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    with log_path.open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(entry, ensure_ascii=True) + "\n")
+
+
+def _next_session_index(base_dir: Path) -> int:
+    max_index = 0
+    for child in base_dir.iterdir():
+        if not child.is_dir():
+            continue
+        name = child.name
+        if not name.startswith("session-"):
+            continue
+        parts = name.split("-", 2)
+        if len(parts) < 3 or not parts[1].isdigit():
+            continue
+        max_index = max(max_index, int(parts[1]))
+    return max_index + 1
+
+
+def _resolve_session_root(artifacts_dir: str | None) -> Path:
+    if artifacts_dir:
+        root = Path(artifacts_dir).expanduser()
+        if not root.is_absolute():
+            root = Path.cwd() / root
+        root = root.resolve()
+        root.mkdir(parents=True, exist_ok=True)
+        return root
+
+    base_dir = DEFAULT_ARTIFACTS_ROOT.resolve()
+    base_dir.mkdir(parents=True, exist_ok=True)
+    session_index = _next_session_index(base_dir)
+    timestamp = datetime.now().astimezone().strftime("%Y%m%d-%H%M%S")
+    session_root = base_dir / f"session-{session_index:03d}-{timestamp}"
+    session_root.mkdir(parents=True, exist_ok=True)
+    return session_root
+
+
+def _resolve_log_path(session_root: Path, candidate: str | None, default_name: str) -> Path:
+    if not candidate:
+        return session_root / "logs" / default_name
+    path = Path(candidate).expanduser()
+    if path.is_absolute():
+        return path
+    return session_root / path
+
+
+def _write_session_metadata(path: Path, payload: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as handle:
+        json.dump(payload, handle, indent=2, ensure_ascii=True)
+        handle.write("\n")
+
+
 class OpenAIResponsesClient:
     def __init__(
         self,
@@ -261,12 +322,16 @@ class MCPChatClient:
         llm: OpenAIResponsesClient,
         *,
         tool_log_path: str | None = None,
+        response_log_path: str | None = None,
+        transcript_log_path: str | None = None,
         show_tool_calls: bool = False,
         session_context: list[str] | None = None,
     ) -> None:
         self.session = session
         self.llm = llm
         self.tool_log_path = tool_log_path
+        self.response_log_path = response_log_path
+        self.transcript_log_path = transcript_log_path
         self.show_tool_calls = show_tool_calls
         self.history: list[dict[str, Any]] = [
             {
@@ -343,12 +408,22 @@ class MCPChatClient:
         }
         if self.show_tool_calls:
             print(f"tool> {tool_name} {json.dumps(entry['arguments'], ensure_ascii=True)}")
-        if not self.tool_log_path:
-            return
-        log_path = os.path.abspath(self.tool_log_path)
-        os.makedirs(os.path.dirname(log_path), exist_ok=True)
-        with open(log_path, "a", encoding="utf-8") as handle:
-            handle.write(json.dumps(entry, ensure_ascii=True) + "\n")
+        _append_jsonl(self.tool_log_path, entry)
+
+    def _log_transcript_event(
+        self,
+        *,
+        role: str,
+        content: str,
+    ) -> None:
+        _append_jsonl(
+            self.transcript_log_path,
+            {
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "role": role,
+                "content": content,
+            },
+        )
 
     def _mcp_tool_to_openai(self, tool: Any) -> dict[str, Any]:
         schema = getattr(tool, "inputSchema", None)
@@ -366,6 +441,7 @@ class MCPChatClient:
         }
 
     async def ask(self, prompt: str) -> str:
+        self._log_transcript_event(role="user", content=prompt)
         conversation = list(self.history)
         conversation.append(
             {
@@ -384,6 +460,13 @@ class MCPChatClient:
                 input_items=conversation,
                 tools=self.tool_specs,
             )
+            _append_jsonl(
+                self.response_log_path,
+                {
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "response": _jsonable(response),
+                },
+            )
             output_items = response.get("output", [])
             conversation.extend(output_items)
 
@@ -394,6 +477,7 @@ class MCPChatClient:
                 final_text = _extract_text_from_response(response)
                 if not final_text:
                     final_text = "(no text response)"
+                self._log_transcript_event(role="model", content=final_text)
                 self.history = conversation
                 return final_text
 
@@ -434,25 +518,44 @@ async def run_cli(args: argparse.Namespace) -> int:
     server_args = list(args.server_args)
     session_context: list[str] = []
     console = _build_console()
-
-    artifacts_dir = args.artifacts_dir
+    session_root = _resolve_session_root(args.artifacts_dir)
+    logs_dir = session_root / "logs"
     configurations_dir = args.configurations_dir
     results_dir = args.results_dir
-    if artifacts_dir:
-        artifacts_root = os.path.abspath(artifacts_dir)
-        if configurations_dir is None:
-            configurations_dir = os.path.join(artifacts_root, "configurations")
-        if results_dir is None:
-            results_dir = os.path.join(artifacts_root, "results")
+    if configurations_dir is None:
+        configurations_dir = str(session_root / "configurations")
+    if results_dir is None:
+        results_dir = str(session_root / "results")
+    tool_log_path = _resolve_log_path(
+        session_root,
+        args.tool_log_file,
+        "tool_calls.jsonl",
+    )
+    response_log_path = session_root / "logs" / "model_responses.jsonl"
+    transcript_log_path = session_root / "logs" / "transcript.jsonl"
 
-    if configurations_dir is not None:
-        abs_configurations_dir = os.path.abspath(configurations_dir)
-        os.makedirs(abs_configurations_dir, exist_ok=True)
-        server_env["YAFS_MCP_CONFIGURATIONS_DIR"] = abs_configurations_dir
-    if results_dir is not None:
-        abs_results_dir = os.path.abspath(results_dir)
-        os.makedirs(abs_results_dir, exist_ok=True)
-        server_env["YAFS_MCP_RESULTS_DIR"] = abs_results_dir
+    logs_dir.mkdir(parents=True, exist_ok=True)
+    Path(configurations_dir).mkdir(parents=True, exist_ok=True)
+    Path(results_dir).mkdir(parents=True, exist_ok=True)
+
+    session_context.append(
+        "Artifacts for this MCP client session are being stored under "
+        f"{session_root}."
+    )
+    session_context.append(
+        f"Generated configurations should be stored under {os.path.abspath(configurations_dir)}."
+    )
+    session_context.append(
+        f"Simulation traces and CSV results should be stored under {os.path.abspath(results_dir)}."
+    )
+
+    abs_configurations_dir = os.path.abspath(configurations_dir)
+    os.makedirs(abs_configurations_dir, exist_ok=True)
+    server_env["YAFS_MCP_CONFIGURATIONS_DIR"] = abs_configurations_dir
+
+    abs_results_dir = os.path.abspath(results_dir)
+    os.makedirs(abs_results_dir, exist_ok=True)
+    server_env["YAFS_MCP_RESULTS_DIR"] = abs_results_dir
 
     if args.lab_path:
         abs_lab_path = os.path.abspath(args.lab_path)
@@ -469,6 +572,25 @@ async def run_cli(args: argparse.Namespace) -> int:
         env=server_env,
     )
 
+    _write_session_metadata(
+        session_root / "session.json",
+        {
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "session_root": str(session_root),
+            "logs_dir": str(logs_dir),
+            "configurations_dir": abs_configurations_dir,
+            "results_dir": abs_results_dir,
+            "tool_log_file": str(tool_log_path),
+            "model_response_log_file": str(response_log_path),
+            "transcript_log_file": str(transcript_log_path),
+            "server_command": args.server_command,
+            "server_args": server_args,
+            "lab_path": None if not args.lab_path else os.path.abspath(args.lab_path),
+            "model": model,
+            "base_url": base_url,
+        },
+    )
+
     async with stdio_client(server_params) as (read, write):
         async with ClientSession(read, write) as session:
             await session.initialize()
@@ -480,7 +602,9 @@ async def run_cli(args: argparse.Namespace) -> int:
             chat = MCPChatClient(
                 session,
                 llm,
-                tool_log_path=args.tool_log_file,
+                tool_log_path=str(tool_log_path),
+                response_log_path=str(response_log_path),
+                transcript_log_path=str(transcript_log_path),
                 show_tool_calls=args.show_tool_calls,
                 session_context=session_context,
             )
@@ -501,6 +625,7 @@ async def run_cli(args: argparse.Namespace) -> int:
             # )
 
             _console_print(console, "Type /help for commands.", style="dim")
+            _console_print(console, f"session> {session_root}", style="dim")
 
             while True:
                 try:
@@ -579,7 +704,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--artifacts-dir",
         default=None,
-        help="Base directory for conversation artifacts. Defaults configs/results under it.",
+        help=(
+            "Session artifacts directory. If omitted, a new directory is created "
+            "under apps/mcp/client/artifacts/session-<n>-<timestamp>/."
+        ),
     )
     parser.add_argument(
         "--lab-path",
@@ -620,8 +748,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--tool-log-file",
-        default="apps/mcp/client/tool_calls.jsonl",
-        help="Write MCP tool invocations to this JSONL file.",
+        default=None,
+        help=(
+            "Write MCP tool invocations to this JSONL file. Relative paths are "
+            "stored inside the session artifacts directory."
+        ),
     )
     parser.add_argument(
         "--api-key",

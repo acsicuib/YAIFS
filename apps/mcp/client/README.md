@@ -67,41 +67,61 @@ OPENAI_MODEL=gpt-5
 OPENAI_BASE_URL=https://api.openai.com/v1
 ```
 
-If you want to use another file, pass it with `--env-file`. Note the script do not change the current env variables. Thus, If those are wrong, clear them and run again:
+If you want to use another file, pass it with `--env-file`. The client does
+not override environment variables that are already present in the shell. If
+those are wrong, clear them and run again:
+
 ```bash
 unset OPENAI_API_KEY OPENAI_BASE_URL OPENAI_MODEL
 ```
 
-## Storing Configurations and Results
+## Session Artifacts
 
-At startup, you can set a base artifacts directory for the whole
-conversation. The client passes it to the MCP server, and the server uses it
-by default for:
+Each client execution now creates or uses a session-specific artifacts
+directory. If you do not pass `--artifacts-dir`, the client automatically
+creates:
 
-- generated configurations
-- simulation traces and results
+- `apps/mcp/client/artifacts/session-XXX-YYYYMMDD-HHMMSS/`
 
-The simplest option is `--artifacts-dir`:
+Inside that session folder, the client stores:
+
+- `configurations/`: generated simulation configurations
+- `results/`: simulation traces, CSV files and other outputs
+- `logs/tool_calls.jsonl`: MCP tool invocations and their results
+- `logs/model_responses.jsonl`: raw model responses from the OpenAI Responses API
+- `logs/transcript.jsonl`: user/model conversation transcript
+- `session.json`: metadata about the session, model, server command and paths
+
+This session root is also passed to the MCP server so that generated
+configurations and simulation results stay grouped with the rest of the logs.
+
+If you want to force a specific session directory, pass `--artifacts-dir`:
 
 ```bash
 uv run python apps/mcp/client/cli.py \
   --env-file apps/mcp/client/.env \
-  --artifacts-dir apps/mcp/client/artifacts/session-001 \
+  --artifacts-dir apps/mcp/client/artifacts/session-010-20260327-101500 \
   --server-command uv \
   --server-arg run \
   --server-arg python \
   --server-arg apps/mcp/server/server.py
 ```
 
-That automatically creates and uses:
+That directory will then contain:
 
-- `apps/mcp/client/artifacts/session-001/configurations`
-- `apps/mcp/client/artifacts/session-001/results`
+- `apps/mcp/client/artifacts/session-010-20260327-101500/configurations`
+- `apps/mcp/client/artifacts/session-010-20260327-101500/results`
+- `apps/mcp/client/artifacts/session-010-20260327-101500/logs/`
+- `apps/mcp/client/artifacts/session-010-20260327-101500/session.json`
 
-If you want to split them manually, use:
+If you want to override only the subdirectories used by the server, use:
 
 - `--configurations-dir`
 - `--results-dir`
+
+If you want to override the tool log path, use `--tool-log-file`.
+If that path is relative, it is resolved inside the session artifacts
+directory.
 
 ## Usage
 
@@ -110,7 +130,6 @@ The client needs to know how to start the MCP server.
 ```bash
 uv run python apps/mcp/client/cli.py \
   --env-file apps/mcp/client/.env \
-  --artifacts-dir apps/mcp/client/artifacts/default-session \
   --server-command uv \
   --server-arg run \
   --server-arg python \
@@ -122,7 +141,6 @@ If you prefer connecting it to another project managed with `uv`:
 ```bash
 uv run python apps/mcp/client/cli.py \
   --env-file apps/mcp/client/.env \
-  --artifacts-dir apps/mcp/client/artifacts/default-session \
   --lab-path tutorial_scenarios/using_service_layer_02/three-cluster  \
   --server-command uv \
   --server-arg run \
@@ -183,20 +201,27 @@ There are two visibility levels:
 
 ```bash
 uv run python apps/mcp/client/cli.py \
-  --env-file  apps/mcp/client/.env \
-  --artifacts-dir apps/mcp/client/artifacts/default-session \
+  --env-file apps/mcp/client/.env \
   --lab-path tutorial_scenarios/using_service_layer_02/three-cluster \
+  --show-tool-calls \
   --server-command uv \
   --server-arg run \
   --server-arg python \
-  --server-arg apps/mcp/server/server.py 
+  --server-arg apps/mcp/server/server.py
 ```
 
-Also, the client stores a JSONL history by default at:
+The CLI prints the selected session folder at startup, and by default stores
+the tool-call log in:
 
-- [`tool_calls.jsonl`](/Users/isaac/Projects/YAFS/apps/mcp/client/tool_calls.jsonl)
+- `apps/mcp/client/artifacts/session-XXX-YYYYMMDD-HHMMSS/logs/tool_calls.jsonl`
 
-You can change the path with `--tool-log-file`.
+It also stores:
+
+- `apps/mcp/client/artifacts/session-XXX-YYYYMMDD-HHMMSS/logs/model_responses.jsonl`
+- `apps/mcp/client/artifacts/session-XXX-YYYYMMDD-HHMMSS/logs/transcript.jsonl`
+- `apps/mcp/client/artifacts/session-XXX-YYYYMMDD-HHMMSS/session.json`
+
+You can change the tool-call path with `--tool-log-file`.
 
 ## Input Examples
 
@@ -251,4 +276,5 @@ EOF
   `function_call_output`.
 - If the server uses `stdio` transport, it must not write logs to `stdout`.
 - Precedence order is: CLI flags > shell environment variables > `.env`.
-- The client can log each tool call in console and JSONL.
+- The client stores each session in its own artifacts folder by default.
+- The client can log each tool call in console with `--show-tool-calls`.
