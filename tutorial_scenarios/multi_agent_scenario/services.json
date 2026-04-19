@@ -1,0 +1,221 @@
+[
+  {
+    "id": 0,
+    "name": "Perception Pipeline",
+    "latency_requirement": 120,
+    "vnf_chain": ["ING", "FUS", "PLN"],
+    "has_backward_return": true,
+    "transmission": [
+      {
+        "message_in": "M.PP.0_0",
+        "module": "0_ING",
+        "message_out": "M.PP.0_1"
+      },
+      {
+        "message_in": "M.PP.0_1",
+        "module": "0_FUS",
+        "message_out": "M.PP.0_2"
+      },
+      {
+        "message_in": "M.PP.0_2",
+        "module": "0_PLN",
+        "message_out": "M.PP.0_3"
+      }
+    ],
+    "module": [
+      {
+        "id": 1,
+        "type": "MODULE",
+        "RAM": 1,
+        "name": "0_ING",
+        "label": "Sensor Ingestion",
+        "abbreviation": "ING",
+        "cpu": 0.01,
+        "ram": 0.02,
+        "beta_cpu": 0.003,
+        "beta_ram": 0.004,
+        "scale": 2
+      },
+      {
+        "id": 2,
+        "type": "MODULE",
+        "RAM": 1,
+        "name": "0_FUS",
+        "label": "Data Fusion",
+        "abbreviation": "FUS",
+        "cpu": 0.015,
+        "ram": 0.03,
+        "beta_cpu": 0.004,
+        "beta_ram": 0.005,
+        "scale": 2
+      },
+      {
+        "id": 3,
+        "type": "MODULE",
+        "RAM": 1,
+        "name": "0_PLN",
+        "label": "Planning Agent",
+        "abbreviation": "PLN",
+        "cpu": 0.009,
+        "ram": 0.015,
+        "beta_cpu": 0.003,
+        "beta_ram": 0.004,
+        "scale": 1
+      }
+    ],
+    "message": [
+      {
+        "id": 0,
+        "name": "M.PP.0_0",
+        "s": "None",
+        "d": "0_ING",
+        "bytes": 40,
+        "instructions": 50
+      },
+      {
+        "id": 1,
+        "name": "M.PP.0_1",
+        "s": "0_ING",
+        "d": "0_FUS",
+        "bytes": 32,
+        "instructions": 45
+      },
+      {
+        "id": 2,
+        "name": "M.PP.0_2",
+        "s": "0_FUS",
+        "d": "0_PLN",
+        "bytes": 24,
+        "instructions": 35
+      },
+      {
+        "id": 3,
+        "name": "M.PP.0_3",
+        "s": "0_PLN",
+        "d": "None",
+        "bytes": 16,
+        "instructions": 20
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Coordination Pipeline",
+    "latency_requirement": 75,
+    "vnf_chain": ["DIS", "NEG"],
+    "has_backward_return": true,
+    "transmission": [
+      {
+        "message_in": "M.CP.0_0",
+        "module": "0_DIS",
+        "message_out": "M.CP.0_1"
+      },
+      {
+        "message_in": "M.CP.0_1",
+        "module": "0_NEG",
+        "message_out": "M.CP.0_2"
+      }
+    ],
+    "module": [
+      {
+        "id": 1,
+        "type": "MODULE",
+        "RAM": 1,
+        "name": "0_DIS",
+        "label": "Task Dispatcher",
+        "abbreviation": "DIS",
+        "cpu": 0.012,
+        "ram": 0.018,
+        "beta_cpu": 0.003,
+        "beta_ram": 0.003,
+        "scale": 2
+      },
+      {
+        "id": 2,
+        "type": "MODULE",
+        "RAM": 1,
+        "name": "0_NEG",
+        "label": "Negotiation Agent",
+        "abbreviation": "NEG",
+        "cpu": 0.01,
+        "ram": 0.016,
+        "beta_cpu": 0.003,
+        "beta_ram": 0.003,
+        "scale": 1
+      }
+    ],
+    "message": [
+      {
+        "id": 0,
+        "name": "M.CP.0_0",
+        "s": "None",
+        "d": "0_DIS",
+        "bytes": 20,
+        "instructions": 30
+      },
+      {
+        "id": 1,
+        "name": "M.CP.0_1",
+        "s": "0_DIS",
+        "d": "0_NEG",
+        "bytes": 18,
+        "instructions": 25
+      },
+      {
+        "id": 2,
+        "name": "M.CP.0_2",
+        "s": "0_NEG",
+        "d": "None",
+        "bytes": 16,
+        "instructions": 20
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Telemetry Monitoring",
+    "latency_requirement": 50,
+    "vnf_chain": ["MON"],
+    "has_backward_return": true,
+    "transmission": [
+      {
+        "message_in": "M.TM.0_0",
+        "module": "0_MON",
+        "message_out": "M.TM.0_1"
+      }
+    ],
+    "module": [
+      {
+        "id": 1,
+        "type": "MODULE",
+        "RAM": 1,
+        "name": "0_MON",
+        "label": "Monitoring Agent",
+        "abbreviation": "MON",
+        "cpu": 0.008,
+        "ram": 0.01,
+        "beta_cpu": 0.002,
+        "beta_ram": 0.002,
+        "scale": 2
+      }
+    ],
+    "message": [
+      {
+        "id": 0,
+        "name": "M.TM.0_0",
+        "s": "None",
+        "d": "0_MON",
+        "bytes": 12,
+        "instructions": 20
+      },
+      {
+        "id": 1,
+        "name": "M.TM.0_1",
+        "s": "0_MON",
+        "d": "None",
+        "bytes": 12,
+        "instructions": 20
+      }
+    ]
+  }
+]

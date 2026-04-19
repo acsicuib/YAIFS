@@ -1,0 +1,53 @@
+[
+  {
+    "app": "Coordination Pipeline",
+    "requests_total": 1796,
+    "requests_successful": 1779,
+    "requests_unsuccessful": 17,
+    "response_mean": 42.88450906575976,
+    "response_p50": 30.550409999999374,
+    "response_p95": 130.55040800000307,
+    "response_max": 206.55530199998702,
+    "network_mean": 41.27030054299412,
+    "processing_mean": 1.373608768971486,
+    "waiting_mean": 0.24059975379414597,
+    "placement_cost": 2.03,
+    "deployments": 14,
+    "egress_cost": 0.0,
+    "total_cost": 2.03
+  },
+  {
+    "app": "Perception Pipeline",
+    "requests_total": 14108,
+    "requests_successful": 2096,
+    "requests_unsuccessful": 12012,
+    "response_mean": 250.85853000952832,
+    "response_p50": 58.550983999997925,
+    "response_p95": 1380.8670019998312,
+    "response_max": 2345.2003280000063,
+    "network_mean": 187.6770975333831,
+    "processing_mean": 2.0739742366411478,
+    "waiting_mean": 61.107458239504055,
+    "placement_cost": 3.049999999999999,
+    "deployments": 33,
+    "egress_cost": 5.28e-09,
+    "total_cost": 3.050000005279999
+  },
+  {
+    "app": "Telemetry Monitoring",
+    "requests_total": 1816,
+    "requests_successful": 1784,
+    "requests_unsuccessful": 32,
+    "response_mean": 35.92783615358632,
+    "response_p50": 23.200215999999273,
+    "response_p95": 74.20040799999879,
+    "response_max": 831.3732519998193,
+    "network_mean": 35.71449556838469,
+    "processing_mean": 0.20908071748862964,
+    "waiting_mean": 0.004259867713003178,
+    "placement_cost": 0.34,
+    "deployments": 9,
+    "egress_cost": 0.0,
+    "total_cost": 0.34
+  }
+]

@@ -1,0 +1,1059 @@
+[
+  {
+    "window_index": 0,
+    "window_start": 0.0,
+    "window_end": 200.0,
+    "incident_count": 0,
+    "congested_link_count": 0,
+    "overloaded_node_count": 0,
+    "placement_cost": 8.489999999999998,
+    "placement_strategy": "balanced",
+    "action_count": 0,
+    "top_app": "Coordination Pipeline",
+    "actions": []
+  },
+  {
+    "window_index": 1,
+    "window_start": 200.0,
+    "window_end": 400.0,
+    "incident_count": 0,
+    "congested_link_count": 0,
+    "overloaded_node_count": 0,
+    "placement_cost": 8.489999999999998,
+    "placement_strategy": "balanced",
+    "action_count": 0,
+    "top_app": "Perception Pipeline",
+    "actions": []
+  },
+  {
+    "window_index": 2,
+    "window_start": 400.0,
+    "window_end": 600.0,
+    "incident_count": 4,
+    "congested_link_count": 2,
+    "overloaded_node_count": 0,
+    "placement_cost": 8.489999999999998,
+    "placement_strategy": "congestion",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "replicate",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "target_node": "edc-a-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "replicate",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "target_node": "edc-a-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "replicate",
+        "app": "Perception Pipeline",
+        "module": "0_PLN",
+        "target_node": "edc-a-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "replicate",
+        "app": "Telemetry Monitoring",
+        "module": "0_MON",
+        "target_node": "edc-h-worker-1",
+        "result": "successful"
+      }
+    ]
+  },
+  {
+    "window_index": 3,
+    "window_start": 600.0,
+    "window_end": 800.0,
+    "incident_count": 8,
+    "congested_link_count": 7,
+    "overloaded_node_count": 0,
+    "placement_cost": 8.729999999999997,
+    "placement_strategy": "cost",
+    "action_count": 2,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "consolidate",
+        "app": "Telemetry Monitoring",
+        "module": "0_MON",
+        "from_node": "mec-e-0-worker-3",
+        "to_node": "edc-a-worker-2",
+        "estimated_saving": 0.24,
+        "result": "successful"
+      },
+      {
+        "type": "replicate",
+        "app": "Telemetry Monitoring",
+        "module": "0_MON",
+        "target_node": "cdc-b-0-worker-1",
+        "result": "successful"
+      }
+    ]
+  },
+  {
+    "window_index": 4,
+    "window_start": 800.0,
+    "window_end": 1000.0,
+    "incident_count": 23,
+    "congested_link_count": 21,
+    "overloaded_node_count": 0,
+    "placement_cost": 8.499999999999998,
+    "placement_strategy": "congestion",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "replicate",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "target_node": "edc-a-worker-3",
+        "result": "successful"
+      },
+      {
+        "type": "replicate",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "target_node": "edc-a-worker-3",
+        "result": "successful"
+      },
+      {
+        "type": "replicate",
+        "app": "Perception Pipeline",
+        "module": "0_PLN",
+        "target_node": "edc-a-worker-3",
+        "result": "successful"
+      },
+      {
+        "type": "replicate",
+        "app": "Telemetry Monitoring",
+        "module": "0_MON",
+        "target_node": "edc-g-worker-1",
+        "result": "successful"
+      }
+    ]
+  },
+  {
+    "window_index": 5,
+    "window_start": 1000.0,
+    "window_end": 1200.0,
+    "incident_count": 48,
+    "congested_link_count": 38,
+    "overloaded_node_count": 7,
+    "placement_cost": 8.739999999999997,
+    "placement_strategy": "cost",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "consolidate",
+        "app": "Telemetry Monitoring",
+        "module": "0_MON",
+        "from_node": "mec-h-1-worker-5",
+        "to_node": "edc-g-worker-2",
+        "estimated_saving": 0.24,
+        "result": "successful"
+      },
+      {
+        "type": "replicate",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "target_node": "edc-i-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "replicate",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "target_node": "edc-i-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "replicate",
+        "app": "Perception Pipeline",
+        "module": "0_PLN",
+        "target_node": "edc-i-worker-1",
+        "result": "successful"
+      }
+    ]
+  },
+  {
+    "window_index": 6,
+    "window_start": 1200.0,
+    "window_end": 1400.0,
+    "incident_count": 54,
+    "congested_link_count": 44,
+    "overloaded_node_count": 8,
+    "placement_cost": 8.679999999999996,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-i-worker-1",
+        "to_node": "edc-i-worker-2",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Coordination Pipeline",
+        "module": "0_NEG",
+        "from_node": "mec-a-0-worker-3",
+        "to_node": "cdc-a-1-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "from_node": "mec-b-0-worker-1",
+        "to_node": "cdc-a-1-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Coordination Pipeline",
+        "module": "0_DIS",
+        "from_node": "mec-d-3-worker-1",
+        "to_node": "cdc-a-1-worker-1",
+        "result": "successful"
+      }
+    ]
+  },
+  {
+    "window_index": 7,
+    "window_start": 1400.0,
+    "window_end": 1600.0,
+    "incident_count": 56,
+    "congested_link_count": 47,
+    "overloaded_node_count": 7,
+    "placement_cost": 7.809999999999996,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "from_node": "cdc-a-1-worker-1",
+        "to_node": "cdc-a-1-worker-2",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "from_node": "edc-i-worker-1",
+        "to_node": "edc-g-worker-3",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-i-worker-2",
+        "to_node": "edc-g-worker-3",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "from_node": "mec-c-0-worker-1",
+        "to_node": "cdc-a-1-worker-2",
+        "reason": "Module '0_ING' is already deployed on target node 'cdc-a-1-worker-2'"
+      }
+    ]
+  },
+  {
+    "window_index": 8,
+    "window_start": 1600.0,
+    "window_end": 1800.0,
+    "incident_count": 65,
+    "congested_link_count": 57,
+    "overloaded_node_count": 6,
+    "placement_cost": 7.809999999999996,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-g-worker-3",
+        "to_node": "edc-i-worker-2",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "from_node": "mec-c-0-worker-1",
+        "to_node": "cdc-a-1-worker-3",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "from_node": "mec-f-1-worker-2",
+        "to_node": "cdc-a-1-worker-3",
+        "reason": "Module '0_ING' is already deployed on target node 'cdc-a-1-worker-3'"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "from_node": "mec-f-1-worker-4",
+        "to_node": "cdc-a-1-worker-3",
+        "reason": "Module '0_ING' is already deployed on target node 'cdc-a-1-worker-3'"
+      }
+    ]
+  },
+  {
+    "window_index": 9,
+    "window_start": 1800.0,
+    "window_end": 2000.0,
+    "incident_count": 78,
+    "congested_link_count": 71,
+    "overloaded_node_count": 5,
+    "placement_cost": 7.519999999999996,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-i-worker-2",
+        "to_node": "edc-g-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "from_node": "mec-f-1-worker-4",
+        "to_node": "cdc-a-1-worker-4",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Coordination Pipeline",
+        "module": "0_DIS",
+        "from_node": "mec-f-2-worker-2",
+        "to_node": "cdc-a-1-worker-4",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Coordination Pipeline",
+        "module": "0_DIS",
+        "from_node": "mec-h-1-worker-1",
+        "to_node": "cdc-b-0-worker-10",
+        "result": "successful"
+      }
+    ]
+  },
+  {
+    "window_index": 10,
+    "window_start": 2000.0,
+    "window_end": 2200.0,
+    "incident_count": 83,
+    "congested_link_count": 76,
+    "overloaded_node_count": 4,
+    "placement_cost": 6.649999999999997,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "from_node": "cdc-a-1-worker-4",
+        "to_node": "cdc-a-1-worker-5",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-g-worker-1",
+        "to_node": "edc-i-worker-2",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "from_node": "mec-f-1-worker-2",
+        "to_node": "cdc-a-1-worker-5",
+        "reason": "Module '0_ING' is already deployed on target node 'cdc-a-1-worker-5'"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "from_node": "mec-i-1-worker-3",
+        "to_node": "edc-i-worker-2",
+        "result": "successful"
+      }
+    ]
+  },
+  {
+    "window_index": 11,
+    "window_start": 2200.0,
+    "window_end": 2400.0,
+    "incident_count": 89,
+    "congested_link_count": 82,
+    "overloaded_node_count": 4,
+    "placement_cost": 6.409999999999999,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_PLN",
+        "from_node": "edc-i-worker-1",
+        "to_node": "cdc-b-0-worker-12",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-i-worker-2",
+        "to_node": "cdc-b-0-worker-12",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "from_node": "mec-f-1-worker-2",
+        "to_node": "cdc-a-1-worker-6",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "mec-h-0-worker-3",
+        "to_node": "cdc-b-0-worker-12",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-b-0-worker-12'"
+      }
+    ]
+  },
+  {
+    "window_index": 12,
+    "window_start": 2400.0,
+    "window_end": 2600.0,
+    "incident_count": 96,
+    "congested_link_count": 88,
+    "overloaded_node_count": 4,
+    "placement_cost": 6.019999999999999,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Coordination Pipeline",
+        "module": "0_DIS",
+        "from_node": "cdc-a-1-worker-1",
+        "to_node": "cdc-a-1-worker-7",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-b-0-worker-12",
+        "to_node": "edc-i-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "from_node": "edc-i-worker-2",
+        "to_node": "edc-i-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "mec-h-0-worker-3",
+        "to_node": "edc-i-worker-1",
+        "reason": "Module '0_FUS' is already deployed on target node 'edc-i-worker-1'"
+      }
+    ]
+  },
+  {
+    "window_index": 13,
+    "window_start": 2600.0,
+    "window_end": 2800.0,
+    "incident_count": 101,
+    "congested_link_count": 94,
+    "overloaded_node_count": 3,
+    "placement_cost": 6.069999999999999,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-i-worker-1",
+        "to_node": "cdc-b-0-worker-13",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "mec-h-0-worker-3",
+        "to_node": "cdc-b-0-worker-13",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-b-0-worker-13'"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_PLN",
+        "from_node": "mec-i-0-worker-4",
+        "to_node": "cdc-b-0-worker-13",
+        "result": "successful"
+      },
+      {
+        "type": "replicate",
+        "app": "Perception Pipeline",
+        "module": "0_ING",
+        "target_node": "cdc-b-0-worker-15",
+        "result": "successful"
+      }
+    ]
+  },
+  {
+    "window_index": 14,
+    "window_start": 2800.0,
+    "window_end": 3000.0,
+    "incident_count": 109,
+    "congested_link_count": 101,
+    "overloaded_node_count": 4,
+    "placement_cost": 5.759999999999999,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-b-0-worker-15",
+        "to_node": "cdc-b-0-worker-12",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-a-worker-1",
+        "to_node": "cdc-a-1-worker-8",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-a-worker-3",
+        "to_node": "cdc-a-1-worker-8",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-a-1-worker-8'"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "mec-h-0-worker-3",
+        "to_node": "cdc-b-0-worker-12",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-b-0-worker-12'"
+      }
+    ]
+  },
+  {
+    "window_index": 15,
+    "window_start": 3000.0,
+    "window_end": 3200.0,
+    "incident_count": 113,
+    "congested_link_count": 105,
+    "overloaded_node_count": 4,
+    "placement_cost": 5.709999999999999,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-a-1-worker-8",
+        "to_node": "cdc-a-1-worker-9",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-b-0-worker-12",
+        "to_node": "cdc-b-0-worker-18",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-a-worker-3",
+        "to_node": "cdc-a-1-worker-9",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-a-1-worker-9'"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "mec-h-0-worker-3",
+        "to_node": "cdc-b-0-worker-18",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-b-0-worker-18'"
+      }
+    ]
+  },
+  {
+    "window_index": 16,
+    "window_start": 3200.0,
+    "window_end": 3400.0,
+    "incident_count": 119,
+    "congested_link_count": 110,
+    "overloaded_node_count": 5,
+    "placement_cost": 5.709999999999999,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Coordination Pipeline",
+        "module": "0_NEG",
+        "from_node": "cdc-a-1-worker-1",
+        "to_node": "cdc-a-1-worker-8",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-a-1-worker-9",
+        "to_node": "cdc-a-1-worker-8",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-a-worker-3",
+        "to_node": "cdc-a-1-worker-8",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-a-1-worker-8'"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_PLN",
+        "from_node": "mec-b-0-worker-1",
+        "to_node": "cdc-a-1-worker-8",
+        "result": "successful"
+      }
+    ]
+  },
+  {
+    "window_index": 17,
+    "window_start": 3400.0,
+    "window_end": 3600.0,
+    "incident_count": 120,
+    "congested_link_count": 111,
+    "overloaded_node_count": 4,
+    "placement_cost": 5.419999999999999,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-a-1-worker-8",
+        "to_node": "cdc-a-1-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-b-0-worker-13",
+        "to_node": "cdc-b-0-worker-19",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-a-worker-3",
+        "to_node": "cdc-a-1-worker-1",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-a-1-worker-1'"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "mec-h-0-worker-3",
+        "to_node": "cdc-b-0-worker-19",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-b-0-worker-19'"
+      }
+    ]
+  },
+  {
+    "window_index": 18,
+    "window_start": 3600.0,
+    "window_end": 3800.0,
+    "incident_count": 124,
+    "congested_link_count": 113,
+    "overloaded_node_count": 6,
+    "placement_cost": 5.419999999999999,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-a-1-worker-1",
+        "to_node": "cdc-a-1-worker-9",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_PLN",
+        "from_node": "cdc-a-1-worker-8",
+        "to_node": "cdc-a-1-worker-9",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-b-0-worker-19",
+        "to_node": "cdc-b-0-worker-13",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-a-worker-3",
+        "to_node": "cdc-a-1-worker-9",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-a-1-worker-9'"
+      }
+    ]
+  },
+  {
+    "window_index": 19,
+    "window_start": 3800.0,
+    "window_end": 4000.0,
+    "incident_count": 125,
+    "congested_link_count": 114,
+    "overloaded_node_count": 7,
+    "placement_cost": 5.419999999999999,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Coordination Pipeline",
+        "module": "0_NEG",
+        "from_node": "cdc-a-1-worker-8",
+        "to_node": "cdc-a-1-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-a-1-worker-9",
+        "to_node": "cdc-a-1-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-b-0-worker-13",
+        "to_node": "cdc-b-0-worker-12",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-a-worker-3",
+        "to_node": "cdc-a-1-worker-1",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-a-1-worker-1'"
+      }
+    ]
+  },
+  {
+    "window_index": 20,
+    "window_start": 4000.0,
+    "window_end": 4200.0,
+    "incident_count": 130,
+    "congested_link_count": 118,
+    "overloaded_node_count": 7,
+    "placement_cost": 5.419999999999999,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-a-1-worker-1",
+        "to_node": "cdc-a-1-worker-8",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_PLN",
+        "from_node": "cdc-a-1-worker-9",
+        "to_node": "cdc-a-1-worker-8",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-b-0-worker-12",
+        "to_node": "cdc-b-0-worker-13",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-a-worker-3",
+        "to_node": "cdc-a-1-worker-8",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-a-1-worker-8'"
+      }
+    ]
+  },
+  {
+    "window_index": 21,
+    "window_start": 4200.0,
+    "window_end": 4400.0,
+    "incident_count": 135,
+    "congested_link_count": 123,
+    "overloaded_node_count": 7,
+    "placement_cost": 5.419999999999999,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Coordination Pipeline",
+        "module": "0_NEG",
+        "from_node": "cdc-a-1-worker-1",
+        "to_node": "cdc-a-1-worker-9",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-a-1-worker-8",
+        "to_node": "cdc-a-1-worker-9",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-b-0-worker-13",
+        "to_node": "cdc-b-0-worker-19",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-a-worker-3",
+        "to_node": "cdc-a-1-worker-9",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-a-1-worker-9'"
+      }
+    ]
+  },
+  {
+    "window_index": 22,
+    "window_start": 4400.0,
+    "window_end": 4600.0,
+    "incident_count": 133,
+    "congested_link_count": 120,
+    "overloaded_node_count": 7,
+    "placement_cost": 5.419999999999999,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_PLN",
+        "from_node": "cdc-a-1-worker-8",
+        "to_node": "cdc-a-1-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-a-1-worker-9",
+        "to_node": "cdc-a-1-worker-1",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-b-0-worker-19",
+        "to_node": "cdc-b-0-worker-13",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-a-worker-3",
+        "to_node": "cdc-a-1-worker-1",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-a-1-worker-1'"
+      }
+    ]
+  },
+  {
+    "window_index": 23,
+    "window_start": 4600.0,
+    "window_end": 4800.0,
+    "incident_count": 131,
+    "congested_link_count": 119,
+    "overloaded_node_count": 7,
+    "placement_cost": 5.419999999999999,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-a-1-worker-1",
+        "to_node": "cdc-a-1-worker-8",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Coordination Pipeline",
+        "module": "0_NEG",
+        "from_node": "cdc-a-1-worker-9",
+        "to_node": "cdc-a-1-worker-8",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-b-0-worker-13",
+        "to_node": "cdc-b-0-worker-19",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-a-worker-3",
+        "to_node": "cdc-a-1-worker-8",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-a-1-worker-8'"
+      }
+    ]
+  },
+  {
+    "window_index": 24,
+    "window_start": 4800.0,
+    "window_end": 5000.0,
+    "incident_count": 135,
+    "congested_link_count": 123,
+    "overloaded_node_count": 7,
+    "placement_cost": 5.419999999999999,
+    "placement_strategy": "overload",
+    "action_count": 4,
+    "top_app": "Perception Pipeline",
+    "actions": [
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_PLN",
+        "from_node": "cdc-a-1-worker-1",
+        "to_node": "cdc-a-1-worker-9",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-a-1-worker-8",
+        "to_node": "cdc-a-1-worker-9",
+        "result": "successful"
+      },
+      {
+        "type": "move",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "cdc-b-0-worker-19",
+        "to_node": "cdc-b-0-worker-13",
+        "result": "successful"
+      },
+      {
+        "type": "move_failed",
+        "app": "Perception Pipeline",
+        "module": "0_FUS",
+        "from_node": "edc-a-worker-3",
+        "to_node": "cdc-a-1-worker-9",
+        "reason": "Module '0_FUS' is already deployed on target node 'cdc-a-1-worker-9'"
+      }
+    ]
+  }
+]
