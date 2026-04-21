@@ -83,11 +83,48 @@ Compatibility note:
 Getting started
 ---------------
 
+The `tutorial_scenarios/` directory holds runnable examples. They range from small
+core-layer demos to larger API- and service-layer workflows.
 
+**Legacy numbered tutorials** (original YAFS-style, minimal layout):
 
-MCP Client
-----------
-MCP client enables you to chat with 
+- `01_basicExample` — smallest end-to-end run: topology, applications, placement,
+  routing, and CSV traces.
+- `02_serviceMovement` — relocates running service instances over time using a DES
+  monitor.
+- `03_topologyChanges` — mutates the topology while the simulation is active.
+- `04_userMovement` — user lifecycle and mobility on the evolving graph.
+
+**Consolidated and higher-level examples** (preferred if you are new to the
+codebase):
+
+- `using_core_layer` — one script that combines the behaviors of `01`–`04` in a
+  single experiment on the core layer.
+- `using_API_layer` — same service-movement idea as `02`, implemented with
+  `yafs.api` (`Infrastructure`, `Simulation`, and processes).
+- `using_service_layer_01` — `SimulationService` with simulation forks to compare
+  a baseline branch against branches with cumulative node failures.
+- `using_service_layer_02` — `SimulationService` with forks plus dynamic topology
+  operations (for example creating clusters and nodes, and updating or removing
+  nodes) driven from JSON action definitions.
+- `multi_agent_scenario` — large hierarchical CDC/EDC/MEC topology with
+  multi-agent placement logic, optional MCP interaction logs, and helper scripts
+  for plots and reports.
+
+Several folders include a `README.md` with the exact layout, how to run the
+script, and expected outputs; start there when exploring a scenario.
+
+MCP Client example APP 
+----------------------
+MCP client enables you to chat with the simulator using a LLM. You need fill the values of the file to `apps/mcp/client/.env` and fill in your values.
+
+```bash
+# Required
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_MODEL=gpt-5
+OPENAI_BASE_URL=https://api.openai.com/v1
+```
+
 
 To run a simple  configuration of MCP:
 
@@ -102,7 +139,7 @@ uv run python apps/mcp/client/cli.py \
   --server-arg lab_scenarios/case_three_cluster/three-cluster
 ```
 
-You can find more information in `apps/mcp/client` and `apps/mcp/server`.
+You can find more information in `apps/mcp/client` and `apps/mcp/server` README files.
 
 
 Simulation Service API
@@ -192,21 +229,19 @@ Reference documents:
 * [Metrics Overview](docs/introduction/metrics.rst)
 
 
-
-
 Documentation and Help
 ----------------------
-
+Currently we are working in this
 
 Changelog
 -----------
-- 24/03/2026 YAIFS becomes the public project branding while the Python package remains `yafs` for compatibility.
+- 21/04/2026 YAIFS becomes the public project branding while the Python package remains `yafs` for compatibility.
 
 Acknowledgment
 --------------
 
-- The authors acknowledge financial support through grant project number PID2024-158637OB-I00 (AEI/FEDER, UE).
-- Thanks to the small community of contributors who have been improving the code and providing new suggestions over the years.
+- This work was supported by Grant PID2024-158637OB-I00, funded by MICIU/AEI/\-10.13039/\-501100011033 and by ``ERDF A way of making Europe'' (ERDF/EU).
+- Thanks to the small community of YAFS contributors who have been improving the code and providing new suggestions over the years.
 
 
 Please [send us your reference so we can publish it](mailto:isaac.lera@uib.es)! And of course, feel free to add your references or works using YAIFS! 

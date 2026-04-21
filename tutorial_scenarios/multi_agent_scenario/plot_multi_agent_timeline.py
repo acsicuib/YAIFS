@@ -154,7 +154,7 @@ def plot_timeline(window_logs: list[dict[str, Any]], *, output_path: Path, title
     action_types, action_counts = action_type_counts(window_logs)
 
     fig, axes = plt.subplots(4, 1, figsize=(14, 12), sharex=True)
-    fig.suptitle(title, fontsize=14, fontweight="bold")
+    # fig.suptitle(title, fontsize=14, fontweight="bold")
 
     series = [
         ("Congested links", congested_links, "#d1495b"),
@@ -164,7 +164,7 @@ def plot_timeline(window_logs: list[dict[str, Any]], *, output_path: Path, title
     for ax, (label, values, color) in zip(axes, series):
         ax.plot(x_values, values, color=color, marker="o", linewidth=2.0, markersize=4.5)
         ax.fill_between(x_values, values, color=color, alpha=0.18)
-        ax.set_ylabel(label)
+        ax.set_ylabel(label, fontsize=15, fontweight="bold")
         ax.grid(True, axis="y", alpha=0.25)
         ymax = max(values) if values else 0.0
         for time_value, strategy in zip(x_values, strategies):
@@ -204,7 +204,7 @@ def plot_timeline(window_logs: list[dict[str, Any]], *, output_path: Path, title
             linewidth=1.2,
             alpha=0.65,
         )
-    action_ax.set_ylabel("Actions")
+    action_ax.set_ylabel("Actions", fontsize=15, fontweight="bold")
     action_ax.grid(True, axis="y", alpha=0.25)
     action_ymax = max(bottoms) if bottoms else 0
     action_ax.set_ylim(0.0, max(1.0, action_ymax * 1.25))

@@ -506,11 +506,36 @@ def plot_comparison(
                 & (frame["scenario"].astype(str) == scenario)
             ].copy()
             app_frame = app_frame.sort_values("window_mid")
+            axis.set_title(scenario if row_index == 0 else "", fontsize=14,fontweight="bold")
+            axis.set_ylabel("")
+            if col_index == 0:
+                axis.text(
+                    -0.14,
+                    0.5,
+                    app_name,
+                    transform=axis.transAxes,
+                    rotation=90,
+                    ha="center",
+                    va="center",
+                    fontsize=14,
+                    fontweight="bold",
+                    clip_on=False,
+                )
+                axis.text(
+                    -0.10,
+                    0.5,
+                    "Time units",
+                    transform=axis.transAxes,
+                    rotation=90,
+                    ha="center",
+                    va="center",
+                    fontsize=11,
+                    clip_on=False,
+                )
 
             if app_frame.empty:
-                axis.set_title(f"{app_name} | {scenario}")
                 axis.text(0.5, 0.5, "No data", ha="center", va="center", transform=axis.transAxes)
-                axis.axis("off")
+                axis.grid(alpha=0.2)
                 continue
 
             x = safe_series(app_frame["window_mid"])
@@ -533,8 +558,6 @@ def plot_comparison(
                 alpha=0.8,
             )
             axis.plot(x, total, color="#222222", linewidth=1.5, label="Response mean")
-            axis.set_title(f"{app_name} | {scenario}")
-            axis.set_ylabel("Time")
             axis.grid(alpha=0.2)
             if row_index == 0 and col_index == 0:
                 axis.legend(loc="upper left")
@@ -542,7 +565,7 @@ def plot_comparison(
     for axis in axes[-1]:
         axis.set_xlabel("Simulation time")
 
-    figure.suptitle("Response-time breakdown comparison", fontsize=14)
+    #figure.suptitle("Response-time breakdown comparison", fontsize=14)
     figure.tight_layout()
 
     if output is not None:
