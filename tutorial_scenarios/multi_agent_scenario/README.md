@@ -48,13 +48,9 @@ There are currently 3 applications:
 
 The `latency_requirement` field is interpreted as a p95 service-response SLO in simulation time units.
 
-## Main execution
+## Main executions
 
-The main script is:
-
-- [main.py](main.py)
-
-This script:
+All main scripts have a similar nominal behaviour is:
 
 1. loads the topology and applications using `Infrastructure(...)`
 2. starts with:
@@ -73,11 +69,9 @@ With the current configuration:
 - activations: `t=200, 400, 600, 800, 1000`
 - simulation end: `t=1500`
 
-## Custom routing
+## Custom routing for `main_random.py`
 
 This scenario does not use the default `DeviceSpeedAwareRouting`.
-
-Instead it uses a custom selector defined in `main.py`:
 
 - `CircularReplicaRouting`
 
@@ -96,9 +90,7 @@ Conceptual example:
 - ...
 - user n -> `app X`, replica 1 again
 
-## Metrics printed at the end
-
-When the run finishes, `main.py` prints:
+## Metrics 
 
 - VNF deployment summary per application
 - placement cost per application
@@ -148,7 +140,13 @@ Files such as `window_metrics.json`, `mcp_interactions.jsonl`, `multi_agent_mcp_
 From the project root:
 
 ```bash
+
+uv run main_greedy.py
+
+uv run main_random.py
+
 uv run tutorial_scenarios/multi_agent_scenario/main_multi_agent.py
+
 ```
 
 After `Simulation Done!` appears, `window_metrics.json` should exist under `tutorial_scenarios/multi_agent_scenario/results_multi_agent/`.
@@ -255,16 +253,3 @@ uv run tutorial_scenarios/multi_agent_scenario/plot_multi_agent_timeline.py \
 
 These files let you run the scenario from the API layer without relying on a placement or static users defined up front.
 
-## Running
-
-From the project root:
-
-```bash
-uv run tutorial_scenarios/multi_agent_scenario/main.py
-```
-
-Multi-agent run (example):
-
-```bash
-uv run tutorial_scenarios/multi_agent_scenario/main_multi_agent.py
-```

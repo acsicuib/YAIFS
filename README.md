@@ -6,7 +6,7 @@
    ██║   ██║  ██║██║██║     ███████║
    ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝     ╚══════╝
 ```
-⚡ YAIFS :: Yet Another Intelligent Fog System ⚡
+⚡ YAIFS - Yet (not) Another Intelligent Fog Simulator: A Framework for Agent-Driven Computing Continuum Modeling & Simulation ⚡
 
 YAIFS is the current project branding and evolution of the original YAFS
 simulator. For compatibility, the Python package name and import path remain
@@ -46,13 +46,7 @@ Architecture
 +---------------+
 ```
 
-Resources
----------
 
-- API
-- USER GUIDE
-- EXAMPLES
-  
 
 
 Installation

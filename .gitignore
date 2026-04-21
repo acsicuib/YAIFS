@@ -66,3 +66,5 @@ tutorial_scenarios/04_userMovement/
 */results/*.csv
 apps/mcp/client/artifacts/
 article-elsevier/
+
+tutorial_scenarios/multi_agent_scenario/SCENARIO_OVERVIEW.md
