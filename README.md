@@ -13,6 +13,11 @@ simulator. For compatibility, the Python package name and import path remain
 `yafs`, so existing code and tutorials can continue to use
 `from yafs ... import ...` while the user-facing project name is `YAIFS`.
 
+
+![Chating with YAIFS](media/YAIFS_chat.gif)
+
+
+
 YAIFS is released under the MIT License. However, we would like to know in which projects or publications you have used or mentioned YAIFS.
 
 **Please consider using the following citation when you use YAIFS or the `yafs` package**:
