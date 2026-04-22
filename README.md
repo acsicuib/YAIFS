@@ -27,9 +27,18 @@ YAIFS is released under the MIT License. However, we would like to know in which
 
 ```
 
-Bibtex:
+ArXiv bibtex cite (under review):
 ```
-    Pending
+@article{lera2026yaifs,
+  author        = {Isaac Lera and Carlos Guerrero},
+  title         = {YAIFS: Yet (not) Another Intelligent Fog Simulator: A Framework for Agent-Driven Computing Continuum Modeling \& Simulation},
+  year          = {2026},
+  eprint        = {2604.19181},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.DC},
+  doi           = {10.48550/arXiv.2604.19181},
+  url           = {https://arxiv.org/abs/2604.19181}
+}
   
 ```
 
