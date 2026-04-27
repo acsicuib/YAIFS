@@ -134,17 +134,18 @@ OPENAI_BASE_URL=https://api.openai.com/v1
 ```
 
 
+
 To run a simple  configuration of MCP:
 
 ```bash
 uv run python apps/mcp/client/cli.py \
   --env-file apps/mcp/client/.env \
   --server-command uv \
-  --server-arg run \
-  --server-arg python \
-  --server-arg apps/mcp/server/server.py \
-  --server-arg --scenario-path \
-  --server-arg lab_scenarios/case_three_cluster/three-cluster
+  --server-arg=run \
+  --server-arg=python \
+  --server-arg=apps/mcp/server/server.py \
+  --server-arg=--scenario-path \
+  --server-arg=lab_scenarios/case_three_cluster/three-cluster
 ```
 
 You can find more information in `apps/mcp/client` and `apps/mcp/server` README files.
