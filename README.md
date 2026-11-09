@@ -14,33 +14,40 @@ simulator. For compatibility, the Python package name and import path remain
 `from yafs ... import ...` while the user-facing project name is `YAIFS`.
 
 
-![Chating with YAIFS](media/YAIFS_chat.gif)
 
+### Evolving Simulations
+
+The service-oriented architecture makes the simulation lifecycle explicitly manageable, enabling simulations to be paused, resumed, cloned, and forked into alternative execution paths for exploratory and what-if experimentation.
+
+![Evolving simulations with YAIFS](media/simulation_forks.gif)
+
+### Agent-Driven Simulation Interaction
+
+Through MCP, simulation control can be delegated to intelligent agents, enabling natural language interaction with users or autonomous management of experimental workflows.
+
+![Chatting with YAIFS](media/YAIFS_chat.gif)
 
 
 YAIFS is released under the MIT License. However, we would like to know in which projects or publications you have used or mentioned YAIFS.
 
 **Please consider using the following citation when you use YAIFS or the `yafs` package**:
 
-```bash
-    Pending
-
-```
-
-ArXiv bibtex cite (under review):
-```
-@article{lera2026yaifs,
-  author        = {Isaac Lera and Carlos Guerrero},
-  title         = {YAIFS: Yet (not) Another Intelligent Fog Simulator: A Framework for Agent-Driven Computing Continuum Modeling \& Simulation},
-  year          = {2026},
-  eprint        = {2604.19181},
-  archivePrefix = {arXiv},
-  primaryClass  = {cs.DC},
-  doi           = {10.48550/arXiv.2604.19181},
-  url           = {https://arxiv.org/abs/2604.19181}
+```latex
+@article{LERA2026103377,
+title = {YAIFS: Yet (not) Another Intelligent Fog Simulator: A framework for agent-driven computing continuum modeling & simulation},
+journal = {Simulation Modelling Practice and Theory},
+pages = {103377},
+year = {2026},
+issn = {1569-190X},
+doi = {https://doi.org/10.1016/j.simpat.2026.103377},
+url = {https://www.sciencedirect.com/science/article/pii/S1569190X26001267},
+author = {Isaac Lera and Carlos Guerrero},
+keywords = {Cloud–edge computing, Fog computing, Simulation-as-a-service, AI-driven experimentation, Model context protocol},
+abstract = {Simulation plays a key role in the design and evaluation of distributed systems, yet it is often treated as a static tool with limited interaction capabilities. In this work, we present Yet (not) Another Intelligent Fog Simulator (YAIFS), a substantial evolution of YAFS that redefines simulation as an interactive and service-oriented environment. YAIFS introduces a layered architecture that exposes the simulation through a unified API and a service interface, enabling external entities to observe, control, and modify its execution. A central contribution of this work is the integration of the Model Context Protocol (MCP) as a standardized interaction layer between agents and the simulation. Through MCP, heterogeneous agents can access simulation state, invoke actions, and coordinate their behavior using a common set of tools. This abstraction decouples agent logic from simulator internals and supports reproducible and programmable experimentation workflows. To illustrate these capabilities, we present three complementary scenarios. First, we integrate a large language model (LLM) as an interactive assistant, enabling users to control simulations through natural language prompts. Second, we design a multi-agent scenario in which specialized agents monitor system conditions and dynamically adapt application placement decisions. Third, we explore LLM-driven MCP orchestration, where a general-purpose language model autonomously controls simulation execution, monitors system performance, and makes placement decisions without following a predefined intervention schedule. Together, these scenarios demonstrate how MCP supports different levels of autonomy and enables flexible, programmable interactions between external agents and the simulation environment. The results show that the proposed approach enables simulations to be treated as first-class entities, with their own state and lifecycle, which can be interactively managed, explored, and controlled by external agents through MCP. This perspective opens new directions for AI-driven experimentation in distributed cloud–edge systems, where simulations become programmable entities rather than static evaluation artifacts. The implementation is publicly available at: https://github.com/acsicuib/YAIFS.}
 }
-  
 ```
+
+
 
 Architecture
 ------------
@@ -124,7 +131,11 @@ script, and expected outputs; start there when exploring a scenario.
 
 MCP Client example APP 
 ----------------------
-MCP client enables you to chat with the simulator using a LLM. You need fill the values of the file to `apps/mcp/client/.env` and fill in your values.
+
+The MCP client enables natural language interaction with the simulator through an LLM. It uses an OpenAI-compatible API interface, allowing integration with OpenAI models as well as other providers or locally hosted models that support the same API format.
+
+To configure the client, edit `apps/mcp/client/.env` and provide your API credentials, model identifier, and endpoint URL.
+
 
 ```bash
 # Required
@@ -133,9 +144,11 @@ OPENAI_MODEL=gpt-5
 OPENAI_BASE_URL=https://api.openai.com/v1
 ```
 
+For alternative providers, update `OPENAI_MODEL` and `OPENAI_BASE_URL` accordingly, along with `OPENAI_API_KEY` if authentication is required.
 
 
-To run a simple  configuration of MCP:
+
+To run a simple configuration of MCP:
 
 ```bash
 uv run python apps/mcp/client/cli.py \

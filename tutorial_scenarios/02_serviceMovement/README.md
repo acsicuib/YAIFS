@@ -1,9 +1,7 @@
 One way to run the code:
 
 ```
-export PYTHONPATH=$PYTHONPATH:~/YAFS/src/
-cd YAFS/tutorial_scenarios/02_serviceMovement/
-python main.py
+uv tutorial_scenarios/02_serviceMovement/main.py 
 ```
 
 

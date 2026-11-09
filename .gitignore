@@ -53,7 +53,7 @@ results/
 env/
 venv/
 
-tests/
+tests_personal/
 results/
 article/
 OLD_PROJECT/
@@ -62,9 +62,25 @@ tutorial_scenarios/01_basicExample/
 tutorial_scenarios/02_serviceMovement/
 tutorial_scenarios/03_topologyChanges/
 tutorial_scenarios/04_userMovement/
+tutorial_scenarios/multi_agent_scenario/results_*
+
+
+
 .misnotas.md
 */results/*.csv
 apps/mcp/client/artifacts/
 article-elsevier/
+article-elsevier_revised/
+article-elsevier_revised.zip
 
-tutorial_scenarios/multi_agent_scenario/SCENARIO_OVERVIEW.md
+
+
+overhead_control/
+overhead_control_mcp/
+
+media/generate_simulation_forks.py
+media/simulation_forks.pdf
+media/simulation_forks.png
+media/simulation_forks.svg
+media/simulation_forks.tex
+media/README.md

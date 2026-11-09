@@ -17,7 +17,34 @@ from .models import (
     SimulationStatus,
     SimulationSummary,
 )
+from .observation import (
+    build_deployments_view,
+    build_latency_breakdown,
+    build_request_paths,
+    build_topology_view,
+    observation_envelope,
+)
 from .registry import SimulationRegistry
+
+
+def _finite_metric(value: object) -> float | None:
+    try:
+        number = float(value)  # type: ignore[arg-type]
+    except (TypeError, ValueError):
+        return None
+    if number != number:
+        return None
+    return number
+
+
+def _application_latency_row(item: dict[str, object]) -> dict[str, object]:
+    total_requests = _finite_metric(item.get("requests_total"))
+    return {
+        "app": item.get("app"),
+        "latency": _finite_metric(item.get("response_mean")),
+        "latency_p95": _finite_metric(item.get("response_p95")),
+        "total_requests": 0.0 if total_requests is None else total_requests,
+    }
 
 
 class SimulationService:
@@ -551,6 +578,7 @@ class SimulationService:
             include_return_messages=include_return_messages,
             egress_cost_per_gb=egress_cost_per_gb,
         )
+        load = managed.simulation.get_load_summary()
         return SimulationApplicationMetrics(
             simulation_id=simulation_id,
             items=[ApplicationMetricsSummary(**item) for item in raw_items],
@@ -559,6 +587,17 @@ class SimulationService:
             reference_time=reference_time,
             absolute_from_time=absolute_from_time,
             absolute_to_time=absolute_to_time,
+            by_app=[_application_latency_row(item) for item in raw_items],
+            node_utilization=float(load["node_utilization"]),
+            cpu_utilization=float(load["cpu_utilization"]),
+            ram_utilization=float(load["ram_utilization"]),
+            nodes_busy=int(load["nodes_busy"]),
+            nodes_total=int(load["nodes_total"]),
+            link_utilization=float(load["link_utilization"]),
+            mean_topology_congestion=float(load["mean_topology_congestion"]),
+            total_bandwidth_used=float(load["total_bandwidth_used"]),
+            total_bandwidth_available=float(load["total_bandwidth_available"]),
+            users=float(load["users"]),
         )
 
     def get_network_metrics(
@@ -574,6 +613,88 @@ class SimulationService:
             response_strategy=response_strategy,
             include_return_messages=include_return_messages,
         )
+
+    def get_topology(
+        self,
+        simulation_id: str,
+        *,
+        cluster_id: str | None = None,
+        node_id: str | None = None,
+        include_resources: bool = True,
+    ) -> dict[str, object]:
+        managed = self.registry.require(simulation_id)
+        facts = managed.simulation.read_topology_facts()
+        data = build_topology_view(
+            directed=bool(facts["directed"]),
+            nodes=list(facts["nodes"]),
+            links=list(facts["links"]),
+            cluster_id=cluster_id,
+            node_id=node_id,
+            include_resources=include_resources,
+        )
+        return observation_envelope(simulation_id, float(facts["simulation_time"]), data)
+
+    def get_deployments(
+        self,
+        simulation_id: str,
+        *,
+        application_id: str | None = None,
+        service_id: str | None = None,
+    ) -> dict[str, object]:
+        managed = self.registry.require(simulation_id)
+        facts = managed.simulation.read_deployment_facts()
+        data = build_deployments_view(
+            definitions=list(facts["definitions"]),
+            allocations=dict(facts["allocations"]),
+            alloc_des=dict(facts["alloc_des"]),
+            application_id=application_id,
+            service_id=service_id,
+        )
+        return observation_envelope(simulation_id, float(facts["simulation_time"]), data)
+
+    def get_request_paths(
+        self,
+        simulation_id: str,
+        application_id: str,
+        *,
+        start_time: float | None = None,
+        end_time: float | None = None,
+        user_id: str | None = None,
+        limit: int = 100,
+    ) -> dict[str, object]:
+        managed = self.registry.require(simulation_id)
+        frames = managed.simulation.read_trace_frames(application_id)
+        data = build_request_paths(
+            application_id=str(frames["application_id"]),
+            events=frames["events"],
+            links=frames["links"],
+            start_time=start_time,
+            end_time=end_time,
+            user_id=user_id,
+            limit=limit,
+            traces_available=bool(frames["traces_available"]),
+        )
+        return observation_envelope(simulation_id, float(frames["simulation_time"]), data)
+
+    def get_latency_breakdown(
+        self,
+        simulation_id: str,
+        application_id: str,
+        *,
+        start_time: float | None = None,
+        end_time: float | None = None,
+    ) -> dict[str, object]:
+        managed = self.registry.require(simulation_id)
+        frames = managed.simulation.read_trace_frames(application_id)
+        data = build_latency_breakdown(
+            application_id=str(frames["application_id"]),
+            events=frames["events"],
+            links=frames["links"],
+            start_time=start_time,
+            end_time=end_time,
+            traces_available=bool(frames["traces_available"]),
+        )
+        return observation_envelope(simulation_id, float(frames["simulation_time"]), data)
 
     def list_nodes(self, simulation_id: str) -> list[dict[str, object]]:
         managed = self.registry.require(simulation_id)
@@ -1150,23 +1271,19 @@ class SimulationService:
         while True:
             state = self.get_state(simulation_id)
             scheduled_until = state.summary.scheduled_until
-            if state.summary.status in {
+            status = state.summary.status
+            if status in {
                 SimulationStatus.STOPPED,
                 SimulationStatus.FAILED,
             }:
                 return state
-            if (
-                scheduled_until is not None
-                and state.summary.now >= float(scheduled_until)
-                and state.summary.status
-                in {
-                    SimulationStatus.IDLE,
-                    SimulationStatus.PAUSED,
-                    SimulationStatus.INITIALIZED,
-                }
-            ):
-                return state
-            time.sleep(poll_interval)
+            window_pending = False
+            if scheduled_until is not None:
+                window_pending = state.summary.now + 1e-9 < float(scheduled_until)
+            if status == SimulationStatus.RUNNING or window_pending:
+                time.sleep(poll_interval)
+                continue
+            return state
 
     def wait_until_idle(
         self,

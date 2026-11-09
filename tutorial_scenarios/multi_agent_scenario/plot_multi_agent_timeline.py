@@ -164,7 +164,8 @@ def plot_timeline(window_logs: list[dict[str, Any]], *, output_path: Path, title
     for ax, (label, values, color) in zip(axes, series):
         ax.plot(x_values, values, color=color, marker="o", linewidth=2.0, markersize=4.5)
         ax.fill_between(x_values, values, color=color, alpha=0.18)
-        ax.set_ylabel(label, fontsize=15, fontweight="bold")
+        ax.set_ylabel(label, fontsize=16, fontweight="bold")
+        ax.tick_params(axis="both", labelsize=13)
         ax.grid(True, axis="y", alpha=0.25)
         ymax = max(values) if values else 0.0
         for time_value, strategy in zip(x_values, strategies):
@@ -172,7 +173,7 @@ def plot_timeline(window_logs: list[dict[str, Any]], *, output_path: Path, title
                 x=time_value,
                 color=STRATEGY_COLORS.get(strategy, STRATEGY_COLORS["unknown"]),
                 linestyle="--",
-                linewidth=1.2,
+                linewidth=4.0,
                 alpha=0.65,
             )
         if ymax <= 0:
@@ -201,18 +202,19 @@ def plot_timeline(window_logs: list[dict[str, Any]], *, output_path: Path, title
             x=time_value,
             color=STRATEGY_COLORS.get(strategy, STRATEGY_COLORS["unknown"]),
             linestyle="--",
-            linewidth=1.2,
+            linewidth=4.0,
             alpha=0.65,
         )
-    action_ax.set_ylabel("Actions", fontsize=15, fontweight="bold")
+    action_ax.set_ylabel("Actions", fontsize=16, fontweight="bold")
+    action_ax.tick_params(axis="both", labelsize=13)
     action_ax.grid(True, axis="y", alpha=0.25)
     action_ymax = max(bottoms) if bottoms else 0
     action_ax.set_ylim(0.0, max(1.0, action_ymax * 1.25))
 
-    axes[-1].set_xlabel("Simulation time")
+    axes[-1].set_xlabel("Simulation time", fontsize=16, fontweight="bold")
 
     strategy_handles = [
-        Line2D([0], [0], color=color, linestyle="--", linewidth=2, label=name)
+        Line2D([0], [0], color=color, linestyle="--", linewidth=4.0, label=name)
         for name, color in STRATEGY_COLORS.items()
         if name in set(strategies)
     ]
@@ -220,9 +222,9 @@ def plot_timeline(window_logs: list[dict[str, Any]], *, output_path: Path, title
         Line2D([0], [0], color=color, linewidth=3, label=label)
         for label, _, color in series
     ]
-    axes[0].legend(handles=metric_handles + strategy_handles, loc="upper left", ncol=3, fontsize=9)
+    axes[0].legend(handles=metric_handles + strategy_handles, loc="upper left", ncol=3, fontsize=13)
     if action_types:
-        action_ax.legend(loc="upper left", ncol=min(4, len(action_types)), fontsize=9)
+        action_ax.legend(loc="upper left", ncol=min(4, len(action_types)), fontsize=13)
 
     plt.tight_layout(rect=(0, 0, 1, 0.97))
     output_path.parent.mkdir(parents=True, exist_ok=True)

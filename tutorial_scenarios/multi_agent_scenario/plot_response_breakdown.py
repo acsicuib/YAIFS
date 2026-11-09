@@ -495,7 +495,7 @@ def plot_comparison(
     colors = {
         "network_mean": "#d1495b",
         "processing_mean": "#00798c",
-        "waiting_mean": "#edae49",
+        "waiting_mean": "#ffd000",
     }
 
     for row_index, app_name in enumerate(apps):
@@ -506,32 +506,33 @@ def plot_comparison(
                 & (frame["scenario"].astype(str) == scenario)
             ].copy()
             app_frame = app_frame.sort_values("window_mid")
-            axis.set_title(scenario if row_index == 0 else "", fontsize=14,fontweight="bold")
-            axis.set_ylabel("")
-            if col_index == 0:
+            if row_index == 0:
                 axis.text(
-                    -0.14,
+                    0.5,
+                    1.06,
+                    scenario,
+                    transform=axis.transAxes,
+                    ha="center",
+                    va="bottom",
+                    fontsize=20,
+                    fontweight="bold",
+                    clip_on=False,
+                )
+            if col_index == 0:
+                axis.set_ylabel("Units of time", fontsize=14)
+                axis.text(
+                    -0.22,
                     0.5,
                     app_name,
                     transform=axis.transAxes,
                     rotation=90,
                     ha="center",
                     va="center",
-                    fontsize=14,
+                    fontsize=16,
                     fontweight="bold",
                     clip_on=False,
                 )
-                axis.text(
-                    -0.10,
-                    0.5,
-                    "Time units",
-                    transform=axis.transAxes,
-                    rotation=90,
-                    ha="center",
-                    va="center",
-                    fontsize=11,
-                    clip_on=False,
-                )
+            axis.tick_params(axis="both", labelsize=12)
 
             if app_frame.empty:
                 axis.text(0.5, 0.5, "No data", ha="center", va="center", transform=axis.transAxes)
@@ -544,7 +545,7 @@ def plot_comparison(
             waiting = safe_series(app_frame["waiting_mean"])
             total = safe_series(app_frame["response_mean"])
 
-            axis.stackplot(
+            areas = axis.stackplot(
                 x,
                 network,
                 processing,
@@ -557,16 +558,29 @@ def plot_comparison(
                 ],
                 alpha=0.8,
             )
-            axis.plot(x, total, color="#222222", linewidth=1.5, label="Response mean")
+            areas[1].set_hatch("/")
+            areas[1].set_edgecolor(colors["processing_mean"])
+            areas[1].set_linewidth(0.0)
+            axis.plot(x, total, color="#222222", linewidth=1.5)
             axis.grid(alpha=0.2)
-            if row_index == 0 and col_index == 0:
-                axis.legend(loc="upper left")
 
     for axis in axes[-1]:
-        axis.set_xlabel("Simulation time")
+        axis.set_xlabel("Simulation time", fontsize=16)
 
-    #figure.suptitle("Response-time breakdown comparison", fontsize=14)
+    # figure.suptitle("Response-time breakdown comparison", fontsize=16)
+    handles, labels = axes[0][0].get_legend_handles_labels()
+    if handles:
+        figure.legend(
+            handles,
+            labels,
+            loc="upper center",
+            bbox_to_anchor=(0.55, 0.02),
+            ncol=len(labels),
+            fontsize=20,
+            frameon=False,
+        )
     figure.tight_layout()
+    figure.subplots_adjust(left=0.12, bottom=0.08, top=0.90)
 
     if output is not None:
         output.parent.mkdir(parents=True, exist_ok=True)

@@ -25,6 +25,14 @@ from yafs.path_routing import DeviceSpeedAwareRouting
 from yafs.distribution import deterministic_distribution
 
 
+SCENARIO_PATH = Path(__file__).resolve().parent
+
+
+def _load_scenario_json(filename):
+    """Load a JSON definition stored next to this scenario."""
+    path = SCENARIO_PATH / "data" / filename
+    with path.open(encoding="utf-8") as handle:
+        return json.load(handle)
 
 
 def main(stop_time, it,folder_results):
@@ -62,13 +70,13 @@ def main(stop_time, it,folder_results):
     """
     APPLICATION or SERVICES
     """
-    dataApp = json.load(open('data/appDefinition.json'))
+    dataApp = _load_scenario_json("appDefinition.json")
     apps = create_applications_from_json(dataApp)
 
     """
     SERVICE PLACEMENT 
     """
-    placementJson = json.load(open('data/allocDefinition.json'))
+    placementJson = _load_scenario_json("allocDefinition.json")
     placement = JSONPlacement(name="Placement", json=placementJson)
 
     """
@@ -90,7 +98,7 @@ def main(stop_time, it,folder_results):
     """
     Deploy users
     """
-    userJSON = json.load(open('data/usersDefinition.json'))
+    userJSON = _load_scenario_json("usersDefinition.json")
     for user in userJSON["sources"]:
         app_name = user["app"]
         app = s.apps[app_name]
@@ -108,10 +116,12 @@ def main(stop_time, it,folder_results):
 
 
 if __name__ == '__main__':
-    LOGGING_CONFIG = Path(__file__).parent / 'logging.ini'
-    logging.config.fileConfig(LOGGING_CONFIG)
+    logging.config.fileConfig(
+        SCENARIO_PATH / "logging.ini",
+        defaults={"log_file": str(SCENARIO_PATH / "logFile.log")},
+    )
 
-    folder_results = Path("results/")
+    folder_results = SCENARIO_PATH / "results"
     folder_results.mkdir(parents=True, exist_ok=True)
     folder_results = str(folder_results)+"/"
 

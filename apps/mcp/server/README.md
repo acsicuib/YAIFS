@@ -23,6 +23,34 @@ Run with the default scenario:
 uv run python apps/mcp/server/server.py
 ```
 
+Expose one or more profiles. Repeat ``--profile`` to combine them. Omit it to expose every tool:
+
+```bash
+uv run python apps/mcp/server/server.py --profile experiment_designer
+uv run python apps/mcp/server/server.py \
+  --profile simulation_controller \
+  --profile placement \
+  --profile experiment_analyst
+```
+
+Profiles:
+
+- ``experiment_designer`` creates scenarios, configurations, and simulations
+- ``simulation_controller`` advances, pauses, observes, and changes processes, nodes, and clusters
+- ``placement`` inspects the simulation, deploys and moves VNFs, advances and pauses the run, and queries metrics
+- ``experiment_analyst`` queries metrics, topology, deployments, observed paths, and latency components
+
+Placement reasoning uses four read-only analyst tools, in this order:
+
+1. `get_topology` reads clusters, nodes, and configured links. `node_id` returns that node and its neighbors.
+2. `get_deployments` reads where each VNF replica is placed. A service with no replica is undeployed.
+3. `get_request_paths` groups requests that were actually traced. Link hops are recorded transmissions. A missing hop sequence is marked partial and is not replaced by a shortest path.
+4. `get_latency_breakdown` separates measured link, queue, and processing time when the trace contains those times. The pieces are not required to add up to the end-to-end time.
+
+After a placement change, advance the simulation and call the same tools again on the new window. Compare the observed groups and latency; the tools do not choose a placement.
+
+Every profile also includes the read-only inventory: simulations, state, nodes, clusters, users, VNFs, placements, and processes.
+
 Run with another scenario:
 
 ```bash

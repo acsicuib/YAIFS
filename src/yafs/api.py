@@ -136,6 +136,8 @@ class RegisteredProcess:
     enabled: bool = True
     monitor_des: int | None = None
     activation_count: int = 0
+    live_distribution: Any = None
+    callback_template: Any = None
 
 
 class ProcessContext:
@@ -1051,6 +1053,10 @@ class Simulation:
         self._idle_event.set()
         self.results_path = results_path
         self._registered_processes: dict[str, RegisteredProcess] = {}
+        self._initial_users = copy.deepcopy(self.infrastructure.users)
+        self._initial_topology = copy.deepcopy(self.infrastructure.topology)
+        self._journal: list[dict[str, Any]] = []
+        self._suspend_journal = False
 
     def _live_topology_info(self) -> dict[str, dict[str, Any]]:
         topology = getattr(self.sim, "topology", None)
@@ -1189,7 +1195,12 @@ class Simulation:
             process_name=process_name,
             process_des=registration.monitor_des,
         )
-        registration.callback(context, **dict(registration.params))
+        previous = self._suspend_journal
+        self._suspend_journal = True
+        try:
+            registration.callback(context, **dict(registration.params))
+        finally:
+            self._suspend_journal = previous
 
     def _deploy_registered_process(self, registration: RegisteredProcess) -> int | None:
         if not registration.enabled:
@@ -1200,6 +1211,7 @@ class Simulation:
             self.sim.stop_process(registration.monitor_des)
 
         distribution = copy.deepcopy(registration.distribution)
+        registration.live_distribution = distribution
         monitor_des = self.sim.deploy_monitor(
             registration.name,
             self._invoke_registered_process,
@@ -1228,6 +1240,7 @@ class Simulation:
                 callback=callback,
                 distribution=copy.deepcopy(distribution),
                 params=dict(params),
+                callback_template=copy.deepcopy(callback),
             )
             self._registered_processes[process_name] = registration
 
@@ -1477,6 +1490,7 @@ class Simulation:
         nodes: str | list[str] | tuple[str, ...] | None = None,
     ) -> dict[str, Any]:
         with self._lock:
+            before_initialized = not self._initialized
             payload = self._load_cluster_definition(definition)
             source_definitions = payload.get("sources", [])
             if not source_definitions:
@@ -1567,6 +1581,12 @@ class Simulation:
             for item in created:
                 item["id"] = service_ids.get(item["app"], item["app"])
 
+            self._record_mutation(
+                "create_users",
+                payload,
+                nodes=nodes,
+                before_initialized=before_initialized,
+            )
             return {
                 "status": "successful",
                 "created": created,
@@ -1617,6 +1637,12 @@ class Simulation:
         with self._lock:
             self._ensure_initialized()
             item = self._update_user_lambda_value(int(user_des), float(new_lambda))
+            self._record_mutation(
+                "update_user_lambda",
+                int(user_des),
+                float(new_lambda),
+                before_initialized=False,
+            )
             return {
                 "status": "successful",
                 **item,
@@ -1644,6 +1670,12 @@ class Simulation:
                 )
 
             service_ids = self._service_id_by_name()
+            self._record_mutation(
+                "update_application_users_lambda",
+                app_ref,
+                float(new_lambda),
+                before_initialized=False,
+            )
             return {
                 "status": "successful",
                 "id": service_ids.get(app_name, app_name),
@@ -1715,6 +1747,11 @@ class Simulation:
             app_name = str(source.get("app"))
             service_ids = self._service_id_by_name()
             self.sim.undeploy_source(des)
+            self._record_mutation(
+                "remove_user",
+                des,
+                before_initialized=False,
+            )
 
             return {
                 "status": "successful",
@@ -1870,6 +1907,12 @@ class Simulation:
 
             app_name = str(source.get("app"))
             service_ids = self._service_id_by_name()
+            self._record_mutation(
+                "move_user",
+                des,
+                target_node,
+                before_initialized=False,
+            )
             return {
                 "status": "successful",
                 "des": des,
@@ -2482,6 +2525,11 @@ class Simulation:
                         last_busy_time.pop(edge_key, None)
 
             self._invalidate_routing_cache()
+            self._record_mutation(
+                "remove_node",
+                node_key,
+                before_initialized=False,
+            )
 
             unavailable_services: list[Any] = []
             for app_name, modules in getattr(self.sim, "alloc_module", {}).items():
@@ -3154,6 +3202,56 @@ class Simulation:
 
             return results
 
+    def get_load_summary(self) -> dict[str, Any]:
+        """Return current placement load and observed link congestion.
+
+        Application latency stays on ``get_application_metrics_summary``.
+        These figures describe how full the infrastructure is: overall CPU
+        and RAM use, how many nodes are occupied, and link bandwidth.
+        """
+        with self._lock:
+            self._ensure_initialized()
+            self._flush_metrics_if_needed()
+
+            node_rows = self.get_node_resource_summary()
+            cpu_used = sum(float(row.get("cpu_used") or 0.0) for row in node_rows)
+            cpu_total = sum(float(row.get("cpu_total") or 0.0) for row in node_rows)
+            ram_used = sum(float(row.get("ram_used") or 0.0) for row in node_rows)
+            ram_total = sum(float(row.get("ram_total") or 0.0) for row in node_rows)
+            cpu_utilization = self._resource_utilization(cpu_used, cpu_total)
+            ram_utilization = self._resource_utilization(ram_used, ram_total)
+            users = sum(int(row.get("users") or 0) for row in node_rows)
+            nodes_busy = sum(
+                1
+                for row in node_rows
+                if int(row.get("deployments") or 0) > 0 or int(row.get("users") or 0) > 0
+            )
+
+            topology = self.sim.topology
+            analyzer = MetricsAnalyzer(
+                defaultPath=self.results_path,
+                app_definition=self.infrastructure.service_definitions_data,
+            )
+            bandwidth_used = analyzer.total_bandwidth_used(topology)
+            bandwidth_available = analyzer.total_bandwidth_available(topology)
+            if bandwidth_available > 0.0:
+                link_utilization = bandwidth_used / bandwidth_available
+            else:
+                link_utilization = 0.0
+
+            return {
+                "node_utilization": (cpu_utilization + ram_utilization) / 2.0,
+                "cpu_utilization": cpu_utilization,
+                "ram_utilization": ram_utilization,
+                "nodes_busy": nodes_busy,
+                "nodes_total": len(node_rows),
+                "link_utilization": link_utilization,
+                "mean_topology_congestion": analyzer.mean_topology_congestion(topology),
+                "total_bandwidth_used": bandwidth_used,
+                "total_bandwidth_available": bandwidth_available,
+                "users": float(users),
+            }
+
     def _module_resource_catalog(self) -> dict[str, dict[str, dict[str, float]]]:
         catalog: dict[str, dict[str, dict[str, float]]] = {}
         for app in self.infrastructure.service_definitions_data:
@@ -3589,6 +3687,144 @@ class Simulation:
 
             return summary.sort_values("cluster").to_dict(orient="records")
 
+    def read_topology_facts(self) -> dict[str, Any]:
+        """Return a consistent snapshot of configured nodes and links."""
+        with self._lock:
+            self._ensure_initialized()
+            graph = self.sim.topology.G
+            usage_by_node = {
+                str(row["node"]): {
+                    "cpu_used": row["cpu_used"],
+                    "cpu_total": row["cpu_total"],
+                    "ram_used": row["ram_used"],
+                    "ram_total": row["ram_total"],
+                    "cpu_utilization": row["cpu_utilization"],
+                    "ram_utilization": row["ram_utilization"],
+                }
+                for row in self.get_node_resource_summary()
+            }
+            nodes = []
+            for node_id, attrs in graph.nodes(data=True):
+                nodes.append(
+                    {
+                        "id": str(node_id),
+                        "cluster": attrs.get("cluster"),
+                        "cluster_role": attrs.get("cluster_role"),
+                        "cluster_region": attrs.get("cluster_region"),
+                        "node_role": attrs.get("node_role"),
+                        "capacity": attrs.get("capacity"),
+                        "usage": usage_by_node.get(str(node_id)),
+                    }
+                )
+            links = []
+            if graph.is_multigraph():
+                edge_rows = graph.edges(keys=True, data=True)
+            else:
+                edge_rows = (
+                    (source, destination, None, attrs)
+                    for source, destination, attrs in graph.edges(data=True)
+                )
+            for source, destination, key, attrs in edge_rows:
+                properties = {
+                    str(name): value
+                    for name, value in dict(attrs).items()
+                    if name not in {Topology.LINK_PR, Topology.LINK_BW}
+                    and isinstance(value, (str, int, float, bool))
+                }
+                links.append(
+                    {
+                        "source_id": str(source),
+                        "destination_id": str(destination),
+                        "delay": _safe_float(attrs.get(Topology.LINK_PR), default=None)
+                        if attrs.get(Topology.LINK_PR) is not None
+                        else None,
+                        "bandwidth": _safe_float(attrs.get(Topology.LINK_BW), default=None)
+                        if attrs.get(Topology.LINK_BW) is not None
+                        else None,
+                        "properties": properties,
+                        "key": None if key is None else str(key),
+                    }
+                )
+            return {
+                "simulation_time": float(self.sim.env.now),
+                "directed": bool(graph.is_directed()),
+                "nodes": nodes,
+                "links": links,
+            }
+
+    def read_deployment_facts(self) -> dict[str, Any]:
+        """Return configured applications and the replicas placed right now."""
+        with self._lock:
+            self._ensure_initialized()
+            allocations: dict[str, dict[str, list[Any]]] = {}
+            alloc_module = getattr(self.sim, "alloc_module", {}) or {}
+            for app_name, modules in alloc_module.items():
+                canonical = str(self.infrastructure._resolve_app_name(app_name))
+                bucket = allocations.setdefault(canonical, {})
+                for module_name, deployed in modules.items():
+                    bucket.setdefault(str(module_name), [])
+                    bucket[str(module_name)].extend(list(deployed))
+            return {
+                "simulation_time": float(self.sim.env.now),
+                "definitions": list(self.infrastructure.service_definitions_data),
+                "allocations": allocations,
+                "alloc_des": dict(getattr(self.sim, "alloc_DES", {}) or {}),
+            }
+
+    def read_trace_frames(self, application_id: str) -> dict[str, Any]:
+        """Return recorded events and link hops for one application.
+
+        The frames contain only rows already written to the trace. They are
+        not a predicted route.
+        """
+        with self._lock:
+            self._ensure_initialized()
+            self._flush_metrics_if_needed()
+            simulation_time = float(self.sim.env.now)
+            definitions = list(self.infrastructure.service_definitions_data)
+            known = {}
+            for definition in definitions:
+                name = str(definition.get("name"))
+                known[name] = name
+                if definition.get("id") is not None:
+                    known[str(definition.get("id"))] = name
+            if str(application_id) not in known:
+                raise ValueError(
+                    f"Application does not exist in the simulation: {application_id}"
+                )
+            application_name = known[str(application_id)]
+            try:
+                analyzer = MetricsAnalyzer(
+                    defaultPath=self.results_path,
+                    app_definition=definitions,
+                )
+            except (FileNotFoundError, OSError, pd.errors.EmptyDataError):
+                return {
+                    "simulation_time": simulation_time,
+                    "application_id": application_name,
+                    "traces_available": False,
+                    "events": pd.DataFrame(),
+                    "links": pd.DataFrame(),
+                }
+            app_ids = {application_name}
+            for definition in definitions:
+                if str(definition.get("name")) == application_name and definition.get("id") is not None:
+                    app_ids.add(str(definition.get("id")))
+                    app_ids.add(definition.get("id"))
+            events = analyzer.df
+            links = analyzer.df_link
+            if not events.empty and "app" in events.columns:
+                events = events[events["app"].astype(str).isin({str(item) for item in app_ids})].copy()
+            if not links.empty and "app" in links.columns:
+                links = links[links["app"].astype(str).isin({str(item) for item in app_ids})].copy()
+            return {
+                "simulation_time": simulation_time,
+                "application_id": application_name,
+                "traces_available": True,
+                "events": events,
+                "links": links,
+            }
+
     def get_network_metrics_summary(
         self,
         *,
@@ -3636,14 +3872,111 @@ class Simulation:
                 "total_links": analyzer.total_links(topology),
             }
 
+    def _record_mutation(
+        self,
+        name: str,
+        *args: Any,
+        before_initialized: bool,
+        **kwargs: Any,
+    ) -> None:
+        """
+        Remember an external mutation so a later fork can replay it.
+
+        Process callbacks suspend the journal. Their effects are reproduced
+        by re-running the callback, not by replaying a second copy of it.
+        """
+        if self._suspend_journal:
+            return
+        self._journal.append(
+            {
+                "time": float(self.sim.env.now),
+                "before_initialized": bool(before_initialized),
+                "name": str(name),
+                "args": copy.deepcopy(args),
+                "kwargs": copy.deepcopy(kwargs),
+            }
+        )
+
+    def _apply_journal_entry(self, entry: Mapping[str, Any]) -> None:
+        name = str(entry["name"])
+        args = entry.get("args", ())
+        kwargs = entry.get("kwargs", {})
+        method = getattr(self, name, None)
+        if method is None:
+            raise RuntimeError(f"Cannot replay mutation '{name}'")
+        method(*args, **kwargs)
+
+    def _fresh_process_callback(
+        self,
+        registration: RegisteredProcess,
+    ) -> Callable[..., Any]:
+        """
+        Return a pristine callback for a forked branch.
+
+        The copy is taken from the callback as it was at registration, so
+        random generators owned by the process start at their original seed.
+        Replaying the branch then advances those generators to the fork
+        point. The parent keeps its own already-advanced generators.
+        """
+        if registration.callback_template is not None:
+            return copy.deepcopy(registration.callback_template)
+
+        definition = registration.definition
+        if registration.kind and isinstance(definition, Mapping):
+            params = definition.get("params", {})
+            if not isinstance(params, Mapping):
+                params = {}
+            return _build_process_callback(
+                kind=registration.kind,
+                params=params,
+            )
+        return copy.deepcopy(registration.callback)
+
+    def _replay_until(self, target: float) -> None:
+        """
+        Rebuild live processes up to ``target`` from the initial scenario.
+
+        External mutations are applied at the simulation time where they
+        originally happened, after every event strictly earlier than that
+        time. That matches the service API, which edits a branch only while
+        it is idle.
+        """
+        initialized = False
+        for entry in self._journal:
+            if entry["before_initialized"]:
+                self._apply_journal_entry(entry)
+                continue
+            if not initialized:
+                self._ensure_initialized()
+                initialized = True
+            when = float(entry["time"])
+            if when > target:
+                break
+            if float(self.sim.env.now) < when:
+                self.sim.until = when
+                self.sim.env.run(until=when)
+            self._apply_journal_entry(entry)
+
+        if target > 0 and not initialized:
+            self._ensure_initialized()
+            initialized = True
+        if initialized and float(self.sim.env.now) < target:
+            self.sim.until = target
+            self.sim.env.run(until=target)
+
     def fork(self, *, results_suffix: str | None = None) -> "Simulation":
         """
-        Clone (fork) the current simulation state into an independent instance.
+        Clone (fork) the current simulation into an independent branch.
 
-        The fork recreates the simulation from the same scenario and seed, then
-        deterministically replays it up to the parent's current simulation time.
-        This avoids deep-copying live SimPy processes, which are backed by
-        generator objects and cannot be cloned safely.
+        The child starts from the same scenario, seed, and external edits,
+        then replays the parent up to the current simulation time. Random
+        generators owned by a custom DES, including activation distributions,
+        are copied from their registration-time state and advanced by that
+        replay. Each branch therefore keeps an independent stream positioned
+        at the same draw. Mutable objects are copied, not shared.
+
+        Live SimPy processes are not deep-copied. They are generator objects
+        and cannot be cloned safely.
         """
         with self._lock:
             self.pause()
@@ -3655,6 +3988,8 @@ class Simulation:
                 results_suffix = f"fork_{int(current_now)}"
 
         child_infrastructure = self.infrastructure.clone()
+        child_infrastructure.topology = copy.deepcopy(self._initial_topology)
+        child_infrastructure.users = copy.deepcopy(self._initial_users)
         child = Simulation(
             infrastructure=child_infrastructure,
             seed=seed,
@@ -3664,19 +3999,22 @@ class Simulation:
         for name, registration in self._registered_processes.items():
             child._registered_processes[name] = RegisteredProcess(
                 name=registration.name,
-                callback=registration.callback,
+                callback=self._fresh_process_callback(registration),
                 distribution=copy.deepcopy(registration.distribution),
                 params=copy.deepcopy(registration.params),
                 kind=registration.kind,
                 definition=copy.deepcopy(registration.definition),
                 enabled=registration.enabled,
-                activation_count=registration.activation_count,
+                activation_count=0,
+                callback_template=self._fresh_process_callback(registration),
             )
 
-        if current_now > 0:
-            child._ensure_initialized()
-            child.sim.until = current_now
-            child.sim.env.run(until=current_now)
+        child._journal = copy.deepcopy(self._journal)
+        child._suspend_journal = True
+        try:
+            child._replay_until(current_now)
+        finally:
+            child._suspend_journal = False
 
         return child
 

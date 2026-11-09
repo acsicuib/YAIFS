@@ -1,3 +1,3 @@
-from .mcp_server import build_mcp_server
+from .mcp_server import McpProfile, build_mcp_server, profile_enabled
 
-__all__ = ["build_mcp_server"]
+__all__ = ["McpProfile", "build_mcp_server", "profile_enabled"]

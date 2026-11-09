@@ -6,7 +6,7 @@ from dataclasses import asdict, is_dataclass
 from pathlib import Path
 
 from yafs.services import SimulationService
-from yafs.transports.mcp_server import build_mcp_server
+from yafs.transports.mcp_server import McpProfile, build_mcp_server, profile_enabled
 
 
 DEFAULT_SCENARIO_PATH = (
@@ -38,12 +38,18 @@ def create_server(
     scenario_path: Path,
     configuration_root: Path | None = None,
     results_root: Path | None = None,
+    profiles: list[str] | None = None,
 ):
     service = SimulationService(
         default_results_root=results_root,
         default_configuration_root=configuration_root,
     )
-    app = build_mcp_server(service, server_name="yaifs-three-cluster")
+    app = build_mcp_server(
+        service,
+        server_name="yaifs-three-cluster",
+        profiles=profiles,
+    )
+    designer_enabled = profile_enabled(profiles, McpProfile.EXPERIMENT_DESIGNER)
 
     @app.tool()
     def get_default_scenario() -> dict[str, object]:
@@ -52,56 +58,58 @@ def create_server(
             "exists": scenario_path.exists(),
         }
 
-    @app.tool()
-    def create_default_simulation(
-        seed: int | None = None,
-        name: str | None = None,
-        services_definition_path: str | None = None,
-        users_definition_path: str | None = None,
-        placement_definition_path: str | None = None,
-        topology_path: str | None = None,
-    ) -> dict[str, object]:
-        state = service.create_simulation(
-            scenario_path=scenario_path,
-            seed=seed,
-            name=name,
-            services_definition_path=services_definition_path,
-            users_definition_path=users_definition_path,
-            placement_definition_path=placement_definition_path,
-            topology_path=topology_path,
-        )
-        return _jsonable(state)
+    if designer_enabled:
 
-    @app.tool()
-    def create_default_simulation_configuration(
-        configuration_name: str,
-        cluster_count: int | None = None,
-        nodes_per_cluster: int | None = None,
-        topology_definition_path: str | None = None,
-    ) -> dict[str, object]:
-        return _jsonable(
-            service.create_simulation_configuration(
-                base_scenario_path=scenario_path,
-                configuration_name=configuration_name,
-                topology_definition_path=topology_definition_path,
-                cluster_count=cluster_count,
-                nodes_per_cluster=nodes_per_cluster,
-            )
-        )
-
-    @app.tool()
-    def create_default_simulation_from_configuration(
-        configuration_path: str,
-        seed: int | None = None,
-        name: str | None = None,
-    ) -> dict[str, object]:
-        return _jsonable(
-            service.create_simulation_from_configuration(
-                configuration_path=configuration_path,
+        @app.tool()
+        def create_default_simulation(
+            seed: int | None = None,
+            name: str | None = None,
+            services_definition_path: str | None = None,
+            users_definition_path: str | None = None,
+            placement_definition_path: str | None = None,
+            topology_path: str | None = None,
+        ) -> dict[str, object]:
+            state = service.create_simulation(
+                scenario_path=scenario_path,
                 seed=seed,
                 name=name,
+                services_definition_path=services_definition_path,
+                users_definition_path=users_definition_path,
+                placement_definition_path=placement_definition_path,
+                topology_path=topology_path,
             )
-        )
+            return _jsonable(state)
+
+        @app.tool()
+        def create_default_simulation_configuration(
+            configuration_name: str,
+            cluster_count: int | None = None,
+            nodes_per_cluster: int | None = None,
+            topology_definition_path: str | None = None,
+        ) -> dict[str, object]:
+            return _jsonable(
+                service.create_simulation_configuration(
+                    base_scenario_path=scenario_path,
+                    configuration_name=configuration_name,
+                    topology_definition_path=topology_definition_path,
+                    cluster_count=cluster_count,
+                    nodes_per_cluster=nodes_per_cluster,
+                )
+            )
+
+        @app.tool()
+        def create_default_simulation_from_configuration(
+            configuration_path: str,
+            seed: int | None = None,
+            name: str | None = None,
+        ) -> dict[str, object]:
+            return _jsonable(
+                service.create_simulation_from_configuration(
+                    configuration_path=configuration_path,
+                    seed=seed,
+                    name=name,
+                )
+            )
 
     @app.resource("simulation://default-scenario")
     def default_scenario_resource() -> dict[str, object]:
@@ -125,6 +133,16 @@ def build_parser() -> argparse.ArgumentParser:
         "--scenario-path",
         default=str(DEFAULT_SCENARIO_PATH),
         help="Base scenario path used by create_default_simulation.",
+    )
+    parser.add_argument(
+        "--profile",
+        action="append",
+        dest="profiles",
+        choices=[profile.value for profile in McpProfile],
+        help=(
+            "Expose one tool profile. Repeat the flag to combine profiles. "
+            "Omit it to expose every tool."
+        ),
     )
     parser.add_argument(
         "--transport",
@@ -165,6 +183,7 @@ def main() -> int:
         scenario_path=scenario_path,
         configuration_root=configuration_root,
         results_root=results_root,
+        profiles=args.profiles,
     )
     app.run(args.transport)
     return 0

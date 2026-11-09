@@ -81,6 +81,22 @@ def nearest_worker_node(
     return ranked[0][1]
 
 
+def _deepcopy_keeping_simulation(process: object, memo: dict) -> object:
+    """Copy a process without cloning the live simulation.
+
+    The simulation owns open trace files, which cannot be pickled. The
+    registered process keeps using that same simulation object.
+    """
+    cloned = process.__class__.__new__(process.__class__)
+    memo[id(process)] = cloned
+    for key, value in process.__dict__.items():
+        if key == "simulation":
+            setattr(cloned, key, value)
+            continue
+        setattr(cloned, key, copy.deepcopy(value, memo))
+    return cloned
+
+
 def clone_application_definition(
     base_definition: dict,
     *,
@@ -147,6 +163,9 @@ class GreedyUserApplicationBurstProcess:
         self.activation_count = 0
         self.instance_counter = 0
         self.created_by_base_app: dict[str, int] = {}
+
+    def __deepcopy__(self, memo):
+        return _deepcopy_keeping_simulation(self, memo)
 
     def __call__(self, context) -> None:
         if self.activation_count >= self.max_activations:
@@ -224,6 +243,9 @@ class GreedyHotspotUsersProcess:
         self.removed = False
         self.instance_counter = 0
         self.user_des: list[int] = []
+
+    def __deepcopy__(self, memo):
+        return _deepcopy_keeping_simulation(self, memo)
 
     def __call__(self, context) -> None:
         if not self.created:

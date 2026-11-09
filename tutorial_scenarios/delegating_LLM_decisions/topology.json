@@ -1,0 +1,3709 @@
+{
+  "labName": "multi-agent-scenario",
+  "description": "Large-scale topology for a multi-agent simulation with CDC, EDC and MEC clusters distributed across regions A and B.",
+  "clusters": [
+    {
+      "name": "cdc-a-0",
+      "role": "CDC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "cdc-a-0-control-plane",
+          "role": "control-plane",
+          "WATT": 3.0,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-0-worker-1",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-0-worker-2",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-0-worker-3",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-0-worker-4",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-0-worker-5",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-0-worker-6",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-0-worker-7",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-0-worker-8",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-0-worker-9",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "cdc-a-1",
+      "role": "CDC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "cdc-a-1-control-plane",
+          "role": "control-plane",
+          "WATT": 3.0,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-1-worker-1",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-1-worker-2",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-1-worker-3",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-1-worker-4",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-1-worker-5",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-1-worker-6",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-1-worker-7",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-1-worker-8",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        },
+        {
+          "name": "cdc-a-1-worker-9",
+          "role": "worker",
+          "WATT": 2.2,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "4096m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "cdc-b-0",
+      "role": "CDC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "cdc-b-0-control-plane",
+          "role": "control-plane",
+          "WATT": 3.5,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "4.0",
+            "memory": "8192m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-1",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-2",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-3",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-4",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-5",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-6",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-7",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-8",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-9",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-10",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-11",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-12",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-13",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-14",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-15",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-16",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-17",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-18",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-19",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-20",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-21",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-22",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-23",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-24",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-25",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-26",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-27",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-28",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        },
+        {
+          "name": "cdc-b-0-worker-29",
+          "role": "worker",
+          "WATT": 2.8,
+          "COST": 0.01,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "3.0",
+            "memory": "6144m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "edc-a",
+      "role": "EDC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "edc-a-control-plane",
+          "role": "control-plane",
+          "WATT": 1.2,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2048m"
+          }
+        },
+        {
+          "name": "edc-a-worker-1",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-a-worker-2",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-a-worker-3",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-a-worker-4",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "edc-b",
+      "role": "EDC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "edc-b-control-plane",
+          "role": "control-plane",
+          "WATT": 1.2,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2048m"
+          }
+        },
+        {
+          "name": "edc-b-worker-1",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-b-worker-2",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "edc-c",
+      "role": "EDC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "edc-c-control-plane",
+          "role": "control-plane",
+          "WATT": 1.2,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2048m"
+          }
+        },
+        {
+          "name": "edc-c-worker-1",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-c-worker-2",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-c-worker-3",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "edc-d",
+      "role": "EDC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "edc-d-control-plane",
+          "role": "control-plane",
+          "WATT": 1.2,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2048m"
+          }
+        },
+        {
+          "name": "edc-d-worker-1",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-d-worker-2",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-d-worker-3",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-d-worker-4",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "edc-e",
+      "role": "EDC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "edc-e-control-plane",
+          "role": "control-plane",
+          "WATT": 1.2,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2048m"
+          }
+        },
+        {
+          "name": "edc-e-worker-1",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "edc-f",
+      "role": "EDC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "edc-f-control-plane",
+          "role": "control-plane",
+          "WATT": 1.2,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2048m"
+          }
+        },
+        {
+          "name": "edc-f-worker-1",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-f-worker-2",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-f-worker-3",
+          "role": "worker",
+          "WATT": 1.0,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "edc-g",
+      "role": "EDC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "edc-g-control-plane",
+          "role": "control-plane",
+          "WATT": 1.4,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2048m"
+          }
+        },
+        {
+          "name": "edc-g-worker-1",
+          "role": "worker",
+          "WATT": 1.1,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-g-worker-2",
+          "role": "worker",
+          "WATT": 1.1,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-g-worker-3",
+          "role": "worker",
+          "WATT": 1.1,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "edc-h",
+      "role": "EDC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "edc-h-control-plane",
+          "role": "control-plane",
+          "WATT": 1.4,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2048m"
+          }
+        },
+        {
+          "name": "edc-h-worker-1",
+          "role": "worker",
+          "WATT": 1.1,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "edc-i",
+      "role": "EDC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "edc-i-control-plane",
+          "role": "control-plane",
+          "WATT": 1.4,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2048m"
+          }
+        },
+        {
+          "name": "edc-i-worker-1",
+          "role": "worker",
+          "WATT": 1.1,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-i-worker-2",
+          "role": "worker",
+          "WATT": 1.1,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "edc-j",
+      "role": "EDC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "edc-j-control-plane",
+          "role": "control-plane",
+          "WATT": 1.4,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2048m"
+          }
+        },
+        {
+          "name": "edc-j-worker-1",
+          "role": "worker",
+          "WATT": 1.1,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-j-worker-2",
+          "role": "worker",
+          "WATT": 1.1,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-j-worker-3",
+          "role": "worker",
+          "WATT": 1.1,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        },
+        {
+          "name": "edc-j-worker-4",
+          "role": "worker",
+          "WATT": 1.1,
+          "COST": 0.06,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.0",
+            "memory": "1536m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-a-0",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-a-0-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-a-0-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-a-0-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-a-0-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-a-1",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-a-1-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-a-1-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-a-1-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-a-1-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-a-1-worker-4",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-b-0",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-b-0-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-b-0-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-b-0-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-b-0-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-b-1",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-b-1-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-b-1-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-b-1-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-b-1-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-b-1-worker-4",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-b-1-worker-5",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-b-2",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-b-2-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-b-2-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-b-2-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-b-2-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-b-2-worker-4",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-c-0",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-c-0-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-c-0-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-c-0-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-c-0-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-c-0-worker-4",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-c-1",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-c-1-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-c-1-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-c-1-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-c-1-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-d-0",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-d-0-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-d-0-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-d-0-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-d-0-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-d-1",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-d-1-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-d-1-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-d-1-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-d-1-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-d-1-worker-4",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-d-2",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-d-2-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-d-2-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-d-2-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-d-2-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-d-2-worker-4",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-d-2-worker-5",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-d-3",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-d-3-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-d-3-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-d-3-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-d-3-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-e-0",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-e-0-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-e-0-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-e-0-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-e-0-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-e-1",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-e-1-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-e-1-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-e-1-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-e-1-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-f-0",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-f-0-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-f-0-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-f-0-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-f-0-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-f-0-worker-4",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-f-1",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-f-1-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-f-1-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-f-1-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-f-1-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-f-1-worker-4",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-f-1-worker-5",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-f-2",
+      "role": "MEC",
+      "region": "region-a",
+      "cluster_region": "region-a",
+      "nodes": [
+        {
+          "name": "mec-f-2-control-plane",
+          "role": "control-plane",
+          "WATT": 1.8,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-f-2-worker-1",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-f-2-worker-2",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-f-2-worker-3",
+          "role": "worker",
+          "WATT": 1.4,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-g-0",
+      "role": "MEC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "mec-g-0-control-plane",
+          "role": "control-plane",
+          "WATT": 1.9,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-g-0-worker-1",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-g-0-worker-2",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-g-0-worker-3",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-g-0-worker-4",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-g-1",
+      "role": "MEC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "mec-g-1-control-plane",
+          "role": "control-plane",
+          "WATT": 1.9,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-g-1-worker-1",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-g-1-worker-2",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-g-1-worker-3",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-h-0",
+      "role": "MEC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "mec-h-0-control-plane",
+          "role": "control-plane",
+          "WATT": 1.9,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-h-0-worker-1",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-h-0-worker-2",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-h-0-worker-3",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-h-1",
+      "role": "MEC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "mec-h-1-control-plane",
+          "role": "control-plane",
+          "WATT": 1.9,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-h-1-worker-1",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-h-1-worker-2",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-h-1-worker-3",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-h-1-worker-4",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-h-1-worker-5",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-i-0",
+      "role": "MEC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "mec-i-0-control-plane",
+          "role": "control-plane",
+          "WATT": 1.9,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-i-0-worker-1",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-i-0-worker-2",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-i-0-worker-3",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-i-0-worker-4",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-i-1",
+      "role": "MEC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "mec-i-1-control-plane",
+          "role": "control-plane",
+          "WATT": 1.9,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-i-1-worker-1",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-i-1-worker-2",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-i-1-worker-3",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-i-1-worker-4",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-i-2",
+      "role": "MEC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "mec-i-2-control-plane",
+          "role": "control-plane",
+          "WATT": 1.9,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-i-2-worker-1",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-i-2-worker-2",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-i-2-worker-3",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-j-0",
+      "role": "MEC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "mec-j-0-control-plane",
+          "role": "control-plane",
+          "WATT": 1.9,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-j-0-worker-1",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-j-0-worker-2",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-j-0-worker-3",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-j-1",
+      "role": "MEC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "mec-j-1-control-plane",
+          "role": "control-plane",
+          "WATT": 1.9,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-j-1-worker-1",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-j-1-worker-2",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-j-1-worker-3",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-j-1-worker-4",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-j-2",
+      "role": "MEC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "mec-j-2-control-plane",
+          "role": "control-plane",
+          "WATT": 1.9,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-j-2-worker-1",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-j-2-worker-2",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-j-2-worker-3",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-j-2-worker-4",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-j-2-worker-5",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mec-j-3",
+      "role": "MEC",
+      "region": "region-b",
+      "cluster_region": "region-b",
+      "nodes": [
+        {
+          "name": "mec-j-3-control-plane",
+          "role": "control-plane",
+          "WATT": 1.9,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "2.0",
+            "memory": "3072m"
+          }
+        },
+        {
+          "name": "mec-j-3-worker-1",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-j-3-worker-2",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        },
+        {
+          "name": "mec-j-3-worker-3",
+          "role": "worker",
+          "WATT": 1.5,
+          "COST": 0.3,
+          "uptime": [
+            0.0,
+            null
+          ],
+          "capacity": {
+            "cpu": "1.5",
+            "memory": "2560m"
+          }
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "from": "cdc-a-0",
+      "to": "cdc-a-1",
+      "bidirectional": true,
+      "distanceKm": 15,
+      "targetOneWayLatencyMs": 3
+    },
+    {
+      "from": "cdc-a-0",
+      "to": "cdc-b-0",
+      "bidirectional": true,
+      "distanceKm": 180,
+      "targetOneWayLatencyMs": 28
+    },
+    {
+      "from": "cdc-a-1",
+      "to": "cdc-b-0",
+      "bidirectional": true,
+      "distanceKm": 170,
+      "targetOneWayLatencyMs": 26
+    },
+    {
+      "from": "edc-a",
+      "to": "cdc-a-0",
+      "bidirectional": true,
+      "distanceKm": 18,
+      "targetOneWayLatencyMs": 4
+    },
+    {
+      "from": "edc-a",
+      "to": "cdc-a-1",
+      "bidirectional": true,
+      "distanceKm": 20,
+      "targetOneWayLatencyMs": 4
+    },
+    {
+      "from": "edc-b",
+      "to": "cdc-a-0",
+      "bidirectional": true,
+      "distanceKm": 22,
+      "targetOneWayLatencyMs": 5
+    },
+    {
+      "from": "edc-b",
+      "to": "cdc-a-1",
+      "bidirectional": true,
+      "distanceKm": 24,
+      "targetOneWayLatencyMs": 5
+    },
+    {
+      "from": "edc-c",
+      "to": "cdc-a-0",
+      "bidirectional": true,
+      "distanceKm": 25,
+      "targetOneWayLatencyMs": 5
+    },
+    {
+      "from": "edc-c",
+      "to": "cdc-a-1",
+      "bidirectional": true,
+      "distanceKm": 21,
+      "targetOneWayLatencyMs": 4
+    },
+    {
+      "from": "edc-d",
+      "to": "cdc-a-0",
+      "bidirectional": true,
+      "distanceKm": 28,
+      "targetOneWayLatencyMs": 6
+    },
+    {
+      "from": "edc-d",
+      "to": "cdc-a-1",
+      "bidirectional": true,
+      "distanceKm": 19,
+      "targetOneWayLatencyMs": 4
+    },
+    {
+      "from": "edc-e",
+      "to": "cdc-a-0",
+      "bidirectional": true,
+      "distanceKm": 17,
+      "targetOneWayLatencyMs": 3
+    },
+    {
+      "from": "edc-e",
+      "to": "cdc-a-1",
+      "bidirectional": true,
+      "distanceKm": 16,
+      "targetOneWayLatencyMs": 3
+    },
+    {
+      "from": "edc-f",
+      "to": "cdc-a-0",
+      "bidirectional": true,
+      "distanceKm": 23,
+      "targetOneWayLatencyMs": 5
+    },
+    {
+      "from": "edc-f",
+      "to": "cdc-a-1",
+      "bidirectional": true,
+      "distanceKm": 18,
+      "targetOneWayLatencyMs": 4
+    },
+    {
+      "from": "edc-a",
+      "to": "edc-b",
+      "bidirectional": true,
+      "distanceKm": 8,
+      "targetOneWayLatencyMs": 2
+    },
+    {
+      "from": "edc-a",
+      "to": "edc-c",
+      "bidirectional": true,
+      "distanceKm": 9,
+      "targetOneWayLatencyMs": 2
+    },
+    {
+      "from": "edc-b",
+      "to": "edc-d",
+      "bidirectional": true,
+      "distanceKm": 10,
+      "targetOneWayLatencyMs": 2
+    },
+    {
+      "from": "edc-g",
+      "to": "cdc-b-0",
+      "bidirectional": true,
+      "distanceKm": 20,
+      "targetOneWayLatencyMs": 4
+    },
+    {
+      "from": "edc-h",
+      "to": "cdc-b-0",
+      "bidirectional": true,
+      "distanceKm": 18,
+      "targetOneWayLatencyMs": 4
+    },
+    {
+      "from": "edc-i",
+      "to": "cdc-b-0",
+      "bidirectional": true,
+      "distanceKm": 24,
+      "targetOneWayLatencyMs": 5
+    },
+    {
+      "from": "edc-j",
+      "to": "cdc-b-0",
+      "bidirectional": true,
+      "distanceKm": 26,
+      "targetOneWayLatencyMs": 5
+    },
+    {
+      "from": "edc-g",
+      "to": "edc-h",
+      "bidirectional": true,
+      "distanceKm": 7,
+      "targetOneWayLatencyMs": 2
+    },
+    {
+      "from": "edc-g",
+      "to": "edc-i",
+      "bidirectional": true,
+      "distanceKm": 9,
+      "targetOneWayLatencyMs": 2
+    },
+    {
+      "from": "edc-g",
+      "to": "edc-j",
+      "bidirectional": true,
+      "distanceKm": 11,
+      "targetOneWayLatencyMs": 3
+    },
+    {
+      "from": "edc-h",
+      "to": "edc-i",
+      "bidirectional": true,
+      "distanceKm": 8,
+      "targetOneWayLatencyMs": 2
+    },
+    {
+      "from": "edc-h",
+      "to": "edc-j",
+      "bidirectional": true,
+      "distanceKm": 10,
+      "targetOneWayLatencyMs": 2
+    },
+    {
+      "from": "edc-i",
+      "to": "edc-j",
+      "bidirectional": true,
+      "distanceKm": 6,
+      "targetOneWayLatencyMs": 2
+    },
+    {
+      "from": "mec-a-0",
+      "to": "edc-a",
+      "bidirectional": true,
+      "distanceKm": 4,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-a-1",
+      "to": "edc-a",
+      "bidirectional": true,
+      "distanceKm": 5,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-b-0",
+      "to": "edc-b",
+      "bidirectional": true,
+      "distanceKm": 4,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-b-1",
+      "to": "edc-b",
+      "bidirectional": true,
+      "distanceKm": 5,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-b-2",
+      "to": "edc-b",
+      "bidirectional": true,
+      "distanceKm": 6,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-c-0",
+      "to": "edc-c",
+      "bidirectional": true,
+      "distanceKm": 4,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-c-1",
+      "to": "edc-c",
+      "bidirectional": true,
+      "distanceKm": 5,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-d-0",
+      "to": "edc-d",
+      "bidirectional": true,
+      "distanceKm": 4,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-d-1",
+      "to": "edc-d",
+      "bidirectional": true,
+      "distanceKm": 5,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-d-2",
+      "to": "edc-d",
+      "bidirectional": true,
+      "distanceKm": 6,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-d-3",
+      "to": "edc-d",
+      "bidirectional": true,
+      "distanceKm": 7,
+      "targetOneWayLatencyMs": 2
+    },
+    {
+      "from": "mec-e-0",
+      "to": "edc-e",
+      "bidirectional": true,
+      "distanceKm": 4,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-e-1",
+      "to": "edc-e",
+      "bidirectional": true,
+      "distanceKm": 5,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-f-0",
+      "to": "edc-f",
+      "bidirectional": true,
+      "distanceKm": 4,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-f-1",
+      "to": "edc-f",
+      "bidirectional": true,
+      "distanceKm": 5,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-f-2",
+      "to": "edc-f",
+      "bidirectional": true,
+      "distanceKm": 6,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-g-0",
+      "to": "edc-g",
+      "bidirectional": true,
+      "distanceKm": 4,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-g-1",
+      "to": "edc-g",
+      "bidirectional": true,
+      "distanceKm": 5,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-h-0",
+      "to": "edc-h",
+      "bidirectional": true,
+      "distanceKm": 4,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-h-1",
+      "to": "edc-h",
+      "bidirectional": true,
+      "distanceKm": 5,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-i-0",
+      "to": "edc-i",
+      "bidirectional": true,
+      "distanceKm": 4,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-i-1",
+      "to": "edc-i",
+      "bidirectional": true,
+      "distanceKm": 5,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-i-2",
+      "to": "edc-i",
+      "bidirectional": true,
+      "distanceKm": 6,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-j-0",
+      "to": "edc-j",
+      "bidirectional": true,
+      "distanceKm": 4,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-j-1",
+      "to": "edc-j",
+      "bidirectional": true,
+      "distanceKm": 5,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-j-2",
+      "to": "edc-j",
+      "bidirectional": true,
+      "distanceKm": 6,
+      "targetOneWayLatencyMs": 1
+    },
+    {
+      "from": "mec-j-3",
+      "to": "edc-j",
+      "bidirectional": true,
+      "distanceKm": 7,
+      "targetOneWayLatencyMs": 2
+    }
+  ]
+}

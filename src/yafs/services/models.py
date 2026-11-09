@@ -80,6 +80,17 @@ class SimulationApplicationMetrics:
     reference_time: float | None = None
     absolute_from_time: float | None = None
     absolute_to_time: float | None = None
+    by_app: list[dict[str, Any]] = field(default_factory=list)
+    node_utilization: float = 0.0
+    cpu_utilization: float = 0.0
+    ram_utilization: float = 0.0
+    nodes_busy: int = 0
+    nodes_total: int = 0
+    link_utilization: float = 0.0
+    mean_topology_congestion: float = 0.0
+    total_bandwidth_used: float = 0.0
+    total_bandwidth_available: float = 0.0
+    users: float = 0.0
 
 
 @dataclass(slots=True)
