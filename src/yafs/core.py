@@ -1444,14 +1444,11 @@ class Sim:
 
     def remove_node(self, id_node_topology):
         # Stopping related processes deployed in the module and clearing main structure: alloc_DES
-        des_tmp = []
-        if id_node_topology in self.alloc_DES.values():
-            for k, v in self.alloc_DES.items():
-                if v == id_node_topology:
-                    des_tmp.append(k)
-                    self.stop_process(k)
-                    del self.alloc_DES[k]
-                    break
+        # Every process on the node stops, not only the first one found.
+        des_tmp = [k for k, v in self.alloc_DES.items() if v == id_node_topology]
+        for k in des_tmp:
+            self.stop_process(k)
+            del self.alloc_DES[k]
 
         # Clearing other related structures
         for k, v in self.alloc_module.items():
