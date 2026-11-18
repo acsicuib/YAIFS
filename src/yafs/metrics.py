@@ -1055,12 +1055,17 @@ class MetricsAnalyzer:
         merged["network_queue_time"] = (
             merged["actual_network_time"].fillna(0.0) - merged["network_nominal_time"]
         ).clip(lower=0.0)
+        # Avoid np.where(... / link_hops ...): it evaluates the division for
+        # every row. With an empty link trace, bytes_transmitted is an
+        # all-NaN object column and object / 0 raises ZeroDivisionError.
+        bytes_transmitted = pd.to_numeric(
+            merged["bytes_transmitted"],
+            errors="coerce",
+        )
         merged["payload_bytes"] = merged["payload_bytes"].where(
             merged["payload_bytes"].notna(),
-            np.where(
-                merged["link_hops"] > 0,
-                merged["bytes_transmitted"] / merged["link_hops"],
-                np.nan,
+            bytes_transmitted.div(
+                merged["link_hops"].where(merged["link_hops"] > 0)
             ),
         )
         merged["completed"] = merged["stage_end_time"].notna()
