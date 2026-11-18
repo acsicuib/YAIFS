@@ -331,6 +331,11 @@ class Sim:
                         "(#DES:%i)\t--- Message returned to user:\t%s"
                         % (message.idDES, message.name)
                     )
+                    # Same-node replies never enter the link loop, so they
+                    # leave no *_link.csv rows. Record a zero-latency sink
+                    # arrival so MetricsAnalyzer can close the return stage.
+                    if not message.path or len(message.path) == 1:
+                        self.__record_user_return_message(message)
                     continue
 
                 pipe_id = "%s%s%i" % (
@@ -583,6 +588,42 @@ class Sim:
                 "time_out": float(self.env.now),
                 "time_emit": float(message.timestamp),
                 "time_reception": float(self.env.now),
+            }
+        )
+
+    def __record_user_return_message(self, message):
+        """Record a zero-latency reply delivery on the user's own node."""
+        user_des = message.idDES
+        user_node = self.alloc_DES.get(user_des)
+        if message.path:
+            topo_src = message.path[0]
+            topo_dst = message.path[-1]
+        else:
+            topo_src = user_node
+            topo_dst = user_node
+
+        source_des = -1
+        if getattr(message, "last_idDes", None):
+            source_des = message.last_idDes[-1]
+
+        now = float(self.env.now)
+        self.metrics.insert(
+            {
+                "id": message.id,
+                "type": self.SINK_METRIC,
+                "app": message.app_name,
+                "module": "None",
+                "message": message.name,
+                "DES.src": source_des,
+                "DES.dst": user_des,
+                "TOPO.src": topo_src,
+                "TOPO.dst": topo_dst,
+                "module.src": message.src,
+                "service": 0.0,
+                "time_in": now,
+                "time_out": now,
+                "time_emit": float(getattr(message, "timestamp", now)),
+                "time_reception": now,
             }
         )
 
