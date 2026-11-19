@@ -155,6 +155,15 @@ class RegisteredProcess:
     activation_count: int = 0
     live_distribution: Any = None
     callback_template: Any = None
+    rng: random.Random | None = None
+
+
+def _process_rng_seed(simulation_seed: Any, process_name: str) -> str:
+    """Stable seed material for a per-process random stream.
+
+    String seeds are hashed the same way in every run, unlike ``hash()``.
+    """
+    return f"{simulation_seed}:{process_name}"
 
 
 class ProcessContext:
@@ -183,7 +192,13 @@ class ProcessContext:
 
     @property
     def rng(self) -> random.Random:
-        return self._simulation.sim.rng
+        """Random stream owned by this registered process.
+
+        The stream is independent of ``Sim.rng``, which message forwarding
+        also consumes. That keeps workloads identical across placements that
+        share the same simulation seed and process name.
+        """
+        return self._simulation._rng_for_process(self.process_name)
 
     def list_nodes(self) -> list[dict[str, Any]]:
         return self._simulation.list_nodes()
@@ -1195,6 +1210,21 @@ class Simulation:
             process_des=process_des,
         )
 
+    def _make_process_rng(self, process_name: str) -> random.Random:
+        return random.Random(
+            _process_rng_seed(self.sim.seed, str(process_name))
+        )
+
+    def _rng_for_process(self, process_name: str | None) -> random.Random:
+        if process_name:
+            registration = self._registered_processes.get(str(process_name))
+            if registration is not None:
+                if registration.rng is None:
+                    registration.rng = self._make_process_rng(registration.name)
+                return registration.rng
+            return self._make_process_rng(str(process_name))
+        return self.sim.rng
+
     def _invalidate_routing_cache(self) -> None:
         selector = getattr(self.infrastructure, "routing", None)
         if hasattr(selector, "clear_routing_cache"):
@@ -1258,6 +1288,7 @@ class Simulation:
                 distribution=copy.deepcopy(distribution),
                 params=dict(params),
                 callback_template=_clone_process_callback(callback),
+                rng=self._make_process_rng(process_name),
             )
             self._registered_processes[process_name] = registration
 
@@ -4003,6 +4034,8 @@ class Simulation:
                 enabled=registration.enabled,
                 activation_count=0,
                 callback_template=self._fresh_process_callback(registration),
+                # Fresh stream at registration seed; replay advances it.
+                rng=child._make_process_rng(registration.name),
             )
 
         child._journal = copy.deepcopy(self._journal)
