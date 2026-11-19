@@ -1945,11 +1945,11 @@ class Simulation:
             app = self.infrastructure.services[app_name]
             services = app.services
             graph = self.sim.topology.G
-            alloc_module = getattr(self.sim, "alloc_module", {}) or {}
-            alloc_des = getattr(self.sim, "alloc_DES", {}) or {}
             service_ids = self._service_id_by_name()
 
             created: list[dict[str, Any]] = []
+            # Kept for API compatibility. Same-node placements create an
+            # additional replica instead of being skipped.
             skipped_existing: list[dict[str, Any]] = []
 
             for item in placements:
@@ -1975,21 +1975,6 @@ class Simulation:
                     )
                 if not graph.has_node(node_id):
                     raise ValueError(f"Node does not exist in the simulation: {node_id}")
-
-                already_deployed = False
-                for des in alloc_module.get(app_name, {}).get(module_name, []):
-                    if str(alloc_des.get(des)) == node_id:
-                        already_deployed = True
-                        break
-
-                if already_deployed:
-                    skipped_existing.append(
-                        {
-                            "vnf": module_name,
-                            "node": node_id,
-                        }
-                    )
-                    continue
 
                 created_des = self.sim.deploy_module(
                     app_name,
@@ -2150,11 +2135,6 @@ class Simulation:
                     f"Module '{module_name}' is not currently deployed for application '{app_name}'"
                 )
 
-            if any(str(alloc_des.get(des)) == target_node for des in deployed_des):
-                raise ValueError(
-                    f"Module '{module_name}' is already deployed on target node '{target_node}'"
-                )
-
             candidates = [
                 des
                 for des in deployed_des
@@ -2171,6 +2151,11 @@ class Simulation:
 
             des_to_move = candidates[0]
             actual_source_node = str(alloc_des.get(des_to_move))
+            if actual_source_node == target_node:
+                raise ValueError(
+                    f"Module '{module_name}' move source and target are the same node "
+                    f"'{target_node}'"
+                )
             self.sim.undeploy_module(app_name, module_name, des_to_move)
             created_des = self.sim.deploy_module(
                 app_name,
@@ -2235,16 +2220,10 @@ class Simulation:
                 raise ValueError(f"Node does not exist in the simulation: {target_node}")
 
             alloc_module = getattr(self.sim, "alloc_module", {}) or {}
-            alloc_des = getattr(self.sim, "alloc_DES", {}) or {}
             deployed_des = list(alloc_module.get(app_name, {}).get(module_name, []))
             if not deployed_des:
                 raise ValueError(
                     f"Module '{module_name}' is not currently deployed for application '{app_name}'"
-                )
-
-            if any(str(alloc_des.get(des)) == target_node for des in deployed_des):
-                raise ValueError(
-                    f"Module '{module_name}' is already deployed on target node '{target_node}'"
                 )
 
             created_des = self.sim.deploy_module(
