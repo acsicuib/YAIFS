@@ -47,6 +47,23 @@ def _safe_float(value: Any, default: float = 0.0) -> float:
     return float(numeric)
 
 
+def _clone_process_callback(callback: Any) -> Any:
+    """Clone a registered process callback for templates / forked branches.
+
+    Prefer ``deepcopy`` so process-owned RNGs reset. Custom callbacks often
+    hold non-picklable state (open files, service clients, Prolog engines);
+    fall back to ``callback.clone()`` when defined, otherwise share the same
+    object instead of crashing registration.
+    """
+    try:
+        return copy.deepcopy(callback)
+    except Exception:
+        clone = getattr(callback, "clone", None)
+        if callable(clone):
+            return clone()
+        return callback
+
+
 def _parse_cpu_capacity(value: Any) -> float:
     if value is None:
         return 0.0
@@ -1240,7 +1257,7 @@ class Simulation:
                 callback=callback,
                 distribution=copy.deepcopy(distribution),
                 params=dict(params),
-                callback_template=copy.deepcopy(callback),
+                callback_template=_clone_process_callback(callback),
             )
             self._registered_processes[process_name] = registration
 
@@ -3898,7 +3915,7 @@ class Simulation:
         point. The parent keeps its own already-advanced generators.
         """
         if registration.callback_template is not None:
-            return copy.deepcopy(registration.callback_template)
+            return _clone_process_callback(registration.callback_template)
 
         definition = registration.definition
         if registration.kind and isinstance(definition, Mapping):
@@ -3909,7 +3926,7 @@ class Simulation:
                 kind=registration.kind,
                 params=params,
             )
-        return copy.deepcopy(registration.callback)
+        return _clone_process_callback(registration.callback)
 
     def _replay_until(self, target: float) -> None:
         """
