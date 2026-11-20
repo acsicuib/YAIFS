@@ -1033,25 +1033,34 @@ class MetricsAnalyzer:
             suffixes=("", "_link"),
         )
 
-        merged["stage_start_time"] = merged["time_emit"].combine_first(
-            merged["first_hop_time"]
+        # Coerce to numeric before fillna. After an outer merge with an empty
+        # frame, columns can be object-dtype all-NA; fillna/combine_first then
+        # emit pandas FutureWarnings about concat and silent downcasting.
+        def _as_float(column: str) -> pd.Series:
+            return pd.to_numeric(merged[column], errors="coerce")
+
+        def _as_int(column: str) -> pd.Series:
+            return _as_float(column).fillna(0).astype(int)
+
+        merged["stage_start_time"] = _as_float("time_emit").fillna(
+            _as_float("first_hop_time")
         )
-        merged["stage_end_time"] = merged["time_out"].combine_first(
-            merged["link_arrival_time"]
+        merged["stage_end_time"] = _as_float("time_out").fillna(
+            _as_float("link_arrival_time")
         )
-        merged["observed_response_time"] = merged["time_total_response"].combine_first(
+        merged["observed_response_time"] = _as_float("time_total_response").fillna(
             merged["stage_end_time"] - merged["stage_start_time"]
         )
-        merged["actual_network_time"] = merged["time_latency"].combine_first(
-            merged["actual_network_time"]
+        merged["actual_network_time"] = _as_float("time_latency").fillna(
+            _as_float("actual_network_time")
         )
-        merged["network_nominal_time"] = merged["network_nominal_time"].fillna(0.0)
-        merged["link_hops"] = merged["link_hops"].fillna(0).astype(int)
-        merged["event_rows"] = merged["event_rows"].fillna(0).astype(int)
-        merged["link_rows"] = merged["link_rows"].fillna(0).astype(int)
+        merged["network_nominal_time"] = _as_float("network_nominal_time").fillna(0.0)
+        merged["link_hops"] = _as_int("link_hops")
+        merged["event_rows"] = _as_int("event_rows")
+        merged["link_rows"] = _as_int("link_rows")
         merged["is_link_only"] = merged["event_rows"].eq(0)
-        merged["processing_time"] = merged["time_service"].fillna(0.0)
-        merged["waiting_time"] = merged["time_wait"].fillna(0.0)
+        merged["processing_time"] = _as_float("time_service").fillna(0.0)
+        merged["waiting_time"] = _as_float("time_wait").fillna(0.0)
         merged["network_queue_time"] = (
             merged["actual_network_time"].fillna(0.0) - merged["network_nominal_time"]
         ).clip(lower=0.0)
