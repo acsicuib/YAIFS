@@ -1083,6 +1083,9 @@ class Simulation:
         self._metrics_closed = False
         self._idle_event = threading.Event()
         self._idle_event.set()
+        self._failed = False
+        self._run_exception: BaseException | None = None
+        self._failure_time: float | None = None
         self.results_path = results_path
         self._registered_processes: dict[str, RegisteredProcess] = {}
         self._initial_users = copy.deepcopy(self.infrastructure.users)
@@ -2956,8 +2959,37 @@ class Simulation:
                 pass
             self._metrics_closed = True
 
+    def _record_run_failure(self, exc: BaseException) -> None:
+        with self._lock:
+            if self._failed:
+                return
+            self._failed = True
+            self._run_exception = exc
+            self._failure_time = float(self.sim.env.now)
+            self._stop_requested.set()
+
+    def _raise_if_failed(self) -> None:
+        with self._lock:
+            if not self._failed:
+                return
+            exc = self._run_exception
+            failure_time = self._failure_time
+        if exc is None:
+            raise RuntimeError(
+                f"Simulation previously failed at t={failure_time}"
+            )
+        message = str(exc)
+        if failure_time is not None:
+            message = f"{message} (simulation failed at t={failure_time})"
+        try:
+            raised = type(exc)(message)
+        except Exception:
+            raised = RuntimeError(message)
+        raise raised from exc
+
     def start_thread(self, step: float = 1.0) -> None:
         with self._lock:
+            self._raise_if_failed()
             self._step = float(step)
             self._stop_requested.clear()
             self._pause_event.set()
@@ -2994,9 +3026,13 @@ class Simulation:
             self.sim.until = next_until
             self._idle_event.clear()
             try:
-                self.sim.env.run(until=next_until)
-                if next_until >= float(self._scheduled_until):
-                    self._flush_metrics_if_needed()
+                try:
+                    self.sim.env.run(until=next_until)
+                    if next_until >= float(self._scheduled_until):
+                        self._flush_metrics_if_needed()
+                except Exception as exc:
+                    self._record_run_failure(exc)
+                    break
             finally:
                 self._idle_event.set()
 
@@ -3008,6 +3044,7 @@ class Simulation:
         snapshot. Poll `get_state()` to observe progress.
         """
         with self._lock:
+            self._raise_if_failed()
             self._ensure_initialized()
             if step is not None:
                 self._step = float(step)
@@ -3028,6 +3065,7 @@ class Simulation:
         Run the simulation until the requested stop time using the incremental
         execution loop, blocking until completion.
         """
+        self._raise_if_failed()
         with self._lock:
             now = float(self.sim.env.now)
         duration = max(0.0, float(stop_time) - now)
@@ -3035,6 +3073,8 @@ class Simulation:
 
         while True:
             current = self.get_state()
+            if current["failed"]:
+                self._raise_if_failed()
             if current["stop_requested"]:
                 return current
             scheduled_until = current["scheduled_until"]
@@ -3073,6 +3113,9 @@ class Simulation:
                 for deployed in app_modules.values():
                     alloc_module_count += len(deployed)
 
+            error = None
+            if self._failed and self._run_exception is not None:
+                error = str(self._run_exception)
             return {
                 "now": float(self.sim.env.now),
                 "initialized": self._initialized,
@@ -3083,6 +3126,8 @@ class Simulation:
                 "network_buffer": int(getattr(self.sim, "network_pump", 0)),
                 "alloc_source_count": len(getattr(self.sim, "alloc_source", {})),
                 "alloc_module_count": alloc_module_count,
+                "failed": self._failed,
+                "error": error,
             }
 
     def get_metrics_snapshot(self) -> dict[str, Any]:

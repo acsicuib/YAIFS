@@ -1419,6 +1419,10 @@ class SimulationService:
 
         if managed.status == SimulationStatus.FAILED:
             return
+        if snapshot.get("failed"):
+            managed.status = SimulationStatus.FAILED
+            managed.last_error = snapshot.get("error")
+            return
         if snapshot["stop_requested"]:
             managed.status = SimulationStatus.STOPPED
             return
