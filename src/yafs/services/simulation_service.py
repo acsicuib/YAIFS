@@ -553,14 +553,15 @@ class SimulationService:
 
         Notes
         -----
-        The returned counters follow this semantics:
+        The returned counters follow this semantics (same emit cohort):
 
         - ``requests_total`` counts requests emitted by users in the analysed
-          interval.
-        - ``requests_successful`` counts the subset that completed
-          successfully.
-        - ``requests_unsuccessful`` counts the subset that did not complete
-          successfully.
+          interval (``SRC_M`` / ``time_emit``).
+        - ``requests_successful`` counts the subset of those emitted requests
+          that completed successfully by ``to_time``.
+        - ``requests_unsuccessful`` counts the remainder of that emit cohort
+          (still in flight or incomplete). Completions of earlier emits that
+          only finish inside the window are not added to ``requests_successful``.
         """
         managed = self.registry.require(simulation_id)
         self._refresh_status(managed)

@@ -917,13 +917,14 @@ class MetricsAnalyzer:
             .assign(event_rows=lambda frame: 1)
         )
 
-    def emitted_request_breakdown(
+    def emitted_request_ids(
         self,
         app_name: Optional[Any] = None,
         from_time: Optional[float] = None,
         to_time: Optional[float] = None,
         time_column: str = "time_emit",
     ) -> pd.DataFrame:
+        """Unique ``(app, id)`` pairs for requests emitted in the time window."""
         frame = self.df.copy()
         if "type" in frame.columns:
             frame = frame[frame["type"] == "SRC_M"].copy()
@@ -934,11 +935,32 @@ class MetricsAnalyzer:
             to_time=to_time,
             time_column=time_column,
         )
-        if frame.empty:
+        if frame.empty or "id" not in frame.columns:
+            return pd.DataFrame(columns=["app", "id"])
+        return (
+            frame.loc[:, ["app", "id"]]
+            .drop_duplicates()
+            .reset_index(drop=True)
+        )
+
+    def emitted_request_breakdown(
+        self,
+        app_name: Optional[Any] = None,
+        from_time: Optional[float] = None,
+        to_time: Optional[float] = None,
+        time_column: str = "time_emit",
+    ) -> pd.DataFrame:
+        emitted = self.emitted_request_ids(
+            app_name=app_name,
+            from_time=from_time,
+            to_time=to_time,
+            time_column=time_column,
+        )
+        if emitted.empty:
             return pd.DataFrame(columns=["app", "requests_total"])
 
         return (
-            frame.groupby("app", dropna=False)
+            emitted.groupby("app", dropna=False)
             .agg(requests_total=("id", "nunique"))
             .reset_index()
         )
@@ -1458,55 +1480,33 @@ class MetricsAnalyzer:
         strategy: str = "critical_path",
         include_return_messages: bool = True,
     ) -> pd.DataFrame:
+        """
+        Aggregate per-app latency and request counters for a time window.
+
+        Request counters use a single cohort:
+
+        - ``requests_total``: unique requests emitted in ``[from_time, to_time]``
+          (``SRC_M`` / ``time_emit``).
+        - ``requests_successful``: the subset of that emit cohort that has at
+          least one completed service path whose ``end_time`` is ``<= to_time``
+          (or any completion when ``to_time`` is ``None``).
+        - ``requests_unsuccessful``: ``requests_total - requests_successful``.
+
+        Latency columns still describe completions selected by ``time_column``
+        (default ``end_time``). Those completions may include backlog from
+        earlier emits; they are intentionally separate from the request
+        counters so ``requests_successful`` never exceeds ``requests_total``.
+        """
         paths = self.service_path_breakdown(
             app_name=app_name,
             include_return_messages=include_return_messages,
         )
-        filtered_paths = self._filter_by_time_range(
+        request_counts = self._request_counts_for_emit_cohort(
             paths,
-            from_time=from_time,
-            to_time=to_time,
-            time_column=time_column,
-        )
-
-        request_counts = pd.DataFrame(columns=["app"])
-        successful_requests = pd.DataFrame(columns=["app", "requests_successful"])
-        if not filtered_paths.empty:
-            successful_requests = (
-                filtered_paths.groupby(["app", "id"], dropna=False)
-                .agg(completed_paths=("completed", "sum"))
-                .reset_index()
-            )
-            successful_requests = successful_requests[
-                successful_requests["completed_paths"] > 0
-            ].copy()
-            successful_requests = (
-                successful_requests.groupby("app", dropna=False)
-                .agg(requests_successful=("id", "nunique"))
-                .reset_index()
-            )
-
-        emitted_requests = self.emitted_request_breakdown(
             app_name=app_name,
             from_time=from_time,
             to_time=to_time,
-            time_column="time_emit",
         )
-        if not emitted_requests.empty or not successful_requests.empty:
-            request_counts = emitted_requests.merge(
-                successful_requests,
-                on="app",
-                how="outer",
-            )
-            if "requests_total" not in request_counts.columns:
-                request_counts["requests_total"] = 0
-            if "requests_successful" not in request_counts.columns:
-                request_counts["requests_successful"] = 0
-            request_counts["requests_total"] = request_counts["requests_total"].fillna(0)
-            request_counts["requests_successful"] = request_counts["requests_successful"].fillna(0)
-            request_counts["requests_unsuccessful"] = (
-                request_counts["requests_total"] - request_counts["requests_successful"]
-            ).clip(lower=0)
 
         frame = self.service_response(
             app_name=app_name,
@@ -1559,6 +1559,64 @@ class MetricsAnalyzer:
 
         summary = summary.merge(request_counts, on="app", how="outer")
         return summary
+
+    def _request_counts_for_emit_cohort(
+        self,
+        paths: pd.DataFrame,
+        *,
+        app_name: Optional[Any],
+        from_time: Optional[float],
+        to_time: Optional[float],
+    ) -> pd.DataFrame:
+        """Count emits and successful completions over the same request IDs."""
+        emitted = self.emitted_request_ids(
+            app_name=app_name,
+            from_time=from_time,
+            to_time=to_time,
+            time_column="time_emit",
+        )
+        if emitted.empty:
+            return pd.DataFrame(
+                columns=[
+                    "app",
+                    "requests_total",
+                    "requests_successful",
+                    "requests_unsuccessful",
+                ]
+            )
+
+        completed = pd.DataFrame(columns=["app", "id"])
+        if not paths.empty and "completed" in paths.columns:
+            completed_paths = paths[paths["completed"]].copy()
+            if to_time is not None and "end_time" in completed_paths.columns:
+                end_times = pd.to_numeric(completed_paths["end_time"], errors="coerce")
+                completed_paths = completed_paths[end_times <= float(to_time)].copy()
+            if not completed_paths.empty:
+                completed = (
+                    completed_paths.loc[:, ["app", "id"]]
+                    .drop_duplicates()
+                    .reset_index(drop=True)
+                )
+
+        successful = emitted.merge(completed, on=["app", "id"], how="inner")
+        totals = (
+            emitted.groupby("app", dropna=False)
+            .agg(requests_total=("id", "nunique"))
+            .reset_index()
+        )
+        successes = (
+            successful.groupby("app", dropna=False)
+            .agg(requests_successful=("id", "nunique"))
+            .reset_index()
+        )
+        request_counts = totals.merge(successes, on="app", how="left")
+        request_counts["requests_successful"] = (
+            request_counts["requests_successful"].fillna(0)
+        )
+        request_counts["requests_unsuccessful"] = (
+            request_counts["requests_total"] - request_counts["requests_successful"]
+        )
+        return request_counts
 
     def application_execution_cost_breakdown(self, topology: Any) -> pd.DataFrame:
         """
