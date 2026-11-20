@@ -396,18 +396,24 @@ Definition:
 - finally aggregate requests, response mean, percentiles, waiting time, network
   time, and costs over that filtered subset
 
-Request counters semantics:
+Request counters semantics (one emit cohort):
 
 - `requests_total`: total number of requests emitted by users for the application
-  inside the analysed interval
+  inside the analysed interval (`SRC_M` / `time_emit`)
 - `requests_successful`: subset of `requests_total` whose service completed
-  successfully
+  successfully by `to_time`
 - `requests_unsuccessful`: subset of `requests_total` whose service did not
-  complete successfully
+  complete successfully (still in flight or incomplete)
+
+Completions of requests emitted *before* the interval that only finish inside
+it are **not** counted in `requests_successful`. Latency aggregates may still
+include those backlog completions when `time_column` is `end_time`; request
+counters stay on the emit cohort so `successful` never exceeds `total`.
 
 Invariant:
 
 - `requests_total = requests_successful + requests_unsuccessful`
+- `requests_successful <= requests_total`
 
 Parameters:
 
